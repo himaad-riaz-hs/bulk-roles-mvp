@@ -213,7 +213,7 @@ function MVPApp({ screen, isStatic }) {
             {inShell ? (
               <React.Fragment>
                 <div style={{ position:"absolute", inset:0 }}>
-                  <SuiteShell key={"shell" + (scr === "2.0" ? "-n" : "")} product="settings" railProps={railProps} drawerProps={{ items:MVP_NAV, value:"social-accounts", onSelect:openTpl, org:SS_ORG, orgs:SS_ORGS, onOrgChange:() => {} }}>
+                  <SuiteShell key={"shell" + (scr === "2.0" ? "-n" : "")} product="settings" railProps={railProps} drawerProps={{ items:MVP_NAV, value:"social-accounts", onSelect:(id) => { if (id === "social-accounts") goView("accounts"); else toast("Only Social accounts is part of this prototype"); }, org:SS_ORG, orgs:SS_ORGS, onOrgChange:() => {} }}>
                     <div key={view + (scr || "") + listKey} style={{ minHeight:"100%", background:"var(--bento-theme-color-bg-app)", display:"flex", flexDirection:"column" }}><Page /></div>
                   </SuiteShell>
                 </div>
