@@ -188,7 +188,7 @@ function MVPBoard() {
         <Button variant="secondary" size="sm" onClick={() => { setFocus(null); fit(); }}>Fit</Button>
         <Button variant="secondary" size="sm" onClick={() => { setFocus(null); fitWidth(); }}>Fit width</Button>
         <Button variant="primary" size="sm" onClick={() => { location.href = MVP_PROTO_URL; }}>Open prototype</Button>
-        <Button variant="secondary" size="sm" onClick={() => { location.href = "../bulk-roles/Board.dc.html"; }}>Full flow board</Button>
+        {/* Full flow board not deployed in this public copy */}
         <Button variant="secondary" size="sm" onClick={() => setRun((x) => x + 1)}>Refresh tiles</Button>
         <span data-flow-mode="" style={{ font:"var(--hs-type-body-sm)", color:sub, minWidth:110, textAlign:"center" }}>{modeLabel}</span>
       </div>

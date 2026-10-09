@@ -160,7 +160,7 @@ const MVP_CARD = { title:"In and out of the MVP", subtitle:"8 Oct lock session",
     "CSV import and export, custom team roles, a custom role as the org default",
     "Product sections in permissions, network specific warnings, role history"] },
   { title:"Still open", tone:"warning", items:[
-    "An info tooltip on permissions some networks don’t support (design, design)",
+    "An info tooltip on permissions some networks don’t support (design)",
     "Failure reasons (PM and engineering checking the back end)",
     "Retry after leaving: a link from the notification isn’t committed",
     "Notification content: counts only, or with names"] }] };
