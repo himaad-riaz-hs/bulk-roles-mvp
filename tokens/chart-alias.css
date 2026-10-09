@@ -1,6 +1,5 @@
 /* ─────────────────────────────────────────────────────────────────────────────
-   Chart colour: the documented namespace is --hs-chart-color-*
-   (Confluence 12436275363 "Colors · Data visualisation").
+   Chart colour: the documented namespace is --hs-chart-color-*.
 
    It already ships in this project via tokens/fig-tokens.css, in all three Figma
    modes — including the documented dark-mode exception, where -compare is derived

@@ -40,15 +40,16 @@
   </nav>
 </main>
 <script>
-  const HASH = 'c31c5f674f2298ba0f60a9e7b000f3a3035f549bcf596a324e425fb691e79f55', ALT = '78707601dc8fff7262b2b948a03b07c6ab5ace8aadb8dd9e3db44f2047b813f2', KEY = 'brmvp-gate';
+  const HASH = 'c31c5f674f2298ba0f60a9e7b000f3a3035f549bcf596a324e425fb691e79f55', ALT = '78707601dc8fff7262b2b948a03b07c6ab5ace8aadb8dd9e3db44f2047b813f2', STUDY = 'c088a35bfc9b582031246fb2bf7aa350219d0daf048939df21b5210de2ec6f0e', KEY = 'brmvp-gate', TEST = 'templates/bulk-roles-mvp/BulkRolesMVP.dc.html?ut=1';
   const sha = async (s) => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)))].map((x) => x.toString(16).padStart(2, '0')).join('');
   const open = () => { document.getElementById('f').hidden = true; document.getElementById('links').hidden = false; document.getElementById('intro').textContent = 'Pick where to start.'; };
-  let ok = false; try { ok = localStorage.getItem(KEY) === HASH; } catch (e) {}
-  if (ok) open();
+  let ok = false, study = false; try { ok = localStorage.getItem(KEY) === HASH; study = localStorage.getItem(KEY) === STUDY; } catch (e) {}
+  if (ok) open(); else if (study) location.replace(TEST);
   document.getElementById('f').addEventListener('submit', async (e) => {
     e.preventDefault();
     const h = await sha(document.getElementById('pw').value);
     if (h === HASH || h === ALT) { try { localStorage.setItem(KEY, HASH); } catch (e) {} open(); }
+    else if (h === STUDY) { try { localStorage.setItem(KEY, STUDY); } catch (e) {} location.replace(TEST); }
     else { document.getElementById('err').hidden = false; }
   });
 </script>

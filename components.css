@@ -595,7 +595,7 @@
 .hs-tab.is-active { box-shadow: inset 0 -2px 0 0 var(--bento-palette-ref-palette-dark-grey-500); } /* #333333, production; --bento-component-tab-indicator-color resolves to #767676 */
 
 /* ── Accordion ──────────────────────────────────────────────
-   Shared Bento Accordion component (Confluence 11897012225).
+   Shared Bento Accordion component.
    Promoted from the accordion preview card so templates/patterns
    can use it. Markup: .acc-list > .acc-item[.open|.compact|.disabled]
    > .acc-head ( .acc-title / .acc-desc / .chevron ) + .acc-body */
@@ -660,7 +660,7 @@
 }
 
 /* ── Listbox option row ─────────────────────────────────────
-   Shared "List item - listbox" selectable row (Confluence 11897012253).
+   Shared "List item - listbox" selectable row.
    A clickable row that wraps a control (.hs-check / .hs-radio) + label,
    with an optional trailing count. Used in filter groups, menus, pickers. */
 .hs-option {

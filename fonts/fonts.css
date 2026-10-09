@@ -6,13 +6,13 @@
    body computes to "Source Sans Pro", "Helvetica Neue", Helvetica, Arial,
    sans-serif. Figma agrees with production: tokens/fig-tokens.css:1199 sets
    --hs-sys-font-family-body: "Source Sans Pro".
-   So FIGMA says Pro · PRODUCTION serves Pro · CONFLUENCE says "Source Sans 3
+   So FIGMA says Pro · PRODUCTION serves Pro · the docs says "Source Sans 3
    (body)" · THIS FILE ships 3. Two of three sources say Pro.
    Same design lineage (3 is the renamed successor), so visual risk is low, but
    the name production actually serves is Pro. UNCHANGED pending design: his
    standing rule is that production wins, but a rename may be a deliberate
    forward migration in Bento, which is not ours to decide.
-   The Montserrat Alternates half of the Confluence line STANDS — 25 faces
+   The Montserrat Alternates half of the the docs line STANDS — 25 faces
    registered (correction #14 holds).
    ⚠ INSTRUMENT BAN: document.fonts.check() is unreliable in BOTH directions —
    it returned TRUE for "Source Sans 3" (it reports fallback-renderability, not
@@ -105,7 +105,7 @@
 
    STATE OF THE FAMILY QUESTION (§K120): Figma → Pro · production → Pro
    (document.fonts registry: Source Sans Pro 56 faces, ZERO Source Sans 3) ·
-   Confluence → "Source Sans 3 (body)" · this file → 3. Two of three say Pro.
+   the docs → "Source Sans 3 (body)" · this file → 3. Two of three say Pro.
    Source Sans 3 IS Pro, renamed and revised upstream by Adobe, so the visual
    risk is low. The open question is a COST one and not ours: ship ~18 Pro faces
    to match production exactly, or accept SS3 as a deliberate near-match.

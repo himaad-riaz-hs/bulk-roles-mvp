@@ -129,15 +129,15 @@ function MVPMembers() {
     { key:"name", width:280, header:<MVPSort label="Member" k="name" sort={sort} setSort={setSort} />, render:(m) => <SSPersonCell name={m.name} initials={m.initials} /> },
     { key:"assigned", width:150, header:<MVPSort label="Assigned on" k="assigned" sort={sort} setSort={setSort} /> },
     { key:"email", width:250, header:<MVPSort label="Email address" k="email" sort={sort} setSort={setSort} /> },
-    { key:"role", width:200, header:<MVPSort label="Permissions" k="role" sort={sort} setSort={setSort} />, render:(m) => <MVPRoleCell p={m} onChange={(r) => { A.setRole(m.id, r); A.toast(m.name + " is now " + r + " on YouTube Somos"); }} /> },
+    { key:"role", width:200, header:<MVPSort label="Permissions" k="role" sort={sort} setSort={setSort} />, render:(m) => <MVPRoleCell p={m} onChange={(r) => { A.setRole(m.id, r); A.toast(m.name + " is now " + r + " on " + A.acct.name); }} /> },
     { key:"actions", header:"Actions", align:"right", width:96, render:() => null },
   ]);
   return (
     <React.Fragment>
-      <SSEntityHeader title="YouTube Somos" onBack={() => A.goView("accounts")} meta="YouTube" status={<SSStatus status="connected" />}
-        avatar={<span style={{ transform:"scale(1.4)", transformOrigin:"center", margin:"0 8px" }}><NetworkAvatar network="youtube" initials="YS" /></span>}
-        actions={<React.Fragment><Button variant="secondary" onClick={() => A.openOrg("assign-teams", { target:"YouTube Somos" })}>Assign to teams</Button><Button variant="primary" onClick={() => A.openOrg("assign-members", { target:"YouTube Somos" })}>Assign to members</Button>
-          <BRPop align="right" width={240} trigger={(open, toggle) => <IconButton icon="more_horiz" variant="ghost" aria-label="More actions" aria-expanded={open} onClick={toggle} />}>{(close) => <React.Fragment><DropdownMenuItem onClick={() => { close(); A.toast("YouTube Somos is connected"); }}>Check connection</DropdownMenuItem><DropdownMenuItem onClick={() => { close(); A.toast("Removing a social account isn’t part of this prototype"); }}>Remove social account</DropdownMenuItem></React.Fragment>}</BRPop></React.Fragment>} />
+      <SSEntityHeader title={A.acct.name} onBack={() => A.goView("accounts")} meta={MVP_NET[A.acct.network]} status={<SSStatus status="connected" />}
+        avatar={<span style={{ transform:"scale(1.4)", transformOrigin:"center", margin:"0 8px" }}><NetworkAvatar network={A.acct.network} initials={A.acct.initials} /></span>}
+        actions={<React.Fragment><Button variant="secondary" onClick={() => A.openOrg("assign-teams", { target:A.acct.name })}>Assign to teams</Button><Button variant="primary" onClick={() => A.openOrg("assign-members", { target:A.acct.name })}>Assign to members</Button>
+          <BRPop align="right" width={240} trigger={(open, toggle) => <IconButton icon="more_horiz" variant="ghost" aria-label="More actions" aria-expanded={open} onClick={toggle} />}>{(close) => <React.Fragment><DropdownMenuItem onClick={() => { close(); A.toast(A.acct.name + " is connected"); }}>Check connection</DropdownMenuItem><DropdownMenuItem onClick={() => { close(); A.toast("Removing a social account isn’t part of this prototype"); }}>Remove social account</DropdownMenuItem></React.Fragment>}</BRPop></React.Fragment>} />
       <SSTabsBar tabs={[{ id:"teams", label:"Teams" }, { id:"members", label:"Members" }]} value={tab} onChange={setTab} />
       {/* The top banner was cut on 8 Oct (lock session). It only shows on the board's "Cut on 8 Oct" screen x.2. */}
       {running && job.legacy && !A.bulk && <AlertBanner tone="info" title={"Applying " + job.role + " to " + (job.phase === "retry" ? job.failed.length : job.total) + " members"}>In progress. It keeps going if you leave this page.</AlertBanner>}
@@ -168,7 +168,7 @@ function MVPAccounts() {
   const [search, setSearch] = React.useState(""), [nets, setNets] = React.useState([]), [stat, setStat] = React.useState([]), [sort, setSort] = React.useState(null);
   const NETS = SS_NS().NETWORKS || {}, label = (x) => (NETS[x] && NETS[x].label) || x;
   const rows = ssSorted(MVP_ACCOUNTS.filter((a) => ssMatch(search, a.name) && (!nets.length || nets.includes(label(a.network))) && (!stat.length || stat.includes("Connected"))), sort);
-  const open = (a) => { if (a.id === "a3") A.goView("members"); else A.toast("This prototype opens YouTube Somos"); };
+  const open = (a) => { if (MVP_UT) A.openAcct(a); else if (a.id === "a3") A.goView("members"); else A.toast("This prototype opens YouTube Somos"); };
   return (
     <React.Fragment>
       <SSEntityHeader title="All social accounts" actions={<React.Fragment>

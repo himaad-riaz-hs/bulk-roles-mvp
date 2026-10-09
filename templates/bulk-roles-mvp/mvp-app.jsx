@@ -8,9 +8,9 @@ const mvpLow = (s) => s.charAt(0).toLowerCase() + s.slice(1);
 
 function MVPApp({ screen, isStatic }) {
   const R = React;
-  const sid0 = screen || (isStatic ? null : mvpHashScreen());
+  const sid0 = screen || (isStatic || MVP_UT ? null : mvpHashScreen());
   const [ready, setReady] = R.useState(!sid0);
-  const [view, setView] = R.useState("flows"), [row, setRow] = R.useState(null), [scr, setScr] = R.useState(null), [tplKey, setTplKey] = R.useState(0), [acctOpen, setAcctOpen] = R.useState(false);
+  const [view, setView] = R.useState(MVP_UT ? "accounts" : "flows"), [row, setRow] = R.useState(null), [scr, setScr] = R.useState(null), [tplKey, setTplKey] = R.useState(0), [acctOpen, setAcctOpen] = R.useState(false);
   const [outcome, setOutcome] = R.useState("all"), [access, setAccess] = R.useState("full"), [notesOpen, setNotesOpen] = R.useState(false);
   const [people, setPeople] = R.useState(mvpPeople), [sel, setSel] = R.useState([]), [loaded, setLoaded] = R.useState(MVP_LOADED), [listKey, setListKey] = R.useState(0);
   const [search, setSearch0] = R.useState(""), [perms, setPerms0] = R.useState([]), [stat, setStat0] = R.useState([]);
@@ -18,8 +18,9 @@ function MVPApp({ screen, isStatic }) {
   const [roleRows, setRoleRows] = R.useState(MVP_ROLE_ROWS0), [rolePerms, setRolePerms] = R.useState(MVP_PERMS0), [rjob, setRjob] = R.useState(null);
   const [edit, setEdit] = R.useState(null), [create, setCreate] = R.useState(null), [saveModal, setSaveModal] = R.useState(false);
   const [toasts, setToasts] = R.useState([]), [orgModal, setOrgModal] = R.useState(null), [delModal, setDelModal] = R.useState(null);
+  const [acct, setAcct] = R.useState("a3"), [shellKey, setShellKey] = R.useState(0), store = R.useRef({});
   const timers = R.useRef([]), live = R.useRef({});
-  live.current = { job, outcome, bulk };
+  live.current = { job, outcome, bulk, acct, people };
   const later = (fn, ms) => { if (isStatic) return; const t = setTimeout(fn, ms); timers.current.push(t); };
   const toast = (msg) => { const id = Date.now() + Math.random(); setToasts((t) => t.concat({ id, msg })); if (!isStatic) setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 4000); };
   // No live progress (8 Oct lock session): rows keep their current role until the job finishes.
@@ -40,6 +41,22 @@ function MVPApp({ screen, isStatic }) {
   const go = (v) => { goView(v); if (v === "flows") { setRow(null); setScr(null); } };
   const openTpl = (id) => { window.__SS_PROPS = { startPage:id, access:"full", reconnectAlert:false, hasPassword:true }; setBulk(null); setTplKey((k) => k + 1); setView("tpl"); };
   const P1 = MVP_P1;
+  const acctOf = (id) => MVP_ACCOUNTS.find((a) => a.id === id) || MVP_ACCOUNTS[3];
+  // Test mode: each account keeps its own members (the same 500 people to start), and role counts follow what changes.
+  const peopleNow = (id) => id === live.current.acct ? live.current.people : (store.current[id] || mvpPeople());
+  const peopleFor = (id, fn) => { if (id === live.current.acct) setPeople(fn); else store.current[id] = fn(peopleNow(id)); };
+  const bumpCounts = (id, ids, role) => {
+    const d = {}; peopleNow(id).forEach((p) => { if (ids.includes(p.id) && p.role !== role) { d[p.role] = (d[p.role] || 0) - 1; d[role] = (d[role] || 0) + 1; } });
+    setRoleRows((rs) => rs.map((r) => d[r.name] ? { ...r, count:Math.max(0, r.count + d[r.name]) } : r));
+  };
+  const switchAcct = (id) => {
+    const L = live.current; if (id === L.acct) return;
+    store.current[L.acct] = L.people; live.current = { ...L, acct:id }; setAcct(id); setPeople(store.current[id] || mvpPeople());
+    setSel([]); setLoaded(MVP_LOADED); setListKey((k) => k + 1); setSearch0(""); setPerms0([]); setStat0([]);
+  };
+  const openAcct = (a) => { switchAcct(a.id); goView("members"); };
+  // Test mode: the notification for a job that finished with the drawer closed opens that account with who didn't update.
+  const openResult = () => { const j = live.current.job; if (!j || j.phase !== "result") return; switchAcct(j.acct); setView("members"); setBulk({ step:"result", role:j.role }); setShellKey((k) => k + 1); scrollTop(); };
   const applied = (withFails) => mvpPeople().map((p, i) => (i < MVP_LOADED && mvpCanChange(p) && (withFails || !MVP_FAIL.includes(p.id))) ? { ...p, role:P1 } : p);
   const firstSel = () => mvpPeople().slice(0, MVP_LOADED).filter(mvpCanChange).map((p) => p.id);
   // The MVP applies to all 48 selected (8 Oct lock session). legacy = the cut review flow, which counted the 45 who move.
@@ -100,21 +117,24 @@ function MVPApp({ screen, isStatic }) {
   const lastScreen = R.useRef(sid0);
   R.useLayoutEffect(() => { if (sid0) openScreen(sid0); setReady(true); }, []);
   R.useLayoutEffect(() => { if (isStatic && screen && screen !== lastScreen.current) { lastScreen.current = screen; openScreen(screen); } }, [screen]);
-  R.useEffect(() => { if (isStatic) return undefined; const h = () => { const s = mvpHashScreen(); if (s) openScreen(s); }; window.addEventListener("hashchange", h); return () => window.removeEventListener("hashchange", h); }, []);
+  R.useEffect(() => { if (isStatic || MVP_UT) return undefined; const h = () => { const s = mvpHashScreen(); if (s) openScreen(s); }; window.addEventListener("hashchange", h); return () => window.removeEventListener("hashchange", h); }, []);
   // 1.0b in the live prototype: scroll to where the second load starts, so the unticked rows show under the ticked ones.
   // 1.0b (Figma 10/8): the top of the table, header checkbox partly ticked; no scroll to the second load.
   // The notification opens who failed on the account (the link back is a nice to have, not committed).
   R.useEffect(() => {
     if (isStatic) return undefined;
-    const h = (e) => { const r = e.target.closest && e.target.closest(".nfp-row"); if (r && /Publisher One on YouTube Somos/.test(r.getAttribute("aria-label") || "")) { setTimeout(() => openScreen("2.1"), 0); } };
+    const h = (e) => { const r = e.target.closest && e.target.closest(".nfp-row"); if (!r) return; const lab = r.getAttribute("aria-label") || "";
+      if (MVP_UT) { const j = live.current.job; if (j && j.note && lab.includes(j.note)) setTimeout(openResult, 0); return; }
+      if (/Publisher One on YouTube Somos/.test(lab)) { setTimeout(() => openScreen("2.1"), 0); } };
     document.addEventListener("click", h, true); return () => document.removeEventListener("click", h, true);
   }, []);
 
-  const openBulk = () => setBulk({ step:"pick", role:P1 });
+  const openBulk = () => setBulk({ step:"pick", role:MVP_UT ? null : P1 });
   // MVP 1.1 -> 1.2: Apply goes straight to In progress in the drawer, for everyone selected (no review step).
   const startApply = (items) => {
     const ids = items.map((p) => p.id);
-    setJob({ role:bulk.role, total:ids.length, done:0, phase:"run", failed:[], retries:0, ids, order:mvpOrder(ids), willFail:outcome === "fail" ? MVP_FAIL.filter((x) => ids.includes(x)) : [] });
+    const fails = MVP_UT ? acct === MVP_UT_FAIL_ACCT : outcome === "fail";
+    setJob({ role:bulk.role, total:ids.length, done:0, phase:"run", failed:[], retries:0, ids, order:mvpOrder(ids), willFail:fails ? MVP_FAIL.filter((x) => ids.includes(x)) : [], acct });
     setBulk({ step:"applying", role:bulk.role });
   };
   // Cut on 8 Oct (screen x.1): the old review's Apply closed the drawer and showed the top banner (screen x.2).
@@ -127,7 +147,7 @@ function MVPApp({ screen, isStatic }) {
   const closeApplying = () => { setBulk(null); setSel([]); };
   const closeRun = () => setBulk(null);
   const finish = () => { setBulk(null); setJob(null); };
-  const retry = () => { setJob((j) => ({ ...j, phase:"retry" })); setBulk({ step:"retry", role:P1 }); };
+  const retry = () => { setJob((j) => ({ ...j, phase:"retry" })); setBulk({ step:"retry", role:(job && job.role) || P1 }); };
   const manageRoles = () => { setBulk(null); setSel([]); setView("roles"); scrollTop(); };
 
   const phase = job && job.phase, frozen = job && job.frozen;
@@ -141,12 +161,23 @@ function MVPApp({ screen, isStatic }) {
       clearInterval(iv);
       if (phase === "run") {
         const failed = j.willFail || [], b = live.current.bulk, inDrawer = !!(b && b.step === "applying");
-        setPeople((ps) => ps.map((x) => j.ids.includes(x.id) && !failed.includes(x.id) ? { ...x, role:j.role } : x)); setSel([]);
+        const upd = (ps) => ps.map((x) => j.ids.includes(x.id) && !failed.includes(x.id) ? { ...x, role:j.role } : x);
+        if (MVP_UT) { bumpCounts(j.acct, j.ids.filter((x) => !failed.includes(x)), j.role); peopleFor(j.acct, upd); } else setPeople(upd);
+        setSel([]);
         // Everyone updated: the toast (MVP 1.3), whether or not the drawer is still open.
         if (!failed.length) { if (inDrawer) setBulk(null); toast(j.role + " applied to " + j.total + " members"); setJob(null); return; }
         // Some failed, drawer still open: who failed, in the drawer (MVP 2.1). Drawer closed: the notification (MVP 2.0).
         if (inDrawer || j.legacy) { setJob({ ...j, done:j.total, phase:"result", failed }); setBulk({ step:"result", role:j.role }); mvpNotif(true); }
+        else if (MVP_UT) {
+          const a = acctOf(j.acct), note = j.role + " on " + a.name;
+          setJob({ ...j, done:j.total, phase:"result", failed, note });
+          mvpNotif(true, { title:note, preview:(j.total - failed.length) + " of " + j.total + " updated. " + failed.length + " need a look.", av:a.initials, net:a.network }); setShellKey((k) => k + 1);
+        }
         else { setJob(null); openScreen("2.0"); }
+      } else if (MVP_UT) {
+        // Test mode: Try again works for everyone left.
+        bumpCounts(j.acct, j.failed, j.role); peopleFor(j.acct, (ps) => ps.map((x) => j.failed.includes(x.id) ? { ...x, role:j.role } : x));
+        if (live.current.bulk) setBulk(null); toast(j.role + " applied to " + mvpMembers(j.failed.length)); setJob(null); mvpNotif(false);
       } else { setJob({ ...j, phase:"result", retries:j.retries + 1 }); setBulk({ step:"result", role:j.role }); }
     }, 150);
     return () => clearInterval(iv);
@@ -161,7 +192,7 @@ function MVPApp({ screen, isStatic }) {
     setView("roles"); scrollTop();
     if (n > 0) { setRjob({ name:e.name, n }); later(() => { setRjob(null); toast(e.name + " updated for " + n + " people"); }, MVP_DUR); } else toast(e.name + " updated");
   };
-  const startCreate = () => { setCreate({ name:roleRows.some((r) => r.name === "Publisher Two") ? "" : "Publisher Two", from:null, perms:[], desc:"" }); setView("create"); scrollTop(); };
+  const startCreate = () => { setCreate({ name:MVP_UT ? "" : roleRows.some((r) => r.name === "Publisher Two") ? "" : "Publisher Two", from:null, perms:[], desc:"" }); setView("create"); scrollTop(); };
   const nameTaken = (nm, own) => { const t = (nm || "").trim().toLowerCase(); return !!t && t !== (own || "").toLowerCase() && roleRows.some((r) => r.name.toLowerCase() === t); };
   const pickFrom = (r) => setCreate((c) => ({ ...c, from:r, perms:rolePerms[r] || [], same:false }));
   const saveCreate = () => {
@@ -175,17 +206,17 @@ function MVPApp({ screen, isStatic }) {
   const askDelete = (name) => setDelModal(name);
   const confirmDelete = () => { const n = delModal; setDelModal(null); if (n) deleteRole(n); };
 
-  const A = { screen:scr, isStatic, view, access, outcome, people, roleOf, sel, setSel, toggle:(id) => setSel((s) => s.includes(id) ? s.filter((x) => x !== id) : s.concat(id)), loaded:scr === "1.0b" ? 100 : loaded,
+  const A = { screen:scr, isStatic, view, acct:acctOf(acct), openAcct, access, outcome, people, roleOf, sel, setSel, toggle:(id) => setSel((s) => s.includes(id) ? s.filter((x) => x !== id) : s.concat(id)), loaded:scr === "1.0b" ? 100 : loaded,
     search, setSearch, perms, setPerms, stat, setStat, bulk, setBulk, job, roleRows, rolePerms, rjob, edit, setEdit, create, setCreate, saveModal, setSaveModal,
     go, goView, toast, openBulk, startApply, startLegacy, closeApplying, closeRun, finish, retry, manageRoles, roleDesc, startEdit, saveEdit, confirmSave, startCreate, nameTaken, pickFrom, saveCreate, deleteRole, askDelete, confirmDelete, delModal, closeDelete:() => setDelModal(null),
-    openOrg:(kind, data) => setOrgModal({ kind, data }), setRole:(id, r) => setPeople((ps) => ps.map((p) => p.id === id ? { ...p, role:r } : p)) };
+    openOrg:(kind, data) => setOrgModal({ kind, data }), setRole:(id, r) => { if (MVP_UT) bumpCounts(acct, [id], r); setPeople((ps) => ps.map((p) => p.id === id ? { ...p, role:r } : p)); } };
 
   const NS = SS_NS();
   if (!NS.SuiteShell || !ready) return null;
   const { SuiteShell, AlertToast, ToggleGroup, Button, Badge } = NS;
   const Page = { members:MVPMembers, accounts:MVPAccounts, roles:MVPRoles, create:MVPCreate, edit:MVPEdit }[view];
   const inShell = view !== "flows" && view !== "tpl";
-  const orgCtx = { teams:SS_TEAMS, members:people.slice(0, 60), accounts:MVP_ACCOUNTS, toast, removeAccount:(a) => { toast(a.name + " removed"); go("flows"); } };
+  const orgCtx = { teams:SS_TEAMS, members:people.slice(0, 60), accounts:MVP_ACCOUNTS, toast, removeAccount:(a) => { toast(a.name + " removed"); go(MVP_UT ? "accounts" : "flows"); } };
   const AcctPanel = window.AccountPanel;
   const railAvatar = <button key="account" type="button" className="hs-rail-item is-util" aria-label="Account" title="Account" aria-haspopup="dialog" aria-expanded={acctOpen} aria-controls="global-nav-account-panel" onClick={() => setAcctOpen((o) => !o)} style={{ border:0, background:"transparent", cursor:"pointer" }}>
     <span className="hs-rail-glyph"><span className="material-symbols-outlined" aria-hidden="true">account_circle</span></span><span className="hs-rail-label">Account</span></button>;
@@ -194,7 +225,7 @@ function MVPApp({ screen, isStatic }) {
   return (
     <MVPC.Provider value={A}>
       <div data-flow-screen={scr || ""} style={{ height:isStatic ? "100%" : "100vh", display:"flex", flexDirection:"column", background:"var(--bento-theme-color-bg-app)", position:"relative", overflow:"hidden" }}>
-        {!isStatic && <div data-mvp-strip="" style={{ flex:"none", minHeight:48, display:"flex", alignItems:"center", flexWrap:"wrap", gap:"var(--bento-space-03)", padding:"0 16px", background:"var(--hs-surface)", borderBottom:"1px solid var(--bento-theme-color-border-subtle, #EBEBEB)" }}>
+        {!isStatic && !MVP_UT && <div data-mvp-strip="" style={{ flex:"none", minHeight:48, display:"flex", alignItems:"center", flexWrap:"wrap", gap:"var(--bento-space-03)", padding:"0 16px", background:"var(--hs-surface)", borderBottom:"1px solid var(--bento-theme-color-border-subtle, #EBEBEB)" }}>
           <Button variant="ghost" size="sm" icon="arrow_back" onClick={() => go("flows")}>Flows</Button>
           <Button variant="ghost" size="sm" icon="dashboard" onClick={() => { location.href = MVP_BOARD_URL + (scr ? "#step=" + scr : ""); }}>Back to board</Button>
           <strong style={{ font:"var(--hs-type-body-md-b)" }}>Bulk roles MVP</strong>
@@ -213,7 +244,7 @@ function MVPApp({ screen, isStatic }) {
             {inShell ? (
               <React.Fragment>
                 <div style={{ position:"absolute", inset:0 }}>
-                  <SuiteShell key={"shell" + (scr === "2.0" ? "-n" : "")} product="settings" railProps={railProps} drawerProps={{ items:MVP_NAV, value:"social-accounts", onSelect:(id) => { if (id === "social-accounts") goView("accounts"); else toast("Only Social accounts is part of this prototype"); }, org:SS_ORG, orgs:SS_ORGS, onOrgChange:() => {} }}>
+                  <SuiteShell key={"shell" + (scr === "2.0" ? "-n" : "") + (MVP_UT ? "-" + shellKey : "")} product="settings" railProps={railProps} drawerProps={{ items:MVP_NAV, value:"social-accounts", onSelect:(id) => { if (id === "social-accounts") goView("accounts"); else toast(MVP_UT ? "That page isn’t part of this test" : "Only Social accounts is part of this prototype"); }, org:SS_ORG, orgs:SS_ORGS, onOrgChange:() => {} }}>
                     <div key={view + (scr || "") + listKey} style={{ minHeight:"100%", background:"var(--bento-theme-color-bg-app)", display:"flex", flexDirection:"column" }}><Page /></div>
                   </SuiteShell>
                 </div>
@@ -224,7 +255,7 @@ function MVPApp({ screen, isStatic }) {
               </React.Fragment>
             ) : view === "tpl" ? <div style={{ position:"absolute", inset:0 }}><SuiteSettingsApp key={tplKey} /></div> : <div style={{ position:"absolute", inset:0, overflow:"auto" }}><MVPFlows startRow={startRow} openScreen={openScreen} /></div>}
           </div>
-          {!isStatic && notesOpen && sNotes && <MVPNotesSheet s={sNotes.s} row={sNotes.row} onClose={() => setNotesOpen(false)} shift={!!bulk} />}
+          {!isStatic && !MVP_UT && notesOpen && sNotes && <MVPNotesSheet s={sNotes.s} row={sNotes.row} onClose={() => setNotesOpen(false)} shift={!!bulk} />}
         </div>
       </div>
     </MVPC.Provider>

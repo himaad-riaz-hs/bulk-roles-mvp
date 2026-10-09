@@ -43,7 +43,7 @@ function MVPBulkDrawer() {
     const rl = A.roleRows.map((r) => r.name).filter((r) => r.toLowerCase().includes(rq.trim().toLowerCase()));  // the live roles list (Figma 1.1: 6 roles)
     return (
       <BRDrawer title={title} onClose={() => A.setBulk(null)} footer={
-        <BRFoot><Button variant="secondary" onClick={() => A.setBulk(null)}>Cancel</Button><Button variant="primary" disabled={!items.length} onClick={() => A.startApply(items)}>{"Apply to " + mvpMembers(items.length)}</Button></BRFoot>}>
+        <BRFoot><Button variant="secondary" onClick={() => A.setBulk(null)}>Cancel</Button><Button variant="primary" disabled={!items.length || !b.role} onClick={() => A.startApply(items)}>{"Apply to " + mvpMembers(items.length)}</Button></BRFoot>}>
         <p style={{ ...mvpSub, color:"var(--bento-theme-color-text-base)" }}>Pick the role to apply to the {items.length} selected.</p>
         {/* MVP 1.1 (Figma 10/8): Manage roles sits at the top under the intro, far from Apply. */}
         <p data-mvp-manage-roles="" style={{ ...mvpSub, color:"var(--bento-theme-color-text-base)", marginBottom:16 }}>Don’t see the role you need? <Hyperlink href="#" onClick={(e) => { e.preventDefault(); A.manageRoles(); }}>Manage roles</Hyperlink></p>
@@ -104,4 +104,4 @@ function MVPDeleteModal() {
   return <BRModal title={"Delete " + name + "?"} onClose={() => A.closeDelete()} actions={<React.Fragment><Button variant="secondary" onClick={() => A.closeDelete()}>Cancel</Button><Button variant="primary" onClick={() => A.confirmDelete()}>Delete role</Button></React.Fragment>}>
     <p style={ssBody}>Nobody has this role, so no one’s access changes.</p></BRModal>;
 }
-Object.assign(window, { mvpPlan, MVPFailList, MVPBulkDrawer, MVPSaveModal, MVPDeleteModal });
+Object.assign(window, { mvpMembers, mvpPlan, MVPFailList, MVPBulkDrawer, MVPSaveModal, MVPDeleteModal });

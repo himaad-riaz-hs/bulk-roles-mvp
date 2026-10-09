@@ -903,7 +903,7 @@ body>.hs-rail,#root>.hs-rail,.hs-rail[data-fit="viewport"]{min-height:100dvh}
 /* Not glyph-on-disc — the two-tone rule would knock out their own geometry. */
 .hs-icon--flat path,.hs-icon--flat path:not(:first-child){fill:currentColor}
 
-/* Nav drawer: link item + static footer (Confluence 11896979485 · 12636323850) */
+/* Nav drawer: link item + static footer */
 .hs-navdrawer-item--link{color:var(--bento-theme-color-text-link);text-decoration:underline}
 .hs-navdrawer-item--link:hover{color:var(--bento-theme-color-text-link-hovered)}
 .hs-navdrawer-footer{margin-top:auto;padding:8px;border-top:1px solid var(--bento-theme-color-border-subtle);display:flex;flex-direction:column;gap:2px}

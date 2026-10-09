@@ -4831,7 +4831,7 @@ Object.assign(__ds_scope, { Icon, __ds_default_components_icons_Icon_fio49a: Ico
 // components/navigation/Accordion.jsx
 try { (() => {
 /**
- * comp-accordion (Confluence 11897012225). Bordered disclosure list.
+ * comp-accordion. Bordered disclosure list.
  * `items`: [{ title, description?, content, lead?, actions?, compact?, disabled? }].
  *
  * `actions` renders controls in the header (2026 Bento addition) via
@@ -4855,7 +4855,7 @@ function Accordion({
 }) {
   React.useEffect(() => {
     if (items.length === 1) {
-      console.warn("Accordion: a group with one item is not an accordion — use DisplayToggle " + "(Confluence 11891671081).");
+      console.warn("Accordion: a group with one item is not an accordion — use DisplayToggle " + ".");
     }
   }, [items.length]);
   const [open, setOpen] = React.useState(() => new Set(defaultOpen));
@@ -5037,7 +5037,7 @@ Object.assign(__ds_scope, { BulkActionBar });
 // components/data/Table.jsx
 try { (() => {
 /**
- * comp-table (Confluence 11896979499). `columns` [{key, header, align?, width?, render?}]
+ * comp-table. `columns` [{key, header, align?, width?, render?}]
  * and `rows` (objects keyed by `rowKey`).
  *
  * **Bulk actions are native.** Set `selectable` for the leading checkbox column
@@ -9074,7 +9074,7 @@ function registerShellNode(el) {
 }
 
 /**
- * comp-main-nav (Confluence 11897012337) — the persistent 80px global product rail.
+ * comp-main-nav — the persistent 80px global product rail.
  *
  * The rail surface is LIGHT (`var(--hs-surface)` → #FDFDFD), not navy. Navy
  * #012B3A is ink and active-tint only. Width reconciled 84→80 on 2026-09-10 to
@@ -10718,7 +10718,7 @@ function registerShellNode(el) {
 }
 
 /**
- * comp-navigation-drawer (Confluence 11896979485, modified 2026-07-02). The 288px
+ * comp-navigation-drawer. The 288px
  * product sub-nav between the global rail and the content.
  *
  * Documented behaviour this implements:
@@ -11285,7 +11285,7 @@ function NavigationDrawer({
     }
     if (it.children && it.children.length) {
       if (depth >= 3) {
-        console.warn(`NavigationDrawer: "${it.id}" nests collapsible items three levels deep. ` + "Bento allows two (Level 1 › Level 2); deeper structures need a different pattern " + "(Confluence 11896979485). Rendering the children flat.");
+        console.warn(`NavigationDrawer: "${it.id}" nests collapsible items three levels deep. ` + "Bento allows two (Level 1 › Level 2); deeper structures need a different pattern " + ". Rendering the children flat.");
       }
       const open = expanded.has(it.id);
       return /*#__PURE__*/React.createElement(React.Fragment, {

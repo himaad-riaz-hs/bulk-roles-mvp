@@ -1,4 +1,4 @@
-// Bulk roles MVP, data. Source of truth: Suite Settings Figma, section "Bulk Roles MVP 10/8" (1236:298593),
+// Bulk roles MVP, data. Source of truth: Suite Settings Figma, section "Bulk Roles MVP 10/8",
 // locked on 8 Oct (no review step, no banner, 48 / 46 of 48). Reuses BR_* data from ../bulk-roles/br-data.jsx.
 const MVP_P1 = "Publisher One";
 const MVP_UNL = "Unlimited";
@@ -86,11 +86,18 @@ const MVP_P2_ROW = () => ({ id:MVP_P2, name:MVP_P2, type:"Custom", desc:MVP_P2_D
 
 // The notification the notification service sends when the job finishes (8 Oct lock session). Counts only, as the
 // Full Flows 2.0. Injected into the production Notifications panel's rows.
+// Usability test mode (?ut=1, 9 Oct): only the product shows, it starts on All social accounts, every account opens with
+// its own members, no role is preselected, and @somos.kids always fails for Hana Kim and Omar Said (Try again works).
+const MVP_UT = /[?&#]ut=1(?![0-9])/.test(location.search + location.hash);
+const MVP_UT_FAIL_ACCT = "a4";
+const MVP_NET = { instagram:"Instagram", linkedin:"LinkedIn", facebook:"Facebook", youtube:"YouTube", tiktok:"TikTok" };
 const MVP_NOTIF = { id:"mvp-bulk", unread:true, title:"Publisher One on YouTube Somos", preview:"46 of 48 updated. 2 need a look.", product:"Settings", cat:"Social accounts", time:"Just now", av:"YS", net:"youtube" };
-function mvpNotif(on) {
+// o (test mode): the finished job's own title and counts instead of the Figma example.
+function mvpNotif(on, o) {
   if (typeof NFP_ROWS === "undefined") return;
   const i = NFP_ROWS.findIndex((n) => n.id === MVP_NOTIF.id);
-  if (on && i < 0) NFP_ROWS.unshift(MVP_NOTIF);
+  if (o && i >= 0) NFP_ROWS.splice(i, 1);
+  if (on && (o || i < 0)) NFP_ROWS.unshift(o ? { ...MVP_NOTIF, ...o } : MVP_NOTIF);
   if (!on && i >= 0) NFP_ROWS.splice(i, 1);
 }
 
@@ -164,4 +171,4 @@ const MVP_CARD = { title:"In and out of the MVP", subtitle:"8 Oct lock session",
     "Failure reasons (PM and engineering checking the back end)",
     "Retry after leaving: a link from the notification isn’t committed",
     "Notification content: counts only, or with names"] }] };
-Object.assign(window, { MVP_NAV, MVP_P1, MVP_UNL, MVP_LOADED, MVP_TOTAL, MVP_FAIL, MVP_REVIEW_ORDER, MVP_FILTER_ROLES, MVP_ACCOUNTS, MVP_PERMS, mvpPermDesc, MVP_EDIT_LIST, MVP_EDIT_ON, MVP_EDIT_SAVED, mvpPeople, mvpCanChange, mvpOrder, MVP_ROLE_ROWS0, MVP_P2, MVP_P2_DESC, MVP_P2_ROW, MVP_NOTIF, mvpNotif, MVP_ROWS, MVP_SCREEN_IDS, mvpScreen, MVP_CARD });
+Object.assign(window, { MVP_UT, MVP_UT_FAIL_ACCT, MVP_NET, MVP_NAV, MVP_P1, MVP_UNL, MVP_LOADED, MVP_TOTAL, MVP_FAIL, MVP_REVIEW_ORDER, MVP_FILTER_ROLES, MVP_ACCOUNTS, MVP_PERMS, mvpPermDesc, MVP_EDIT_LIST, MVP_EDIT_ON, MVP_EDIT_SAVED, mvpPeople, mvpCanChange, mvpOrder, MVP_ROLE_ROWS0, MVP_P2, MVP_P2_DESC, MVP_P2_ROW, MVP_NOTIF, mvpNotif, MVP_ROWS, MVP_SCREEN_IDS, mvpScreen, MVP_CARD });

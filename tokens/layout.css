@@ -140,7 +140,7 @@
 
 :root {
   /* Component tokens: Option trigger / comp-option-trigger
-   * Gallery doc: https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-123148 (59494:123148)
+   * Gallery doc: the design file (59494:123148)
    * Published component: 59466:78287 */
 
   --bento-component-option-trigger-fill: transparent;
@@ -161,7 +161,7 @@
 
 :root {
   /* Component tokens: Tabs — `comp-tabs` / `nested-tab`
-   * Gallery doc (*doc-headers): https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-149438
+   * Gallery doc (*doc-headers): the design file
    * Example instance: 59494:149430 */
 
   --bento-component-tab-fill: transparent;
@@ -176,7 +176,7 @@
 
 :root {
   /* Header / Subheader — `comp-header` · `comp-sub-header`
-   * Gallery doc (*doc-headers): https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-149438 */
+   * Gallery doc (*doc-headers): the design file */
 
   --bento-component-header-height: var(--bento-theme-spacing-10);
   --bento-component-sub-header-height: var(--bento-theme-spacing-09);
@@ -190,7 +190,7 @@
 
 :root {
   /* Profile picker — comp-profile-picker-multi / comp-profile-picker-single
-   * Doc: https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-123152 (59494:123152)
+   * Doc: the design file (59494:123152)
    * Published: 59436:113103 (multi) · 59436:113143 (single) */
 
   --bento-component-profile-picker-fill: transparent;
@@ -206,7 +206,7 @@
 
 :root {
   /* Component tokens: Tag / comp-tag & comp-tag-categorical
-   * Gallery doc: https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-91671 (59494:91671)
+   * Gallery doc: the design file (59494:91671)
    * Library: comp-tag 59175:230826 · comp-tag-categorical 59175:230863 */
 
   --bento-component-tag-fill: var(--bento-palette-ref-palette-grey-300);
@@ -218,7 +218,7 @@
 
 :root {
   /* Component tokens: Avatar / comp-avatar
-   * Gallery doc: https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-91691 (59494:91691)
+   * Gallery doc: the design file (59494:91691)
    * Library component (published ref): 59175:78730 */
 
   --bento-component-avatar-fill: var(--bento-palette-ref-palette-grey-300);
@@ -694,7 +694,7 @@
 
 :root {
   /* Component tokens: Thumbnail — comp-thumbnail (published node 59436:96539; gallery instance 0:2185).
-     Doc matrix (*doc-thumbnail): https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-91613 */
+     Doc matrix (*doc-thumbnail): the design file */
 
   --bento-component-thumbnail-border-radius: var(--bento-component-badge-border-radius);
   --bento-component-thumbnail-fill-placeholder: var(--bento-theme-color-bg-surface-recessed);
@@ -705,7 +705,7 @@
 
 :root {
   /*
-   * Alert family — doc *doc-alert*: https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-142993
+   * Alert family — doc *doc-alert*: the design file
    * Published: `comp-alert` 59834:72753 · `comp-alert-banner` 59835:76208 · `comp-alert-toast` 59835:76153
    */
 
@@ -744,7 +744,7 @@
 
 :root {
   /*
-   * Feedback shells — gallery *doc-feedback-state*: https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-142995 (59494:142995).
+   * Feedback shells — gallery *doc-feedback-state*: the design file (59494:142995).
    * Published: `comp-feedback-status` 59436:200998 · `comp-feedback-empty-state` 59436:135390 · `comp-feedback-uploading-state` — doc instance ~26771:567936 · Figma spacing `hs-sys-spacing-horizontal-to-element-medium`/`vertical-to-element-medium` (= 16).
    */
 
@@ -804,7 +804,7 @@
 :root {
   /*
    * Input — `comp-input` / `comp-input-password` / `comp-input-search` / `comp-input-payment`.
-   * Gallery *doc-inputs: https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-123150 (59494:123150)
+   * Gallery *doc-inputs: the design file (59494:123150)
    * Published: `comp-input` 59466:75464 · `comp-input-password` 59466:169922 · `comp-input-search` 59466:93103 · `comp-input-payment` 59466:169886
    */
 
