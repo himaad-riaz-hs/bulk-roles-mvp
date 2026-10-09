@@ -72,7 +72,7 @@ function MVPBulkDrawer() {
   }
 
   if (!job) return null;
-  // MVP 1.2: Applying, in the drawer. No bar, no percentage, no diff list. Closing it leaves no banner.
+  // MVP 1.2: Applying, in the drawer. No bar, no percentage, no diff list. Closing it pauses the page behind it until it ends.
   if (b.step === "applying") return (
     <BRDrawer title={"Role for " + mvpMembers(job.total)} onClose={() => A.closeApplying()} footer={<BRFoot><Button variant="secondary" onClick={() => A.closeApplying()}>Close</Button></BRFoot>}>
       <MVPLoading title={"Applying " + job.role + " to " + mvpMembers(job.total) + "."} body="In progress. You’ll get a notification when it’s done, even if you close this." />

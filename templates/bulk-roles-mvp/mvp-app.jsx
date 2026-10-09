@@ -24,6 +24,9 @@ function MVPApp({ screen, isStatic }) {
   live.current = { job, outcome, bulk, acct, people };
   const later = (fn, ms) => { if (isStatic) return; const t = setTimeout(fn, ms); timers.current.push(t); };
   const toast = (msg) => { const id = Date.now() + Math.random(); setToasts((t) => t.concat({ id, msg })); if (!isStatic) setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 4000); };
+  // Some didn't update and the drawer is closed: a warning toast that stays until dismissed, with Show details (openResult).
+  const dropFail = () => setToasts((t) => t.filter((x) => !x.warn));
+  const toastFail = (role, total, n) => { const id = Date.now() + Math.random(); setToasts((t) => t.filter((x) => !x.warn).concat({ id, warn:{ title:n + " of " + total + " couldn’t be updated", body:"The other " + (total - n) + " now have " + role + "." } })); };
   // No live progress (8 Oct lock session): rows keep their current role until the job finishes.
   const roleOf = (p) => p.role;
   // A new search or filter clears the selection and closes the bar (PM, 7 Oct).
@@ -56,8 +59,8 @@ function MVPApp({ screen, isStatic }) {
     setSel([]); setLoaded(MVP_LOADED); setListKey((k) => k + 1); setSearch0(""); setPerms0([]); setStat0([]);
   };
   const openAcct = (a) => { switchAcct(a.id); goView("members"); };
-  // Test mode: the notification for a job that finished with the drawer closed opens that account with who didn't update.
-  const openResult = () => { const j = live.current.job; if (!j || j.phase !== "result") return; switchAcct(j.acct); setView("members"); setBulk({ step:"result", role:j.role }); setShellKey((k) => k + 1); scrollTop(); };
+  // Show details on the warning toast (and, in test mode, the notification) opens that account with who didn't update. Nothing resets.
+  const openResult = () => { dropFail(); const j = live.current.job; if (!j || j.phase !== "result") return; if (j.acct) switchAcct(j.acct); setView("members"); setBulk({ step:"result", role:j.role }); setShellKey((k) => k + 1); scrollTop(); };
   const applied = (withFails) => mvpPeople().map((p, i) => (i < MVP_LOADED && mvpCanChange(p) && (withFails || !MVP_FAIL.includes(p.id))) ? { ...p, role:P1 } : p);
   const firstSel = () => mvpPeople().slice(0, MVP_LOADED).filter(mvpCanChange).map((p) => p.id);
   // The MVP applies to all 48 selected (8 Oct lock session). legacy = the cut review flow, which counted the 45 who move.
@@ -135,16 +138,19 @@ function MVPApp({ screen, isStatic }) {
   const startApply = (items) => {
     const ids = items.map((p) => p.id);
     const fails = MVP_UT ? acct === MVP_UT_FAIL_ACCT : outcome === "fail";
+    dropFail();
     setJob({ role:bulk.role, total:ids.length, done:0, phase:"run", failed:[], retries:0, ids, order:mvpOrder(ids), willFail:fails ? MVP_FAIL.filter((x) => ids.includes(x)) : [], acct });
     setBulk({ step:"applying", role:bulk.role });
   };
   // Cut on 8 Oct (screen x.1): the old review's Apply closed the drawer and showed the top banner (screen x.2).
   const startLegacy = (plan) => {
     const ids = plan.groups.reduce((a, g) => a.concat(g.ids.map((p) => p.id)), []);
+    dropFail();
     setJob({ role:bulk.role, total:ids.length, done:0, phase:"run", failed:[], retries:0, ids, order:mvpOrder(ids), willFail:outcome === "fail" ? MVP_FAIL.filter((x) => ids.includes(x)) : [], legacy:true });
     setBulk(null); setSel([]);
   };
-  // Closing the drawer while it runs: no banner, the job keeps going and the notification reports back (MVP 2.0).
+  // Closing the drawer while it runs: the job keeps going and the page is paused (banner, checkboxes and role menus off) until it ends.
+  // Then a toast (everyone updated) or the warning toast with Show details (some didn't) reports back (MVP 2.0).
   const closeApplying = () => { setBulk(null); setSel([]); };
   const closeRun = () => setBulk(null);
   const finish = () => { setBulk(null); setJob(null); };
@@ -152,6 +158,8 @@ function MVPApp({ screen, isStatic }) {
   const manageRoles = () => { setBulk(null); setSel([]); setView("roles"); scrollTop(); };
 
   const phase = job && job.phase, frozen = job && job.frozen;
+  // While a job runs and the drawer is closed, role changes on the account it runs on are paused (test mode has several accounts; review mode has one).
+  const paused = !isStatic && !!job && !job.legacy && !frozen && (phase === "run" || phase === "retry") && !bulk && (!MVP_UT || job.acct === acct);
   R.useEffect(() => {
     if (isStatic || !phase || frozen || (phase !== "run" && phase !== "retry")) return undefined;
     const t0 = Date.now();
@@ -167,19 +175,25 @@ function MVPApp({ screen, isStatic }) {
         setSel([]);
         // Everyone updated: the toast (MVP 1.3), whether or not the drawer is still open.
         if (!failed.length) { if (inDrawer) setBulk(null); toast(j.role + " applied to " + j.total + " members"); setJob(null); return; }
-        // Some failed, drawer still open: who failed, in the drawer (MVP 2.1). Drawer closed: the notification (MVP 2.0).
+        // Some failed, drawer still open: who failed, in the drawer (MVP 2.1). Drawer closed: the warning toast and the notification (MVP 2.0).
         if (inDrawer || j.legacy) { setJob({ ...j, done:j.total, phase:"result", failed }); setBulk({ step:"result", role:j.role }); mvpNotif(true); }
         else if (MVP_UT) {
           const a = acctOf(j.acct), note = j.role + " on " + a.name;
           setJob({ ...j, done:j.total, phase:"result", failed, note });
           mvpNotif(true, { title:note, preview:(j.total - failed.length) + " of " + j.total + " updated. " + failed.length + " need a look.", av:a.initials, net:a.network }); setShellKey((k) => k + 1);
+          toastFail(j.role, j.total, failed.length);
         }
-        else { setJob(null); openScreen("2.0"); }
+        else { setJob({ ...j, done:j.total, phase:"result", failed }); mvpNotif(true); toastFail(j.role, j.total, failed.length); }
       } else if (MVP_UT) {
         // Test mode: Try again works for everyone left.
         bumpCounts(j.acct, j.failed, j.role); peopleFor(j.acct, (ps) => ps.map((x) => j.failed.includes(x.id) ? { ...x, role:j.role } : x));
         if (live.current.bulk) setBulk(null); toast(j.role + " applied to " + mvpMembers(j.failed.length)); setJob(null); mvpNotif(false);
-      } else { setJob({ ...j, phase:"result", retries:j.retries + 1 }); setBulk({ step:"result", role:j.role }); }
+      } else {
+        // Review mode: it fails again by design. Drawer open: the same list (MVP 2.3). Drawer closed: the warning toast again.
+        const b = live.current.bulk;
+        setJob({ ...j, phase:"result", retries:j.retries + 1 });
+        if (b && b.step === "retry") setBulk({ step:"result", role:j.role }); else toastFail(j.role, j.total, j.failed.length);
+      }
     }, 150);
     return () => clearInterval(iv);
   }, [phase, frozen]);
@@ -208,7 +222,7 @@ function MVPApp({ screen, isStatic }) {
   const confirmDelete = () => { const n = delModal; setDelModal(null); if (n) deleteRole(n); };
 
   const A = { screen:scr, isStatic, view, acct:acctOf(acct), openAcct, access, outcome, people, roleOf, sel, setSel, toggle:(id) => setSel((s) => s.includes(id) ? s.filter((x) => x !== id) : s.concat(id)), loaded:scr === "1.0b" ? 100 : loaded,
-    search, setSearch, perms, setPerms, stat, setStat, bulk, setBulk, job, roleRows, rolePerms, rjob, edit, setEdit, create, setCreate, saveModal, setSaveModal,
+    search, setSearch, perms, setPerms, stat, setStat, bulk, setBulk, job, paused, roleRows, rolePerms, rjob, edit, setEdit, create, setCreate, saveModal, setSaveModal,
     go, goView, toast, openBulk, startApply, startLegacy, closeApplying, closeRun, finish, retry, manageRoles, roleDesc, startEdit, saveEdit, confirmSave, startCreate, nameTaken, pickFrom, saveCreate, deleteRole, askDelete, confirmDelete, delModal, closeDelete:() => setDelModal(null),
     openOrg:(kind, data) => setOrgModal({ kind, data }), setRole:(id, r) => { if (MVP_UT) bumpCounts(acct, [id], r); setPeople((ps) => ps.map((p) => p.id === id ? { ...p, role:r } : p)); } };
 
@@ -252,7 +266,9 @@ function MVPApp({ screen, isStatic }) {
                 {AcctPanel && !isStatic && <AcctPanel open={acctOpen} onClose={() => setAcctOpen(false)} />}
                 {bulk && <MVPBulkDrawer key={bulk.step + (scr || "")} />}{saveModal && <MVPSaveModal />}{delModal && <MVPDeleteModal />}
                 {orgModal && <div className="hs-overlay" style={{ zIndex:1050 }}><SSOrgModal kind={orgModal.kind} data={orgModal.data} ctx={orgCtx} close={() => setOrgModal(null)} /></div>}
-                {toasts.length > 0 && <div className="mvp-toasts" style={{ position:"absolute", top:108, right:40, zIndex:1100, display:"flex", flexDirection:"column", gap:8 }}>{toasts.map((t) => <AlertToast key={t.id} tone="positive" onDismiss={() => setToasts((x) => x.filter((y) => y.id !== t.id))}>{t.msg}</AlertToast>)}</div>}
+                {toasts.length > 0 && <div className="mvp-toasts" style={{ position:"absolute", top:108, right:40, zIndex:1100, display:"flex", flexDirection:"column", gap:8 }}>{toasts.map((t) => t.warn
+                  ? <AlertToast key={t.id} tone="warning" title={t.warn.title} data-mvp-toast="warning" actions={<Button variant="ghost" size="sm" style={{ marginLeft:-12 }} onClick={openResult}>Show details</Button>} onDismiss={() => setToasts((x) => x.filter((y) => y.id !== t.id))}>{t.warn.body}</AlertToast>
+                  : <AlertToast key={t.id} tone="positive" onDismiss={() => setToasts((x) => x.filter((y) => y.id !== t.id))}>{t.msg}</AlertToast>)}</div>}
               </React.Fragment>
             ) : view === "tpl" ? <div style={{ position:"absolute", inset:0 }}><SuiteSettingsApp key={tplKey} /></div> : <div style={{ position:"absolute", inset:0, overflow:"auto" }}><MVPFlows startRow={startRow} openScreen={openScreen} /></div>}
           </div>
