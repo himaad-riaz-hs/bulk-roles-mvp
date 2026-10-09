@@ -1,0 +1,218 @@
+/*
+ * Bento typography tokens (Light)
+ * Generated from tokens/theme.json
+ */
+
+:root {
+  --bento-theme-font-families-primary: var(--font-bento-primary);
+  --bento-theme-font-families-secondary: var(--font-bento-secondary);
+  --bento-theme-font-size-1: 14px;
+  --bento-theme-font-size-2: 16px;
+  --bento-theme-font-size-3: 18px;
+  --bento-theme-font-size-4: 24px;
+  --bento-theme-font-size-5: 28px;
+  --bento-theme-font-size-6: 36px;
+  --bento-theme-font-size-7: 44px;
+  --bento-theme-font-size-8: 56px;
+  --bento-theme-font-weights-bold: 700;
+  --bento-theme-font-weights-regular: 400;
+  --bento-theme-font-weights-semibold: 600;
+  --bento-theme-letter-spacing-0: 0px;
+  --bento-theme-line-heights-1: 20px;
+  --bento-theme-line-heights-2: 24px;
+  --bento-theme-line-heights-3: 28px;
+  --bento-theme-line-heights-4: 36px;
+  --bento-theme-line-heights-5: 40px;
+  --bento-theme-line-heights-6: 48px;
+  --bento-theme-line-heights-7: 60px;
+  --bento-theme-line-heights-8: 76px;
+  --bento-theme-paragraph-indent-0: 0px;
+  --bento-theme-paragraph-spacing-0: 0px;
+  --bento-theme-text-case-none: none;
+  --bento-theme-text-case-uppercase: uppercase;
+  --bento-theme-text-decoration-none: none;
+  --bento-theme-text-decoration-underline: underline;
+}
+
+.bento-text-body {
+  font-family: var(--bento-theme-font-families-primary);
+  font-weight: var(--bento-theme-font-weights-regular);
+  font-size: var(--bento-theme-font-size-2);
+  line-height: var(--bento-theme-line-heights-2);
+  letter-spacing: var(--bento-theme-letter-spacing-0);
+  margin-block-end: var(--bento-theme-paragraph-spacing-0);
+  text-indent: var(--bento-theme-paragraph-indent-0);
+  text-transform: none;
+  text-decoration: var(--bento-theme-text-decoration-none);
+}
+
+.bento-text-body-sm {
+  font-family: var(--bento-theme-font-families-primary);
+  font-weight: var(--bento-theme-font-weights-regular);
+  font-size: var(--bento-theme-font-size-1);
+  line-height: var(--bento-theme-line-heights-2); /* 24px — Figma --hs-typeface-base-small-line-height = font-scale-300-24 */
+  letter-spacing: var(--bento-theme-letter-spacing-0);
+  margin-block-end: var(--bento-theme-paragraph-spacing-0);
+  text-indent: var(--bento-theme-paragraph-indent-0);
+  text-transform: none;
+  text-decoration: var(--bento-theme-text-decoration-none);
+}
+
+.bento-text-button {
+  font-family: var(--bento-theme-font-families-primary);
+  font-weight: var(--bento-theme-font-weights-bold);
+  font-size: var(--bento-theme-font-size-2);
+  line-height: var(--bento-theme-line-heights-2);
+  letter-spacing: var(--bento-theme-letter-spacing-0);
+  margin-block-end: var(--bento-theme-paragraph-spacing-0);
+  text-indent: var(--bento-theme-paragraph-indent-0);
+  text-transform: none;
+  text-decoration: var(--bento-theme-text-decoration-none);
+}
+
+.bento-text-button-sm {
+  font-family: var(--bento-theme-font-families-primary);
+  font-weight: var(--bento-theme-font-weights-bold);
+  font-size: var(--bento-theme-font-size-1);
+  line-height: var(--bento-theme-line-heights-1);
+  letter-spacing: var(--bento-theme-letter-spacing-0);
+  margin-block-end: var(--bento-theme-paragraph-spacing-0);
+  text-indent: var(--bento-theme-paragraph-indent-0);
+  text-transform: none;
+  text-decoration: var(--bento-theme-text-decoration-none);
+}
+
+.bento-text-display-1 {
+  font-family: var(--bento-theme-font-families-secondary);
+  font-weight: var(--bento-theme-font-weights-semibold);
+  font-size: var(--bento-theme-font-size-8);
+  line-height: var(--bento-theme-line-heights-8);
+  letter-spacing: var(--bento-theme-letter-spacing-0);
+  margin-block-end: var(--bento-theme-paragraph-spacing-0);
+  text-indent: var(--bento-theme-paragraph-indent-0);
+  text-transform: none;
+  text-decoration: var(--bento-theme-text-decoration-none);
+}
+
+.bento-text-display-2 {
+  font-family: var(--bento-theme-font-families-secondary);
+  font-weight: var(--bento-theme-font-weights-semibold);
+  font-size: var(--bento-theme-font-size-7);
+  line-height: var(--bento-theme-line-heights-7);
+  letter-spacing: var(--bento-theme-letter-spacing-0);
+  margin-block-end: var(--bento-theme-paragraph-spacing-0);
+  text-indent: var(--bento-theme-paragraph-indent-0);
+  text-transform: none;
+  text-decoration: var(--bento-theme-text-decoration-none);
+}
+
+.bento-text-display-3 {
+  font-family: var(--bento-theme-font-families-secondary);
+  font-weight: var(--bento-theme-font-weights-semibold);
+  font-size: var(--bento-theme-font-size-6);
+  line-height: var(--bento-theme-line-heights-6);
+  letter-spacing: var(--bento-theme-letter-spacing-0);
+  margin-block-end: var(--bento-theme-paragraph-spacing-0);
+  text-indent: var(--bento-theme-paragraph-indent-0);
+  text-transform: none;
+  text-decoration: var(--bento-theme-text-decoration-none);
+}
+
+.bento-text-heading-1 {
+  font-family: var(--bento-theme-font-families-primary);
+  font-weight: var(--bento-theme-font-weights-semibold);
+  font-size: var(--bento-theme-font-size-5);
+  line-height: var(--bento-theme-line-heights-5);
+  letter-spacing: var(--bento-theme-letter-spacing-0);
+  margin-block-end: var(--bento-theme-paragraph-spacing-0);
+  text-indent: var(--bento-theme-paragraph-indent-0);
+  text-transform: none;
+  text-decoration: var(--bento-theme-text-decoration-none);
+}
+
+.bento-text-heading-2 {
+  font-family: var(--bento-theme-font-families-primary);
+  font-weight: var(--bento-theme-font-weights-semibold);
+  font-size: var(--bento-theme-font-size-4);
+  line-height: var(--bento-theme-line-heights-4);
+  letter-spacing: var(--bento-theme-letter-spacing-0);
+  margin-block-end: var(--bento-theme-paragraph-spacing-0);
+  text-indent: var(--bento-theme-paragraph-indent-0);
+  text-transform: none;
+  text-decoration: var(--bento-theme-text-decoration-none);
+}
+
+.bento-text-heading-3 {
+  font-family: var(--bento-theme-font-families-primary);
+  font-weight: var(--bento-theme-font-weights-semibold);
+  font-size: var(--bento-theme-font-size-3);
+  line-height: var(--bento-theme-line-heights-3);
+  letter-spacing: var(--bento-theme-letter-spacing-0);
+  margin-block-end: var(--bento-theme-paragraph-spacing-0);
+  text-indent: var(--bento-theme-paragraph-indent-0);
+  text-transform: none;
+  text-decoration: var(--bento-theme-text-decoration-none);
+}
+
+.bento-text-label {
+  font-family: var(--bento-theme-font-families-primary);
+  font-weight: var(--bento-theme-font-weights-semibold);
+  font-size: var(--bento-theme-font-size-2);
+  line-height: var(--bento-theme-line-heights-2);
+  letter-spacing: var(--bento-theme-letter-spacing-0);
+  margin-block-end: var(--bento-theme-paragraph-spacing-0);
+  text-indent: var(--bento-theme-paragraph-indent-0);
+  text-transform: none;
+  text-decoration: var(--bento-theme-text-decoration-none);
+}
+
+.bento-text-label-sm {
+  font-family: var(--bento-theme-font-families-primary);
+  font-weight: var(--bento-theme-font-weights-semibold);
+  font-size: var(--bento-theme-font-size-1);
+  line-height: var(--bento-theme-line-heights-1);
+  letter-spacing: var(--bento-theme-letter-spacing-0);
+  margin-block-end: var(--bento-theme-paragraph-spacing-0);
+  text-indent: var(--bento-theme-paragraph-indent-0);
+  text-transform: none;
+  text-decoration: var(--bento-theme-text-decoration-none);
+}
+
+.bento-text-link {
+  font-family: var(--bento-theme-font-families-primary);
+  font-weight: var(--bento-theme-font-weights-semibold);
+  font-size: var(--bento-theme-font-size-2);
+  line-height: var(--bento-theme-line-heights-2);
+  letter-spacing: var(--bento-theme-letter-spacing-0);
+  margin-block-end: var(--bento-theme-paragraph-spacing-0);
+  text-indent: var(--bento-theme-paragraph-indent-0);
+  text-transform: none;
+  text-decoration: var(--bento-theme-text-decoration-underline);
+  color: var(--bento-theme-color-text-link);
+}
+
+.bento-text-link-sm {
+  font-family: var(--bento-theme-font-families-primary);
+  font-weight: var(--bento-theme-font-weights-semibold);
+  font-size: var(--bento-theme-font-size-1);
+  line-height: var(--bento-theme-line-heights-1);
+  letter-spacing: var(--bento-theme-letter-spacing-0);
+  margin-block-end: var(--bento-theme-paragraph-spacing-0);
+  text-indent: var(--bento-theme-paragraph-indent-0);
+  text-transform: none;
+  text-decoration: var(--bento-theme-text-decoration-underline);
+  color: var(--bento-theme-color-text-link);
+}
+
+.bento-text-strengthening {
+  font-family: var(--bento-theme-font-families-primary);
+  font-weight: var(--bento-theme-font-weights-semibold);
+  font-size: var(--bento-theme-font-size-1);
+  line-height: var(--bento-theme-line-heights-1);
+  letter-spacing: var(--bento-theme-letter-spacing-0);
+  margin-block-end: var(--bento-theme-paragraph-spacing-0);
+  text-indent: var(--bento-theme-paragraph-indent-0);
+  text-transform: uppercase;
+  text-decoration: var(--bento-theme-text-decoration-none);
+}
+

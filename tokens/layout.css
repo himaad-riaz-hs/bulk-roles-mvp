@@ -1,0 +1,1091 @@
+/*
+ * Bento layout tokens (Light)
+ * Generated from tokens/theme.json
+ */
+
+:root {
+  --bento-theme-border-radii-01: 2px;
+  --bento-theme-border-radii-02: 16px;
+  --bento-theme-border-radii-03: 8px;
+  --bento-theme-border-radii-circle: 50%;
+  --bento-theme-border-radii-none: 0px;
+  --bento-theme-elevation-shadow-overflow-bottom: 0px 1px 8px 0px #1c1c1c29;
+  --bento-theme-elevation-shadow-overflow-left: -1px 0px 8px 0px #1c1c1c29;
+  --bento-theme-elevation-shadow-overflow-right: 1px 0px 8px 0px #1c1c1c29;
+  --bento-theme-elevation-shadow-overflow-top: 0px -1px 8px 0px #1c1c1c29;
+  /*
+   * Edge-anchored panel shadows — Drawer (`lib/bento/radix/Drawer.tsx`).
+   * Map to directional overflow elevations so widths stay token-backed.
+   */
+  --bento-theme-elevation-shadow-drawer-from-right: var(--bento-theme-elevation-shadow-overflow-left);
+  --bento-theme-elevation-shadow-drawer-from-left: var(--bento-theme-elevation-shadow-overflow-right);
+  --bento-theme-elevation-shadow-overlay-bottom: 0px 0px 1px 0px rgba(28,28,28,0.28), 0px 8px 16px 0px rgba(28,28,28,0.16);
+  --bento-theme-elevation-shadow-overlay-top: 0px 0px 1px 0px rgba(28,28,28,0.28), 0px -8px 16px 0px rgba(28,28,28,0.16);
+  --bento-theme-elevation-shadow-raised: 0px 0px 1px 0px #1c1c1c47, 0px 1px 1px 0px #1c1c1c29;
+  --bento-theme-icon-lg: 24px;
+  --bento-theme-icon-md: 20px;
+  --bento-theme-icon-sm: 16px;
+  --bento-theme-icon-xl: 28px;
+  --bento-theme-opacity-disabled: 0.4; /* @kind other */
+  --bento-theme-opacity-loading: 0.2; /* @kind other */
+  --bento-theme-opacity-overlay: 0.65; /* @kind other */
+  --bento-theme-spacing-01: 4px;
+  --bento-theme-spacing-02: 8px;
+  --bento-theme-spacing-03: 12px;
+  --bento-theme-spacing-04: 16px;
+  --bento-theme-spacing-05: 24px;
+  --bento-theme-spacing-06: 32px;
+  --bento-theme-spacing-07: 36px;
+  --bento-theme-spacing-08: 48px;
+  --bento-theme-spacing-09: 56px;
+  --bento-theme-spacing-10: 64px;
+  /** Drop zone outline (Figma hs-sys-stroke-weight-drop-area). */
+  --bento-theme-stroke-weight-drop-area: 2px;
+}
+
+:root {
+  --bento-space-01: var(--bento-theme-spacing-01);
+  --bento-space-02: var(--bento-theme-spacing-02);
+  --bento-space-03: var(--bento-theme-spacing-03);
+  --bento-space-04: var(--bento-theme-spacing-04);
+  --bento-space-05: var(--bento-theme-spacing-05);
+  --bento-space-06: var(--bento-theme-spacing-06);
+  --bento-space-07: var(--bento-theme-spacing-07);
+  --bento-space-08: var(--bento-theme-spacing-08);
+  --bento-space-09: var(--bento-theme-spacing-09);
+  --bento-space-10: var(--bento-theme-spacing-10);
+  --bento-radius-sm: var(--bento-theme-border-radii-01);
+  --bento-radius-md: var(--bento-theme-border-radii-03);
+  --bento-radius-lg: var(--bento-theme-border-radii-02);
+  --bento-radius-circle: var(--bento-theme-border-radii-circle);
+  --bento-shadow-raised: var(--bento-theme-elevation-shadow-raised);
+  --bento-opacity-overlay: var(--bento-theme-opacity-overlay);
+}
+
+:root {
+  /* Component tokens: Spinner (Figma node 3019:28965) */
+  --bento-component-spinner-size-04: 16px;
+  --bento-component-spinner-size-06: 24px;
+  --bento-component-spinner-size-10: 40px;
+  --bento-component-spinner-size-12: 48px;
+  --bento-component-spinner-size-16: 64px;
+
+  --bento-component-spinner-stroke-04: 2px;
+  --bento-component-spinner-stroke-06: 2px;
+  --bento-component-spinner-stroke-10: 3px;
+  --bento-component-spinner-stroke-12: 3px;
+  --bento-component-spinner-stroke-16: 4px;
+}
+
+:root {
+  /* Component tokens: Skeleton (Figma node 2969:98691) */
+
+  /* Background — default (non-inverse) */
+  --bento-component-skeleton-bg: var(--bento-theme-color-bg-surface-recessed);
+  /* Background — inverse */
+  --bento-component-skeleton-bg-inverse: rgba(255, 255, 255, 0.12);
+
+  /* Shimmer wave stop colours used in the keyframe gradient */
+  --bento-component-skeleton-shimmer-start: rgba(0, 0, 0, 0);
+  --bento-component-skeleton-shimmer-peak: rgba(0, 0, 0, 0.06);
+  --bento-component-skeleton-shimmer-start-inverse: rgba(255, 255, 255, 0);
+  --bento-component-skeleton-shimmer-peak-inverse: rgba(255, 255, 255, 0.14);
+
+  /* Shape-specific sizes matching the Figma component matrix (48 × 48 default) */
+  --bento-component-skeleton-circle-size: 48px;
+  --bento-component-skeleton-rect-size: 48px;
+  --bento-component-skeleton-text-height: 16px;
+  --bento-component-skeleton-text-width: 120px;
+}
+
+:root {
+  /* Component tokens: Slider (Figma nodes 3313:54561 / 4759:43516 / 4759:43533) */
+
+  /* Track heights by size (maps to .nested-slider-range size property) */
+  --bento-component-slider-track-height-sm: 2px;
+  --bento-component-slider-track-height-md: 4px;
+  --bento-component-slider-track-height-lg: 8px;
+
+  /* Track colours */
+  --bento-component-slider-track-bg: var(--bento-theme-color-border-base);
+  --bento-component-slider-track-fill: var(--bento-theme-color-icon-base);
+  --bento-component-slider-track-disabled: var(--bento-theme-color-bg-disabled);
+
+  /* Thumb sizes (maps to .nested-slider-knob small property) */
+  --bento-component-slider-thumb-size: 26px;
+  --bento-component-slider-thumb-size-sm: 14px;
+
+  /* Thumb colours — solid filled circle, no border */
+  --bento-component-slider-thumb-bg: var(--bento-theme-color-icon-base);
+  --bento-component-slider-thumb-bg-disabled: var(--bento-theme-color-bg-disabled);
+  --bento-component-slider-thumb-shadow: var(--bento-theme-elevation-shadow-raised);
+  --bento-component-slider-thumb-focus-ring: var(--bento-theme-color-border-focus);
+}
+
+:root {
+  /* Component tokens: Chip assist / comp-chip-assist (Figma node 2132:27101) */
+
+  --bento-component-chip-fill: var(--bento-palette-ref-palette-grey-300);
+  --bento-component-chip-fill-hovered: var(--bento-palette-ref-palette-grey-400);
+  --bento-component-chip-fill-pressed: var(--bento-palette-ref-palette-grey-500);
+  --bento-component-chip-fill-disabled: var(--bento-palette-ref-palette-grey-100);
+
+  --bento-component-chip-text: var(--bento-palette-ref-palette-dark-grey-800);
+  --bento-component-chip-text-disabled: var(--bento-palette-ref-palette-dark-grey-200);
+
+  --bento-component-chip-max-width: 200px;
+  --bento-component-chip-min-width: var(--bento-theme-spacing-08);
+  --bento-component-chip-border-radius: 9999px;
+}
+
+:root {
+  /* Component tokens: Option trigger / comp-option-trigger
+   * Gallery doc: https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-123148 (59494:123148)
+   * Published component: 59466:78287 */
+
+  --bento-component-option-trigger-fill: transparent;
+  --bento-component-option-trigger-fill-hovered: var(--bento-palette-ref-palette-grey-100);
+  --bento-component-option-trigger-fill-pressed: var(--bento-palette-ref-palette-grey-300);
+  --bento-component-option-trigger-fill-disabled: var(--bento-component-chip-fill-disabled);
+
+  --bento-component-option-trigger-text: var(--bento-component-chip-text);
+  --bento-component-option-trigger-text-disabled: var(--bento-component-chip-text-disabled);
+
+  --bento-component-option-trigger-radius: var(--bento-radius-md);
+  --bento-component-option-trigger-min-width: var(--bento-theme-spacing-08);
+  --bento-component-option-trigger-padding-x: var(--bento-space-04);
+  --bento-component-option-trigger-padding-y-inner: var(--bento-space-02);
+  --bento-component-option-trigger-gap-inline: var(--bento-space-02);
+  --bento-component-option-trigger-chevron-box: var(--bento-theme-icon-lg);
+}
+
+:root {
+  /* Component tokens: Tabs — `comp-tabs` / `nested-tab`
+   * Gallery doc (*doc-headers): https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-149438
+   * Example instance: 59494:149430 */
+
+  --bento-component-tab-fill: transparent;
+  --bento-component-tab-height: 40px;
+  --bento-component-tab-min-width: var(--bento-theme-spacing-08);
+  --bento-component-tab-gap: var(--bento-space-04);
+  --bento-component-tab-text: var(--bento-theme-color-text-subtle);
+  --bento-component-tab-text-active: var(--bento-theme-color-text-base);
+  --bento-component-tab-indicator-height: var(--bento-theme-stroke-weight-drop-area);
+  --bento-component-tab-indicator-color: var(--bento-theme-color-border-base);
+}
+
+:root {
+  /* Header / Subheader — `comp-header` · `comp-sub-header`
+   * Gallery doc (*doc-headers): https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-149438 */
+
+  --bento-component-header-height: var(--bento-theme-spacing-10);
+  --bento-component-sub-header-height: var(--bento-theme-spacing-09);
+  --bento-component-header-padding-x: var(--bento-space-05);
+  --bento-component-header-fill: var(--bento-palette-ref-palette-white);
+  --bento-component-header-divider: var(--bento-theme-color-border-subtle);
+  /* Title row — matches hs-sys/title/section in gallery header examples */
+  --bento-component-header-title-font-size: 26px;
+  --bento-component-header-title-line-height: 32px;
+}
+
+:root {
+  /* Profile picker — comp-profile-picker-multi / comp-profile-picker-single
+   * Doc: https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-123152 (59494:123152)
+   * Published: 59436:113103 (multi) · 59436:113143 (single) */
+
+  --bento-component-profile-picker-fill: transparent;
+  --bento-component-profile-picker-fill-hovered: var(--bento-palette-ref-palette-grey-100);
+  --bento-component-profile-picker-fill-pressed: var(--bento-palette-ref-palette-grey-300);
+  --bento-component-profile-picker-fill-disabled: var(--bento-component-chip-fill-disabled);
+
+  --bento-component-profile-picker-radius: var(--bento-component-chip-border-radius);
+  --bento-component-profile-picker-slot: var(--bento-component-avatar-size-md);
+  --bento-component-profile-picker-chevron-box: var(--bento-component-avatar-size-md);
+  --bento-component-profile-picker-gap-add: var(--bento-space-02);
+}
+
+:root {
+  /* Component tokens: Tag / comp-tag & comp-tag-categorical
+   * Gallery doc: https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-91671 (59494:91671)
+   * Library: comp-tag 59175:230826 · comp-tag-categorical 59175:230863 */
+
+  --bento-component-tag-fill: var(--bento-palette-ref-palette-grey-300);
+  --bento-component-tag-fill-hovered: var(--bento-palette-ref-palette-grey-400);
+  --bento-component-tag-fill-pressed: var(--bento-palette-ref-palette-grey-500);
+  --bento-component-tag-text: var(--bento-palette-ref-palette-dark-grey-800);
+  --bento-component-tag-border-radius: var(--bento-theme-border-radii-03);
+}
+
+:root {
+  /* Component tokens: Avatar / comp-avatar
+   * Gallery doc: https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-91691 (59494:91691)
+   * Library component (published ref): 59175:78730 */
+
+  --bento-component-avatar-fill: var(--bento-palette-ref-palette-grey-300);
+  --bento-component-avatar-text: var(--bento-theme-color-text-base);
+
+  --bento-component-avatar-size-xs: 24px;
+  --bento-component-avatar-size-sm: 32px;
+  --bento-component-avatar-size-md: 40px;
+  --bento-component-avatar-size-lg: 48px;
+  --bento-component-avatar-size-xl: 56px;
+  --bento-component-avatar-size-2xl: 64px;
+
+  /* Fallback icon diameter inside avatar (gallery “svg” row) */
+  --bento-component-avatar-inner-icon-xs: 14px;
+  --bento-component-avatar-inner-icon-sm: 20px;
+  --bento-component-avatar-inner-icon-md: 24px;
+  --bento-component-avatar-inner-icon-lg: 28px;
+  --bento-component-avatar-inner-icon-xl: 32px;
+  --bento-component-avatar-inner-icon-2xl: 40px;
+
+  /* Initials — semibold; sizes track theme typography where possible */
+  --bento-component-avatar-initials-font-family: var(--bento-theme-font-families-primary);
+  --bento-component-avatar-initials-font-weight: var(--bento-theme-font-weights-semibold);
+
+  --bento-component-avatar-initials-font-size-xs: var(--bento-theme-font-size-1);
+  --bento-component-avatar-initials-line-height-xs: var(--bento-theme-line-heights-2);
+
+  --bento-component-avatar-initials-font-size-sm: var(--bento-theme-font-size-2);
+  --bento-component-avatar-initials-line-height-sm: var(--bento-theme-line-heights-2);
+
+  --bento-component-avatar-initials-font-size-md: var(--bento-theme-font-size-2);
+  --bento-component-avatar-initials-line-height-md: var(--bento-theme-line-heights-2);
+
+  --bento-component-avatar-initials-font-size-lg: var(--bento-theme-font-size-4);
+  --bento-component-avatar-initials-line-height-lg: var(--bento-theme-line-heights-4);
+
+  --bento-component-avatar-initials-font-size-xl: var(--bento-theme-font-size-5);
+  --bento-component-avatar-initials-line-height-xl: var(--bento-theme-line-heights-5);
+
+  --bento-component-avatar-initials-font-size-2xl: var(--bento-theme-font-size-6);
+  --bento-component-avatar-initials-line-height-2xl: var(--bento-theme-line-heights-6);
+
+  /* Corner indicator */
+  --bento-component-avatar-indicator-ring-width: 2px;
+  --bento-component-avatar-indicator-ring-color: var(--bento-theme-color-bg-surface);
+  --bento-component-avatar-indicator-offset: var(--bento-theme-spacing-01);
+
+  --bento-component-avatar-indicator-size-xs: var(--bento-theme-spacing-03);
+  --bento-component-avatar-indicator-size-sm: var(--bento-theme-spacing-03);
+  --bento-component-avatar-indicator-size-md: var(--bento-theme-spacing-04);
+  --bento-component-avatar-indicator-size-lg: var(--bento-theme-spacing-04);
+  --bento-component-avatar-indicator-size-xl: calc(var(--bento-theme-spacing-04) + var(--bento-theme-spacing-01));
+  --bento-component-avatar-indicator-size-2xl: calc(var(--bento-theme-spacing-04) + var(--bento-theme-spacing-02));
+
+  --bento-component-avatar-indicator-bg-success: var(--bento-system-sys-positive-500);
+  --bento-component-avatar-indicator-bg-warning: var(--bento-system-sys-warning-500);
+  --bento-component-avatar-indicator-bg-error: var(--bento-system-sys-negative-500);
+  --bento-component-avatar-indicator-bg-accent: var(--bento-palette-ref-palette-dark-grey-800);
+  --bento-component-avatar-indicator-hint-dot: var(--bento-theme-color-icon-info);
+
+  /* Avatar stack / comp-avatar-stack — library ref 59175:90203 */
+  --bento-component-avatar-stack-overlap: var(--bento-theme-spacing-02);
+  --bento-component-avatar-stack-z-start: 12; /* @kind other */
+}
+
+:root {
+  /* Component tokens: Button choice / comp-button-choice (59111:221323)
+     Gallery doc: HS-Bento-gallery *doc-button-choice 59494:75871 — lib/bento/components/ButtonChoice.tsx */
+
+  --bento-component-button-choice-radius: var(--bento-theme-border-radii-03);
+
+  --bento-component-button-choice-fill-enabled: var(--bento-theme-color-bg-surface);
+  --bento-component-button-choice-fill-hovered: var(--bento-theme-color-bg-surface-hovered);
+  --bento-component-button-choice-fill-pressed: var(--bento-theme-color-bg-surface-pressed);
+  --bento-component-button-choice-fill-disabled: var(--bento-theme-color-bg-disabled);
+
+  --bento-component-button-choice-padding-x: var(--bento-theme-spacing-04);
+  --bento-component-button-choice-padding-y: var(--bento-theme-spacing-04);
+  --bento-component-button-choice-gap: var(--bento-theme-spacing-04);
+
+  --bento-component-button-choice-border-width-default: 1px;
+  --bento-component-button-choice-border-width-selected: 2px;
+
+  --bento-component-button-choice-border-color-default: var(--bento-theme-color-border-base);
+  --bento-component-button-choice-border-color-disabled: var(--bento-theme-color-border-disabled);
+  --bento-component-button-choice-border-color-selected: var(--bento-theme-color-border-selected);
+}
+
+:root {
+  /**
+   * Card surface — comp-card-surface.
+   * Gallery doc: HS-Bento-gallery *doc-card 59494:91687 — lib/bento/components/CardSurface.tsx
+   */
+  --bento-component-card-radius: var(--bento-theme-border-radii-03);
+  --bento-component-card-padding-x: var(--bento-theme-spacing-04);
+  --bento-component-card-padding-y: var(--bento-theme-spacing-04);
+  --bento-component-card-fill-enabled: var(--bento-theme-color-bg-surface);
+  --bento-component-card-fill-hovered: var(--bento-theme-color-bg-surface-hovered);
+  --bento-component-card-fill-pressed: var(--bento-theme-color-bg-surface-pressed);
+  --bento-component-card-fill-disabled: var(--bento-theme-color-bg-disabled);
+  --bento-component-card-border-width-default: 1px;
+  --bento-component-card-border-width-selected: 2px;
+  --bento-component-card-border-color-default: var(--bento-theme-color-border-subtle);
+  --bento-component-card-border-color-disabled: var(--bento-theme-color-border-disabled);
+  --bento-component-card-border-color-selected: var(--bento-theme-color-border-selected);
+  --bento-component-card-focus-ring-width: 2px;
+  --bento-component-card-focus-ring-color: var(--bento-theme-color-border-focus);
+  /**
+   * Doc matrix / drag demo cell sizes — HS-Bento-gallery *doc-card 59494:91687
+   * (preview routes only; matches comp-card-surface examples in that frame).
+   */
+  --bento-component-card-gallery-example-width: 350px;
+  --bento-component-card-gallery-example-height: 248px;
+  --bento-component-card-drag-ghost-height: 240px;
+  --bento-component-card-drag-ghost-width: 248px;
+  --bento-component-card-drag-strip-height: 384px;
+  /**
+   * Card post — comp-card-post. HS-Bento-gallery *doc-card-post 59494:91683
+   * · lib/bento/components/CardPost.tsx
+   * Media band height in doc matrices (matches Figma comp-card-post examples).
+   */
+  --bento-component-card-post-media-height: 179px;
+  /**
+   * Link preview — comp-link-preview.
+   * HS-Bento-gallery *doc-link-preview 59494:91678 · MCP comp-link-preview defaults (59496:86896).
+   * Landscape: h·104px × max-w·576px; thumbnail column square (width = row height) per gallery spec.
+   */
+  --bento-component-card-link-preview-landscape-height: 104px;
+  --bento-component-card-link-preview-landscape-max-width: 576px;
+  --bento-component-card-link-preview-landscape-media-width: var(
+    --bento-component-card-link-preview-landscape-height
+  );
+  --bento-component-card-link-preview-portrait-width: 288px;
+  --bento-component-card-link-preview-portrait-media-height: 110px;
+}
+
+:root {
+  /**
+   * Display toggle — comp-display-toggle (57754:133101)
+   * HS-Bento-gallery Card post doc 59494:91683 · lib/bento/components/DisplayToggle.tsx
+   */
+  --bento-component-display-toggle-text: var(--bento-theme-color-text-base);
+}
+
+:root {
+  /* Component tokens: Toggle group / comp-toggle-group (59111:76930)
+     Gallery doc: HS-Bento-gallery *doc-button-group / Toggle group 59494:75873 — lib/bento/components/ToggleGroup.tsx */
+
+  --bento-component-toggle-group-radius: var(--bento-component-chip-border-radius);
+  --bento-component-toggle-group-min-touch: 48px;
+  --bento-component-toggle-group-icon-only-inner-size: 40px;
+
+  --bento-component-toggle-group-selected-fill: var(--bento-theme-color-bg-surface-recessed);
+  --bento-component-toggle-group-fill-hovered: var(--bento-theme-color-bg-surface-raised);
+  --bento-component-toggle-group-fill-pressed: var(--bento-palette-ref-palette-grey-300);
+
+  --bento-component-toggle-group-padding-y: var(--bento-theme-spacing-02);
+  --bento-component-toggle-group-gap-inline: var(--bento-theme-spacing-02);
+  --bento-component-toggle-group-padding-x-text: var(--bento-theme-spacing-04);
+  --bento-component-toggle-group-padding-x-leading: var(--bento-theme-spacing-03);
+  --bento-component-toggle-group-padding-x-trailing: var(--bento-theme-spacing-04);
+
+  --bento-component-toggle-group-border-width-selected: 2px;
+}
+
+:root {
+  /* Component tokens: Button action (Figma ref: HS-Bento-gallery 59494:75867 — lib/bento/components/Button.tsx) + Button overlay / comp-button-overlay (8970:214202) */
+
+  --bento-component-button-radius: var(--bento-theme-border-radii-03);
+
+  /** Single standard control height (Bento button / button overlay). */
+  --bento-component-button-height: 40px;
+
+  /**
+   * Icon-only control (40×40, circular). Figma: HS-Bento-gallery doc-icon-button 59494:75869
+   * · comp-icon-button 59436:76953 — lib/bento/components/IconButton.tsx
+   */
+  --bento-component-icon-button-size: var(--bento-component-button-height);
+  --bento-component-icon-button-radius: var(--bento-theme-border-radii-circle);
+
+  /**
+   * Emoji button — comp-emoji-button. Figma: HS-Bento-gallery *doc-emojis-button 43927:170674 · 59111:138158 — lib/bento/components/EmojiButton.tsx
+   * Base hit target aligns with hs-sys-size-12 (48px); small with compact icon paddings mirrors comp-icon-button.
+   */
+  --bento-component-emoji-button-size-base: var(--bento-theme-spacing-08);
+  --bento-component-emoji-button-size-small: var(--bento-component-icon-button-size);
+  --bento-component-emoji-button-padding-base: var(--bento-theme-spacing-03);
+  --bento-component-emoji-button-padding-small: var(--bento-component-split-button-chevron-padding);
+  --bento-component-emoji-button-glyph-base: var(--bento-theme-icon-lg);
+  --bento-component-emoji-button-line-height-base: var(--bento-theme-icon-lg);
+  --bento-component-emoji-button-glyph-small: var(--bento-theme-icon-md);
+  --bento-component-emoji-button-line-height-small: var(--bento-theme-icon-md);
+
+  /**
+   * Split button — comp-split-button. Figma: HS-Bento-gallery 59494:75875
+   * Gap between leading action and trailing chevron; trailing inner padding (Figma hs-comp-icon-button-spacing-small).
+   */
+  --bento-component-split-button-gap: 1px;
+  --bento-component-split-button-chevron-padding: 10px;
+
+  /**
+   * Action bar — comp-action-bar. Figma: HS-Bento-gallery *doc-comp-action-bar 59494:75983
+   * · base/outlined instances 59496:78058 / 59496:78059 · floating 59438:367044
+   * · lib/bento/components/ActionBar.tsx
+   */
+  --bento-component-action-bar-padding-x: var(--bento-theme-spacing-01);
+  --bento-component-action-bar-padding-y: var(--bento-theme-spacing-01);
+  --bento-component-action-bar-slot-gap: var(--bento-theme-spacing-02);
+  --bento-component-action-bar-radius: var(--bento-theme-border-radii-03);
+  --bento-component-action-bar-border-width: var(--bento-component-button-outlined-border-width);
+  --bento-component-action-bar-shadow-floating: var(--bento-theme-elevation-shadow-overlay-bottom);
+
+  /**
+   * Accordion item — comp-accordion-item. HS-Bento-gallery *doc-accordion 59494:91693
+   * Figma hs-comp-accordion-color-fill / fill-active / fill-hovered / fill-pressed
+   */
+  --bento-component-accordion-border-width: var(--bento-component-button-outlined-border-width);
+  --bento-component-accordion-header-padding-x: var(--bento-theme-spacing-04);
+  --bento-component-accordion-header-padding-y: var(--bento-theme-spacing-03);
+  --bento-component-accordion-header-gap: var(--bento-theme-spacing-04);
+  --bento-component-accordion-chevron-target-width: var(--bento-theme-spacing-08);
+  --bento-component-accordion-content-padding-x: var(--bento-theme-spacing-04);
+  --bento-component-accordion-content-padding-y: var(--bento-theme-spacing-04);
+  /** Leading icon slot: align panel text with title (Figma hs-sys-spacing-14 → 56px) */
+  --bento-component-accordion-content-padding-x-with-leading: var(--bento-theme-spacing-09);
+  --bento-component-accordion-fill: transparent;
+  --bento-component-accordion-fill-active: var(--bento-palette-ref-palette-grey-100);
+  --bento-component-accordion-fill-hovered: var(--bento-palette-ref-palette-grey-100);
+  --bento-component-accordion-fill-pressed: var(--bento-palette-ref-palette-grey-300);
+  --bento-component-accordion-focus-ring-width: 2px;
+
+  /**
+   * Badge — comp-badge. HS-Bento-gallery *doc-badge 59494:91689 · component set 59111:76505
+   * · lib/bento/components/Badge.tsx
+   * Figma hs-comp-badge-border-radii 4px; row padding y 2px; icon-only cell padding 6px; height 28px; hs-comp-badge-* fills.
+   */
+  --bento-component-badge-border-radius: 4px;
+  --bento-component-badge-height: 28px;
+  --bento-component-badge-padding-y: 2px;
+  --bento-component-badge-padding-x: var(--bento-theme-spacing-02);
+  --bento-component-badge-gap: var(--bento-theme-spacing-01);
+  --bento-component-badge-padding-icon-only: 6px;
+
+  --bento-component-badge-neutral-fill: var(--bento-palette-ref-palette-grey-300);
+  --bento-component-badge-neutral-text: var(--bento-theme-color-text-base);
+
+  --bento-component-badge-overlay-fill: var(--bento-component-overlay-button-filled-fill);
+  --bento-component-badge-overlay-text: var(--bento-theme-color-text-inverse);
+
+  --bento-component-badge-positive-fill: var(--bento-palette-ref-palette-green-50);
+  --bento-component-badge-positive-text: var(--bento-palette-ref-palette-green-600);
+
+  --bento-component-badge-warning-fill: var(--bento-palette-ref-palette-yellow-100);
+  --bento-component-badge-warning-text: var(--bento-palette-ref-palette-yellow-900);
+
+  --bento-component-badge-negative-fill: var(--bento-palette-ref-palette-red-50);
+  --bento-component-badge-negative-text: var(--bento-palette-ref-palette-red-600);
+
+  --bento-component-badge-discovery-fill: var(--bento-system-sys-discovery-50);
+  --bento-component-badge-discovery-text: var(--bento-system-sys-discovery-500);
+
+  /**
+   * Table — hs/comp/table/* (theme collection export) · *doc-table 59494:91625 · `comp-table-column` 59618:78568
+   * · lib/bento/components/Table.tsx
+   */
+  --bento-component-table-fill: var(--bento-theme-color-bg-surface);
+  --bento-component-table-fill-hovered: var(--bento-theme-color-bg-surface-hovered);
+  --bento-component-table-fill-pressed: var(--bento-theme-color-bg-surface-pressed);
+  --bento-component-table-fill-highlighted: var(--bento-theme-color-bg-surface-hovered);
+  --bento-component-table-border: var(--bento-theme-color-border-subtle);
+  --bento-component-table-selected-fill: var(--bento-theme-color-bg-surface-selected);
+  --bento-component-table-alt-fill: var(--bento-theme-color-bg-surface-raised);
+  --bento-component-table-alt-fill-hovered: var(--bento-theme-color-bg-surface-raised-hovered);
+  --bento-component-table-alt-fill-pressed: var(--bento-theme-color-bg-surface-raised-pressed);
+  --bento-component-table-alt-fill-highlighted: var(--bento-theme-color-bg-surface-raised-hovered);
+  --bento-component-table-row-min-height: 56px;
+  --bento-component-table-cell-padding-x: var(--bento-theme-spacing-04);
+  --bento-component-table-cell-padding-y: var(--bento-theme-spacing-04);
+  --bento-component-table-cell-gap: var(--bento-theme-spacing-02);
+  --bento-component-table-focus-ring-width: 2px;
+  --bento-component-table-focus-ring-color: var(--bento-theme-color-border-focus);
+
+  --bento-component-button-padding-y: var(--bento-theme-spacing-02);
+
+  --bento-component-button-padding-x-inline: var(--bento-theme-spacing-04);
+
+  --bento-component-button-padding-x-with-icon-leading: var(--bento-theme-spacing-03);
+  --bento-component-button-padding-x-with-icon-trailing: var(--bento-theme-spacing-04);
+
+  --bento-component-button-gap-inline: var(--bento-theme-spacing-02);
+
+  --bento-component-button-outlined-border-width: 1px;
+
+  /* Primary configuration */
+  --bento-component-button-primary-bg-enabled: var(--bento-theme-color-bg-primary);
+  --bento-component-button-primary-bg-hovered: var(--bento-theme-color-bg-primary-hovered);
+  --bento-component-button-primary-bg-pressed: var(--bento-theme-color-bg-primary-pressed);
+  --bento-component-button-primary-bg-muted: var(--bento-theme-color-bg-disabled);
+
+  --bento-component-button-primary-text: var(--bento-theme-color-text-on-primary);
+
+  --bento-component-button-primary-text-muted: var(--bento-theme-color-text-disabled);
+
+  /* Secondary configuration */
+  --bento-component-button-secondary-bg-enabled: var(--bento-theme-color-bg-secondary);
+  --bento-component-button-secondary-bg-hovered: var(--bento-theme-color-bg-secondary-hovered);
+  --bento-component-button-secondary-bg-pressed: var(--bento-theme-color-bg-secondary-pressed);
+
+  --bento-component-button-secondary-text: var(--bento-theme-color-text-base);
+
+  /* Outlined configuration */
+  --bento-component-button-outlined-bg-enabled: var(--bento-theme-color-bg-surface);
+  --bento-component-button-outlined-bg-hovered: var(--bento-theme-color-bg-surface-hovered);
+  --bento-component-button-outlined-bg-pressed: var(--bento-theme-color-bg-surface-pressed);
+  --bento-component-button-outlined-bg-disabled: var(--bento-theme-color-bg-surface);
+
+  --bento-component-button-outlined-border-enabled: var(--bento-theme-color-border-btn-outlined);
+  --bento-component-button-outlined-border-disabled: var(--bento-theme-color-border-disabled);
+
+  --bento-component-button-outlined-text: var(--bento-theme-color-text-base);
+
+  /* Ghost configuration */
+  --bento-component-button-ghost-bg-enabled: transparent;
+  --bento-component-button-ghost-bg-hovered: var(--bento-theme-color-bg-surface-hovered);
+  --bento-component-button-ghost-bg-pressed: var(--bento-theme-color-bg-surface-pressed);
+
+  --bento-component-button-ghost-text: var(--bento-theme-color-text-base);
+
+  /* Overlay —filled (scrims from HS-Bento master fallbacks via palette + color-mix) */
+  --bento-component-overlay-button-filled-fill: color-mix(in srgb, var(--bento-palette-ref-palette-dark-grey-500) 64%, transparent);
+  --bento-component-overlay-button-filled-fill-hovered: color-mix(in srgb, var(--bento-palette-ref-palette-dark-grey-500) 76%, transparent);
+  --bento-component-overlay-button-filled-fill-pressed: color-mix(in srgb, var(--bento-palette-ref-palette-dark-grey-500) 80%, transparent);
+
+  --bento-component-overlay-button-filled-inverse-fill: color-mix(in srgb, var(--bento-palette-ref-palette-grey-50) 64%, transparent);
+  --bento-component-overlay-button-filled-inverse-fill-hovered: color-mix(in srgb, var(--bento-palette-ref-palette-grey-50) 76%, transparent);
+  --bento-component-overlay-button-filled-inverse-fill-pressed: color-mix(in srgb, var(--bento-palette-ref-palette-grey-50) 80%, transparent);
+
+  /* Overlay —filled text */
+  --bento-component-overlay-button-filled-text-noninverse: var(--bento-theme-color-text-inverse);
+  --bento-component-overlay-button-filled-text-inverse: var(--bento-palette-ref-palette-dark-grey-800);
+
+  /* Overlay —ghost fills */
+  --bento-component-overlay-button-ghost-fill-hovered-noninverse: color-mix(in srgb, var(--bento-palette-ref-palette-dark-grey-500) 76%, transparent);
+  --bento-component-overlay-button-ghost-fill-pressed-noninverse: color-mix(in srgb, var(--bento-palette-ref-palette-dark-grey-500) 80%, transparent);
+
+  --bento-component-overlay-button-ghost-fill-hovered-inverse: color-mix(in srgb, var(--bento-palette-ref-palette-grey-50) 76%, transparent);
+  --bento-component-overlay-button-ghost-fill-pressed-inverse: color-mix(in srgb, var(--bento-palette-ref-palette-grey-50) 80%, transparent);
+
+  /* Overlay —ghost text (enabled uses same as filled for contrast pair) */
+  --bento-component-overlay-button-ghost-text-noninverse: var(--bento-theme-color-text-inverse);
+  --bento-component-overlay-button-ghost-text-inverse: var(--bento-palette-ref-palette-dark-grey-800);
+
+  /* Overlay horizontal padding (vertical size: --bento-component-button-height) */
+
+  --bento-component-overlay-button-filled-padding-x: var(--bento-theme-spacing-04);
+
+  --bento-component-overlay-button-filled-gap: var(--bento-theme-spacing-02);
+
+  --bento-component-overlay-button-filled-icon-padding-leading: var(--bento-theme-spacing-03);
+
+  --bento-component-overlay-button-filled-icon-padding-trailing: var(--bento-theme-spacing-04);
+
+  --bento-component-overlay-button-ghost-padding-x: var(--bento-theme-spacing-03);
+
+  --bento-component-overlay-button-ghost-gap: var(--bento-theme-spacing-02);
+
+  --bento-component-overlay-button-ghost-icon-padding-leading: var(--bento-theme-spacing-02);
+
+  --bento-component-overlay-button-ghost-icon-padding-trailing: var(--bento-theme-spacing-03);
+}
+
+:root {
+  /* Radix-backed Modal / @radix-ui/react-dialog — lib/bento/radix/Modal.tsx */
+
+  --bento-component-modal-z-index-overlay: 1000; /* @kind other */
+  --bento-component-modal-z-index-content: 1001; /* @kind other */
+
+  /* Responsive width cap defined here so TSX avoids raw vw/rem utilities */
+  --bento-component-modal-content-max-width: clamp(288px, 92vw, 456px); /* @kind spacing */
+  --bento-component-modal-content-max-height: 85vh;
+  /* Modals have no elevation tier of their own in the kit; they borrow the menu/
+     overflow tier so a later dialog-specific value does not move menus too. */
+  --bento-theme-elevation-shadow-dialog: var(--bento-theme-elevation-shadow-overlay-bottom);
+}
+
+:root {
+  /*
+   * Drawer (`comp-drawer` 59835:186253) — lib/bento/radix/Drawer.tsx · gallery *doc-drawer* 59494:91680 (59494-91680).
+   * Footer (`comp-footer` 59111:92509) — lib/bento/components/Footer.tsx · gallery *doc-footer* 59494:149427 (59494:149427).
+   * Drawer fixed widths derive from multiples of `--bento-theme-spacing-08` (48): 336 / 432 / 528 px.
+   */
+
+  --bento-component-drawer-z-index-overlay: var(--bento-component-modal-z-index-overlay);
+  --bento-component-drawer-z-index-content: var(--bento-component-modal-z-index-content);
+  --bento-component-drawer-max-height: 100vh;
+
+  --bento-component-drawer-fill: var(--bento-theme-color-bg-surface);
+  --bento-component-drawer-min-width: calc(var(--bento-theme-spacing-08) * 6);
+  --bento-component-drawer-width-sm: calc(var(--bento-theme-spacing-08) * 7);
+  --bento-component-drawer-width-md: calc(var(--bento-theme-spacing-08) * 9);
+  --bento-component-drawer-width-lg: calc(var(--bento-theme-spacing-08) * 11);
+  --bento-component-drawer-fluid-max-width: calc(var(--bento-theme-spacing-08) * 14);
+
+  /*
+   * Main nav drawer sibling (`nested-main-nav/drawer-aside` 59556:90138) · lib/bento/components/MainNavDrawer.tsx
+   * Collapsed rail (*doc-subnav* `is-open=false`); doc gallery frame height upper bound pairs with min(…,100%) in TSX.
+   */
+  --bento-component-main-nav-drawer-collapsed-width: var(--bento-theme-spacing-08);
+  --bento-component-main-nav-drawer-min-height-max: 964px;
+  --bento-component-main-nav-drawer-fill: var(--bento-palette-ref-palette-white);
+  /**
+   * Drawer trailing edge — same divider color as the page Header bottom
+   * (`--bento-component-header-divider` → `--bento-theme-color-border-subtle`)
+   * so the rail, drawer, and Header divider all read as the same neutral hairline.
+   * The rail (`MainNav`) always renders its own `border-r` in this same color, so
+   * when the two are composed there is a 1px seam between them — matching Figma.
+   */
+  --bento-component-main-nav-drawer-border-inline-end-color: var(--bento-theme-color-border-subtle);
+
+  --bento-component-drawer-header-actions-gap: var(--bento-theme-spacing-02);
+  --bento-component-drawer-header-content-gap: var(--bento-theme-spacing-02);
+  --bento-component-drawer-header-padding-x: var(--bento-theme-spacing-04);
+  --bento-component-drawer-header-padding-y: var(--bento-theme-spacing-03);
+
+  /* Bottom action strip (`comp-footer`) — optional inset top divider in TSX uses `--bento-component-footer-top-divider-shadow`. */
+  --bento-component-footer-region-height: var(--bento-theme-spacing-10);
+  --bento-component-footer-inner-max-height: var(--bento-theme-spacing-08);
+  --bento-component-footer-padding-x: var(--bento-theme-spacing-05);
+  --bento-component-footer-fill: var(--bento-theme-color-bg-surface);
+  --bento-component-footer-inner-gap: var(--bento-theme-spacing-02);
+  --bento-component-footer-top-divider-shadow: inset 0 var(--bento-component-button-outlined-border-width) 0 0
+    var(--bento-theme-color-border-subtle);
+
+  /* Drawer still references these aliases so Footer tokens stay the single semantic source. */
+  --bento-component-drawer-footer-region-height: var(--bento-component-footer-region-height);
+  --bento-component-drawer-footer-padding-x: var(--bento-component-footer-padding-x);
+  --bento-component-drawer-footer-inner-max-height: var(--bento-component-footer-inner-max-height);
+}
+
+:root {
+  /* Radix-backed floating layers — Tooltip, Dropdown menu, Popover (lib/bento/radix/)
+     Numeric offsets in floatingLayout.ts (sideOffset, collisionPadding) must stay aligned with `--bento-space-*` / `--bento-theme-spacing-*`. */
+
+  --bento-component-floating-z-index-popover: 1100; /* @kind other */
+  --bento-component-floating-z-index-dropdown-menu: 1110; /* @kind other */
+  --bento-component-floating-z-index-tooltip: 1120; /* @kind other */
+
+  /* HS-Bento `hs-comp-menu-min-width` — *doc-dropdown-menu* (59494:123015) */
+  --bento-component-dropdown-menu-content-min-width: 160px;
+  /* *Nested element - menu emoji* (43927:170672) — picker width ≈ 464px from scale (9×48 + 32) */
+  --bento-component-emoji-dropdown-content-width: calc(
+    var(--bento-space-08) * 9 + var(--bento-space-06)
+  );
+  /* *doc-dropdown-menu-filter* (59494:123124) — filter panel column max height before list scroll */
+  --bento-component-dropdown-filter-panel-max-height: min(
+    368px,
+    var(--bento-component-modal-content-max-height)
+  );
+  --bento-component-dropdown-filter-panel-width: 360px;
+  --bento-component-tooltip-content-max-width: 250px;
+  --bento-component-popover-content-max-width: var(--bento-component-modal-content-max-width);
+}
+
+:root {
+  /* Component tokens: Tooltip — comp-tooltip (59111:111840); gallery *doc-tooltip (59494:91615) */
+
+  --bento-component-tooltip-fill: var(--bento-theme-color-bg-surface-inverse);
+  --bento-component-tooltip-text: var(--bento-theme-color-text-inverse);
+  --bento-component-tooltip-padding-x: var(--bento-space-04);
+  --bento-component-tooltip-padding-y: var(--bento-space-03);
+  --bento-component-tooltip-min-height: var(--bento-theme-spacing-08);
+}
+
+:root {
+  /* Component tokens: Thumbnail — comp-thumbnail (published node 59436:96539; gallery instance 0:2185).
+     Doc matrix (*doc-thumbnail): https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-91613 */
+
+  --bento-component-thumbnail-border-radius: var(--bento-component-badge-border-radius);
+  --bento-component-thumbnail-fill-placeholder: var(--bento-theme-color-bg-surface-recessed);
+
+  /** Gallery ladder 72px tier (avatar scale stops at 64px — 2xl). */
+  --bento-component-thumbnail-size-3xl: 72px;
+}
+
+:root {
+  /*
+   * Alert family — doc *doc-alert*: https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-142993
+   * Published: `comp-alert` 59834:72753 · `comp-alert-banner` 59835:76208 · `comp-alert-toast` 59835:76153
+   */
+
+  --bento-component-alert-border-radius: var(--bento-theme-border-radii-03);
+  --bento-component-alert-gap-inline: var(--bento-theme-spacing-04);
+  --bento-component-alert-padding-x: var(--bento-theme-spacing-04);
+  --bento-component-alert-padding-y: var(--bento-theme-spacing-04);
+  --bento-component-alert-stack-gap: var(--bento-theme-spacing-02);
+  --bento-component-alert-icon-box-size: var(--bento-theme-icon-lg);
+  --bento-component-alert-actions-gap: var(--bento-theme-spacing-03);
+  --bento-component-alert-trailing-gap: var(--bento-theme-spacing-02);
+
+  --bento-component-alert-warning-fill: var(--bento-palette-ref-palette-yellow-100);
+  --bento-component-alert-warning-text: var(--bento-theme-color-text-base);
+
+  --bento-component-alert-info-fill: var(--bento-theme-color-bg-info);
+  --bento-component-alert-info-text: var(--bento-theme-color-text-base);
+
+  --bento-component-alert-negative-fill: var(--bento-palette-ref-palette-red-50);
+  --bento-component-alert-negative-text: var(--bento-theme-color-text-base);
+
+  --bento-component-alert-positive-fill: var(--bento-system-sys-positive-50);
+  --bento-component-alert-positive-text: var(--bento-theme-color-text-base);
+
+  --bento-component-alert-discovery-fill: var(--bento-system-sys-discovery-50);
+  --bento-component-alert-discovery-text: var(--bento-theme-color-text-base);
+
+  --bento-component-alert-banner-padding-x: var(--bento-theme-spacing-05);
+  --bento-component-alert-banner-padding-y: var(--bento-theme-spacing-04);
+  --bento-component-alert-banner-border-radius: var(--bento-theme-border-radii-none);
+
+  --bento-component-alert-toast-border-radius: var(--bento-theme-border-radii-03);
+  --bento-component-alert-toast-shadow: var(--bento-theme-elevation-shadow-overlay-bottom);
+  --bento-component-alert-toast-max-width: var(--bento-component-modal-content-max-width);
+}
+
+:root {
+  /*
+   * Feedback shells — gallery *doc-feedback-state*: https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-142995 (59494:142995).
+   * Published: `comp-feedback-status` 59436:200998 · `comp-feedback-empty-state` 59436:135390 · `comp-feedback-uploading-state` — doc instance ~26771:567936 · Figma spacing `hs-sys-spacing-horizontal-to-element-medium`/`vertical-to-element-medium` (= 16).
+   */
+
+  --bento-component-feedback-artwork-frame: var(--bento-theme-spacing-10);
+  --bento-component-feedback-padding-x: var(--bento-space-04);
+  --bento-component-feedback-padding-y: var(--bento-space-04);
+  --bento-component-feedback-stack-gap-major: var(--bento-theme-spacing-05);
+  --bento-component-feedback-stack-gap-between-text: var(--bento-space-02);
+  --bento-component-feedback-actions-gap-inline: var(--bento-space-02);
+  --bento-component-feedback-uploading-fill: var(--bento-theme-color-opacity-uploading);
+  /** Mirrors gallery card height with token-only arithmetic (487px-equivalent slab). */
+  --bento-component-feedback-demo-tile-min-height: calc(
+    (13 * var(--bento-theme-spacing-06)) + var(--bento-theme-spacing-08)
+  );
+}
+
+:root {
+  /* Component tokens: Listbox selectable row — nested-list-item/selectable (doc 59494:91676) */
+
+  --bento-component-list-item-border-radius: var(--bento-theme-border-radii-03);
+  --bento-component-list-item-padding-x: var(--bento-theme-spacing-04);
+  --bento-component-list-item-padding-y: var(--bento-theme-spacing-04);
+  --bento-component-list-item-padding-y-leading-compact: var(--bento-theme-spacing-02);
+  --bento-component-list-item-gap-inline: var(--bento-theme-spacing-04);
+  --bento-component-list-item-gap-leading: var(--bento-theme-spacing-04);
+  --bento-component-list-item-focus-ring-width: 2px;
+
+  --bento-component-list-item-fill: transparent;
+  --bento-component-list-item-fill-keyboard: var(--bento-theme-color-bg-surface-hovered);
+  --bento-component-list-item-fill-hovered: var(--bento-theme-color-bg-surface-hovered);
+  --bento-component-list-item-fill-pressed: var(--bento-palette-ref-palette-grey-300);
+  --bento-component-list-item-fill-selected: var(--bento-palette-ref-palette-grey-200);
+  --bento-component-list-item-fill-disabled: var(--bento-theme-color-bg-disabled);
+}
+
+:root {
+  /* Notification list cell — `comp-notification` (59175:119462); doc *doc-notification (59494:142991). */
+  --bento-component-notification-width: 400px;
+}
+
+:root {
+  /*
+   * Combobox — `comp-combobox` (published 59463:74717); gallery *doc-combobox (59494:122928).
+   * Input chrome aligns with HS-Bento form spacing (horizontal medium / vertical x-small).
+   */
+
+  --bento-component-combobox-input-border-radius: var(--bento-theme-border-radii-03);
+  --bento-component-combobox-input-padding-x: var(--bento-theme-spacing-04);
+  --bento-component-combobox-input-padding-y: var(--bento-theme-spacing-02);
+  --bento-component-combobox-input-gap-inline: var(--bento-theme-spacing-02);
+  --bento-component-combobox-input-min-height-single: 40px; /* Figma control height (symbols draw inputs at 40px) */
+  --bento-component-combobox-panel-max-height: min(320px, var(--bento-component-modal-content-max-height));
+  --bento-component-combobox-focus-ring-width: var(--bento-component-form-control-focus-ring-width);
+  --bento-component-combobox-focus-ring-color: var(--bento-component-form-control-focus-ring-color);
+}
+
+:root {
+  /*
+   * Input — `comp-input` / `comp-input-password` / `comp-input-search` / `comp-input-payment`.
+   * Gallery *doc-inputs: https://www.figma.com/design/aKHlKcXz3CBraFt02nWzS7/HS-Bento-gallery?node-id=59494-123150 (59494:123150)
+   * Published: `comp-input` 59466:75464 · `comp-input-password` 59466:169922 · `comp-input-search` 59466:93103 · `comp-input-payment` 59466:169886
+   */
+
+  --bento-component-input-border-radius: var(--bento-theme-border-radii-03);
+  --bento-component-input-padding-x: var(--bento-theme-spacing-04);
+  --bento-component-input-padding-y: var(--bento-theme-spacing-02);
+  --bento-component-input-gap-inline: var(--bento-theme-spacing-02);
+  --bento-component-input-min-height: 40px; /* Figma control height (symbols draw inputs at 40px) */
+  --bento-component-input-border-width: 1px;
+  --bento-component-input-fill: var(--bento-theme-color-bg-input);
+  --bento-component-input-fill-disabled: var(--bento-theme-color-bg-disabled);
+  --bento-component-input-border-rest: var(--bento-system-sys-neutral-300); /* #767676 — Figma input/textarea control border */
+  --bento-component-input-border-disabled: var(--bento-theme-color-border-disabled);
+  --bento-component-input-border-negative: var(--bento-theme-color-border-negative);
+  --bento-component-input-focus-ring-width: var(--bento-component-form-control-focus-ring-width);
+  --bento-component-input-focus-ring-color: var(--bento-component-form-control-focus-ring-color);
+  --bento-component-input-leading-box: var(--bento-theme-icon-lg);
+
+  /* Textarea (`comp-textarea` 59111:77203 — gallery *doc-textarea* 59494:123249) */
+  --bento-component-textarea-min-height: calc(
+    var(--bento-theme-spacing-08) + var(--bento-theme-spacing-08)
+  );
+  /* Error + keyboard focus: inset negative + gap ring + thick outer focus (Figma hs-sys-stroke-weight-focus-thick). */
+  --bento-component-textarea-invalid-focus-gap-width: 1px;
+  --bento-component-textarea-invalid-focus-gap-color: var(--bento-theme-color-bg-input);
+  --bento-component-textarea-invalid-focus-ring-width: 3px;
+}
+
+:root {
+  /*
+   * Form primitives — gallery *doc-controls (59494:122838).
+   * Instances: comp-checkbox, comp-radio, comp-switch, comp-stepper, comp-form-control-*.
+   */
+
+  --bento-component-form-control-touch-target: var(--bento-theme-spacing-08);
+  --bento-component-form-control-icon-box: var(--bento-theme-icon-lg);
+  --bento-component-form-control-gap-inline: var(--bento-theme-spacing-04);
+  --bento-component-form-control-focus-ring-width: 2px;
+  --bento-component-form-control-focus-ring-color: var(--bento-theme-color-border-focus);
+
+  --bento-component-switch-web-track-width: 52px;
+  --bento-component-switch-web-track-height: 32px;
+  /** Capsule ends — half track height (full pill / oval bar, not a rounded rectangle). */
+  --bento-component-switch-web-track-radius: calc(
+    var(--bento-component-switch-web-track-height) / 2
+  );
+  --bento-component-switch-web-track-width-sm: 39px;
+  --bento-component-switch-web-track-height-sm: 24px;
+  --bento-component-switch-web-track-radius-sm: calc(
+    var(--bento-component-switch-web-track-height-sm) / 2
+  );
+  --bento-component-switch-thumb-size-web: 26px;
+  --bento-component-switch-thumb-size-web-sm: 18px;
+
+  --bento-component-switch-android-track-width: 38px;
+  --bento-component-switch-android-track-height: 14px;
+  --bento-component-switch-android-track-radius: calc(
+    var(--bento-component-switch-android-track-height) / 2
+  );
+  --bento-component-switch-thumb-size-android: 10px;
+
+  --bento-component-switch-track-off: var(--bento-theme-color-bg-surface-recessed);
+  --bento-component-switch-track-on: var(--hs-action-primary); /* was --bento-theme-color-bg-nav (dark teal) — audit fix, switches use the action colour, not nav chrome */
+  --bento-component-switch-thumb-fill: var(--bento-theme-color-text-inverse);
+  --bento-component-switch-thumb-shadow: var(--bento-theme-elevation-shadow-raised);
+
+  --bento-component-stepper-value-min-width: var(--bento-theme-spacing-08);
+  --bento-component-stepper-value-radius: var(--bento-radius-md);
+}
+
+:root {
+  /*
+   * File uploader family — gallery *doc-file-uploader (59494:123126).
+   * Progress shells — gallery *doc-progress (59494:142981); published `comp-progress-bar` / `comp-progress-stepped`.
+   * Variable snapshot via Figma MCP on doc node (comp-file-uploader / comp-file-uploaded / comp-progress-bar / comp-compact-alert).
+   * Published refs: `comp-file-uploader` 59436:230050 · `comp-file-uploaded` 59465:98705 · `comp-progress-bar` 59111:76617 · `comp-compact-alert` 59111:77192
+   */
+
+  --bento-component-file-uploader-border-radius: var(--bento-theme-border-radii-03);
+  --bento-component-file-uploader-fill: var(--bento-palette-ref-palette-grey-50);
+  --bento-component-file-uploader-fill-hovered: var(--bento-palette-ref-palette-grey-100);
+  --bento-component-file-uploader-border-color: var(--bento-palette-ref-palette-dark-grey-300);
+  --bento-component-file-uploader-border-color-hovered: var(--bento-palette-ref-palette-dark-grey-500);
+  --bento-component-file-uploader-text-hovered: var(--bento-theme-color-text-base);
+  /** Doc frame uses 40px vertical padding for the drop zone (hs-sys-spacing-10 resolved in file context). */
+  --bento-component-file-uploader-padding-y: 40px;
+  --bento-component-file-uploader-padding-x: var(--bento-theme-spacing-08);
+  --bento-component-file-uploader-gap-stack: var(--bento-theme-spacing-04);
+  --bento-component-file-uploader-border-width: var(--bento-theme-stroke-weight-drop-area);
+  /** Tallest doc instance cell (~disabled column). */
+  --bento-component-file-uploader-min-height: 172px;
+
+  /** Heights align with slider track sm/md/lg — gallery *doc-progress* (59494:142981). */
+  --bento-component-progress-bar-height-sm: var(--bento-component-slider-track-height-sm);
+  --bento-component-progress-bar-height-md: var(--bento-component-slider-track-height-md);
+  --bento-component-progress-bar-height-lg: var(--bento-component-slider-track-height-lg);
+  /** Default shell height (medium) — used where a single token is referenced. */
+  --bento-component-progress-bar-height: var(--bento-component-progress-bar-height-md);
+  --bento-component-progress-bar-fill-track: var(--bento-palette-ref-palette-grey-300);
+  --bento-component-progress-bar-fill-indicator: var(--bento-palette-ref-palette-dark-grey-500);
+
+  /** Stepped progress (`comp-progress-stepped` 59111:226603) — hs-sys-spacing-text-to-element-x-small → theme spacing-02. */
+  --bento-component-progress-step-gap: var(--bento-theme-spacing-02);
+  --bento-component-progress-step-fill-done: var(--bento-component-progress-bar-fill-indicator);
+  --bento-component-progress-step-fill-todo: var(--bento-component-progress-bar-fill-track);
+
+  /** Listed progress portrait · landscape (`comp-step-listed-portrait` 59111:78075 · `comp-step-listed-landscape` 59111:248114) — galleries *doc-progress-listed-portrait* (10100:176468) · *doc-progress-listed-landscape* (24587:208954). */
+  --bento-component-progress-listed-fill-done: var(--bento-system-sys-positive-600);
+  --bento-component-progress-listed-fill-todo: var(--bento-palette-ref-palette-grey-300);
+  --bento-component-progress-listed-fill-active: var(--bento-palette-ref-palette-dark-grey-500);
+  --bento-component-progress-listed-track-width: var(--bento-theme-stroke-weight-drop-area);
+  /** Fixed leading track before an active indicator (full “Base” item). */
+  --bento-component-progress-listed-track-before-active: 14px;
+  /** Compact numbered active row leading track (`comp-step-listed-portrait` compact column). */
+  --bento-component-progress-listed-track-before-active-compact: var(--bento-theme-spacing-01);
+  --bento-component-progress-listed-rail-width: var(--bento-space-10);
+  --bento-component-progress-listed-indicator-number: var(--bento-component-avatar-size-md);
+  --bento-component-progress-listed-indicator-icon: var(--bento-theme-icon-md);
+  --bento-component-progress-listed-content-padding-y: var(--bento-theme-spacing-04);
+  --bento-component-progress-listed-content-gap: var(--bento-theme-spacing-04);
+  --bento-component-progress-listed-actions-gap: var(--bento-theme-spacing-02);
+  /**
+   * `hs-sys/title/subsection` on active / to-do numbered steps (gallery comp-step-listed-portrait).
+   * Theme font scale has 18px / 24px steps — this component needs the Figma subsection size.
+   */
+  --bento-component-progress-listed-number-font-size: 22px;
+  --bento-component-progress-listed-number-line-height: 32px;
+
+  --bento-component-file-uploaded-border-radius: var(--bento-theme-border-radii-03);
+  --bento-component-file-uploaded-fill: var(--bento-palette-ref-palette-grey-100);
+  --bento-component-file-uploaded-gap-inline: var(--bento-theme-spacing-02);
+  --bento-component-file-uploaded-padding-x: var(--bento-theme-spacing-04);
+  --bento-component-file-uploaded-padding-y: var(--bento-theme-spacing-02);
+  --bento-component-file-uploaded-trailing-gap: var(--bento-theme-spacing-05);
+
+  --bento-component-compact-alert-gap-inline: var(--bento-theme-spacing-02);
+  --bento-component-compact-alert-icon-box: var(--bento-theme-icon-lg);
+  --bento-component-compact-alert-text-negative: var(--bento-theme-color-text-negative);
+
+  --bento-component-form-control-uploader-stack-gap: var(--bento-theme-spacing-02);
+}
+
+/* ── Batch A component tokens (Figma-verified) ───────────────── */
+:root{
+  /* comp-hyperlink · node 57754:96198 */
+  --bento-component-hyperlink-text-rest: var(--bento-theme-color-text-link);
+  --bento-component-hyperlink-text-hovered: var(--bento-theme-color-text-link-hovered);
+  --bento-component-hyperlink-text-disabled: var(--bento-palette-ref-palette-dark-grey-200);
+  --bento-component-hyperlink-icon-size: 16px;
+  /* comp-snackbar · node 59175:206322 · comp-bulk-action-bar · node 65806:168432 */
+  --bento-component-snackbar-fill: var(--bento-theme-color-bg-surface-inverse);
+  --bento-component-snackbar-text: var(--bento-theme-color-text-inverse);
+  --bento-component-snackbar-min-height: 56px;
+  --bento-component-snackbar-radius: 8px;
+  --bento-component-snackbar-shadow: 0 0 1px 0 rgba(28,28,28,.28), 0 8px 16px 0 rgba(28,28,28,.16);
+  --bento-component-bulk-action-bar-height: 48px;
+  /* comp-header · node 59362:129654 · comp-sub-header · node 59362:136542 */
+  --bento-component-header-height: 64px;
+  --bento-component-header-padding-x: 24px;
+  --bento-component-header-slot-height: 40px;
+  /* comp-navdrawer. PRODUCTION measures 288 on every product drawer; the HS-Bento
+     gallery draws 304. Kit rule is match production, so production wins here. */
+  --bento-component-navdrawer-width: 288px;
+  /* comp-list-item · node 67127:92348 */
+  --bento-component-list-item-min-height: 56px;
+  --bento-component-list-item-min-height-compact: 40px;
+  --bento-component-list-item-padding-x: 16px;
+  /* comp-tag-list · node 67127:167516 · comp-chip-filter-list · node 59111:139117 */
+  --bento-component-tag-list-gap: 8px;
+  --bento-component-tag-list-row-height: 32px;
+}
+
+/* ── Batch B component tokens (Figma-verified) ───────────────── */
+:root{
+  /* ✽sflakes/comp-event-note · node 59111:88970 */
+  --bento-component-event-note-padding-y: 4px;
+  --bento-component-event-note-padding-x: 8px;
+  --bento-component-event-note-gap: 8px;
+  --bento-component-event-note-icon-size: 20px;
+  --bento-component-event-note-radius: 2px;
+  /* ✽sflakes/comp-card-calendar-portrait · node 65374:94417 */
+  --bento-component-card-calendar-width: 192px;
+  --bento-component-card-calendar-height: 208px;
+  --bento-component-card-calendar-max-height: 240px;
+  --bento-component-card-calendar-padding: 8px;
+  /* comp-file-uploaded · node 67127:252806 */
+  --bento-component-file-uploaded-height: 40px;
+  --bento-component-file-uploaded-fill: var(--bento-theme-color-bg-surface-recessed);
+  --bento-component-file-uploaded-radius: 8px;
+  /* .nested-character-counter · node 67127:195172 */
+  --bento-component-character-counter-text: var(--bento-theme-color-text-subtle);
+  --bento-component-character-counter-text-error: var(--bento-theme-color-text-negative);
+}
+
+/* ── Batch C component tokens (Figma-verified) ───────────────── */
+:root{
+  /* .nested-calendar-day-surface · node 59111:92279 / 63135:184713 */
+  --bento-component-calendar-day-size: 48px;
+  --bento-component-calendar-day-fill-range: var(--bento-theme-color-bg-surface-selected);
+  --bento-component-calendar-day-fill-selected: var(--bento-theme-color-bg-accent-selected);
+  --bento-component-calendar-day-ring-selected: var(--bento-theme-color-bg-surface-inverse);
+}
+
+/* ── Scrims (Figma: modal 0.65 black, media 0.64 of dark-grey-500) ──── */
+:root{
+  --bento-theme-color-scrim-modal: rgba(0,0,0,.65);
+  --bento-theme-color-scrim-media: rgba(51,51,51,.64);
+  --bento-theme-color-scrim-overlay-bar: rgba(0,0,0,.6);
+}
+
+/* ── comp-icon-button-overlay · node 59436:92759 ─────────────── */
+:root{
+  --bento-component-icon-button-overlay-size: 40px;
+  --bento-component-icon-button-overlay-padding: 10px;
+  --bento-component-icon-button-overlay-icon-size: 20px;
+  --bento-component-icon-button-overlay-fill: var(--bento-theme-color-scrim-media);
+  --bento-component-icon-button-overlay-fill-inverse: color-mix(in srgb, var(--hs-surface-white) 64%, transparent);
+}
+
+/* ── Batch D · nested composable parts (Figma-verified) ──────── */
+:root{
+  /* .nested-trailing-icon/* · node 57754:95294 */
+  --bento-component-trailing-icon-size: 20px;
+  --bento-component-trailing-icon-size-small: 16px;
+  --bento-component-trailing-icon-touch-target: 48px;
+  /* .nested-input-tag-button · node 63135:90045 */
+  --bento-component-input-tag-button-padding: 8px;
+  --bento-component-input-tag-button-icon-size: 16px;
+  /* .nested-chip/clear · node 59111:92212 */
+  --bento-component-chip-clear-padding: 4px;
+  --bento-component-chip-clear-icon-size: 16px;
+  /* .nested-expaned · node 65793:140476 */
+  --bento-component-expander-size: 40px;
+}
+
+/* ── Batch E · nested composable parts (Figma-verified) ──────── */
+:root{
+  /* .nested-list-item/heading · node 59111:130677 */
+  --bento-component-list-item-heading-height: 56px;
+  --bento-component-list-item-heading-padding: 24px 16px 8px 16px;
+  /* .nested-snackbar-action · node 59175:206316 */
+  --bento-component-snackbar-action-padding: 8px 16px;
+  /* .nes-space/nesteding-space · node 57754:228997 — 32px per level (S5) */
+  --bento-component-nesting-space-step: 32px;
+  /* .nested-touch/target · 48px minimum hit area */
+  --bento-component-touch-target-size: 48px;
+}
+
+/* ── .nested-progress/listed-indicator · node 66880:143512 ───── */
+:root{
+  --bento-component-progress-indicator-size: 40px;
+  --bento-component-progress-indicator-icon-size: 20px;
+  --bento-component-progress-indicator-fill-done: var(--bento-system-sys-positive-600); /* #01781B */
+  --bento-component-progress-indicator-fill-active: var(--bento-theme-color-bg-primary);
+  --bento-component-progress-indicator-fill-todo: var(--bento-theme-color-bg-surface-recessed);
+}
+
+/* ── .nested-time-input · node 59111:76944 ───────────────────── */
+:root{
+  --bento-component-time-input-gap: 8px;
+  --bento-component-time-input-segment-fill-selected: var(--bento-theme-color-bg-accent-selected);
+}
+
+/* ── Batch F · nav + dropdown item parts (Figma-verified) ────── */
+:root{
+  /* .nested-nav-drawer-item-heading · node 67127:91524 */
+  --bento-component-nav-heading-height: 56px;
+  --bento-component-nav-heading-padding: 24px 0 8px 0;
+  /* .master-dropdown/item-navigation · node 66569:185973 */
+  --bento-component-dropdown-item-height: 56px;
+  --bento-component-dropdown-item-height-compact: 40px;
+  --bento-component-dropdown-item-control-width: 40px;
+  --bento-component-dropdown-item-control-min-height: 48px;
+}
+
+/* ── Row media containers (Figma-verified) ───────────────────── */
+:root{
+  /* nested-contanier-artwork · node 59111:101178 */
+  --bento-component-row-artwork-padding: 16px 16px 16px 0;
+  --bento-component-row-artwork-icon-size: 24px;
+  /* nested-contanier-avatar · node 67127:91929 · -thumbnail · node 67127:92210 */
+  --bento-component-row-media-padding: 8px 16px 8px 0;
+  --bento-component-row-media-size: 40px;
+}

@@ -1,0 +1,257 @@
+/* ──────────────────────────────────────────────────────────────────
+   Bento — Hootsuite design system
+   ─────────────────────────────────────────────────────────────────
+   This file is a thin ALIAS LAYER on top of the Figma-derived
+   --bento-* tokens shipped in tokens/colors.css, tokens/typography.css,
+   tokens/layout.css. Bento tokens are the single source of truth;
+   --hs-* names below are convenience aliases for older preview cards
+   and quick reads in the asset pane.
+
+   Anything you build inside this project should use Bento tokens
+   directly (--bento-theme-color-bg-primary, var(--bento-space-04), the
+   .bento-text-* classes from typography.css). If you reach for a value
+   that isn't here, add a token — never hard-code a hex.
+   Load order (fonts + colors + typography + layout + fig-tokens) is owned
+   by the root styles.css; this file is imported after them.
+   ────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Surfaces ─────────────────────────────────────────────────── */
+  --hs-surface:         var(--bento-theme-color-bg-surface);             /* #FDFDFD */
+  --hs-surface-subtle:  var(--bento-theme-color-bg-surface-hovered);     /* #F7F8F9 */
+  --hs-surface-muted:   var(--bento-theme-color-bg-app);                 /* #FDFDFD */
+  --hs-surface-strong:  var(--bento-system-sys-neutral-alt-300);         /* #EEF1F2 */
+  --hs-surface-inverse: var(--bento-theme-color-bg-surface-inverse);     /* #333333 — Figma inverse surface */
+  /* DEAD TOKEN — consumed by nothing. Kept only so existing references resolve.
+     The nav/rail surface is NOT navy: .hs-rail uses --hs-surface and
+     templates/src/suite-shell.css sets --suite-surface: #FDFDFD (measured
+     2026-09-06). This token's name and the prose built on it are what produced a
+     hand-built navy rail in a from-scratch run. Do not reach for it. */
+  --hs-surface-nav:     var(--bento-system-sys-primary-500);             /* #012B3A — NOT the rail */
+  --hs-surface-white:   var(--bento-palette-ref-palette-white);
+
+  /* ── Borders ──────────────────────────────────────────────────── */
+  --hs-border:          var(--bento-theme-color-border-subtle);          /* #EBEBEB */
+  --hs-border-strong:   var(--bento-theme-color-border-btn-outlined);    /* #1C1C1C — outlined-button stroke */
+  --hs-border-subtle:   var(--bento-system-sys-neutral-50);              /* #EBEBEB */
+  --hs-border-input:    var(--bento-system-sys-neutral-300);             /* #767676 — Figma input/textarea border */
+  --hs-border-focus:    var(--bento-theme-color-border-focus);           /* #0065FF — true blue focus ring */
+  --hs-focus-halo:      color-mix(in srgb, var(--bento-theme-color-border-focus) 20%, transparent);
+
+  /* ── Text / foreground ────────────────────────────────────────── */
+  --hs-fg:              var(--bento-theme-color-text-base);              /* #1C1C1C */
+  --hs-fg-secondary:    var(--bento-system-sys-neutral-400);             /* #5C5C5C */
+  /* DISABLED INK = #A1A1A1, measured on two genuinely disabled controls
+     (element.disabled === true). It pointed at --bento-theme-color-text-disabled,
+     which resolves to #5C5C5C — our SECONDARY TEXT colour — so disabled text read
+     as ordinary muted copy. PRODUCTION DOES NOT FADE DISABLED CONTROLS: opacity is
+     1 on both samples. The treatment is an ink swap plus cursor: not-allowed.
+     (Ported here 2026-09-07: this correction previously existed ONLY in
+     colors_and_type.css, so styles.css and the bundle shipped the stale value.) */
+  --hs-fg-disabled:     #A1A1A1;
+  --hs-fg-inverse:      var(--bento-theme-color-text-inverse);
+  --hs-fg-link:         var(--bento-theme-color-text-link);              /* #1F60C9 */
+  --hs-fg-info:         var(--bento-theme-color-text-link);
+  --hs-fg-positive:     var(--bento-theme-color-text-positive);          /* #01781B */
+  --hs-fg-negative:     var(--bento-theme-color-text-negative);          /* #C00803 */
+  --hs-fg-warning:      var(--bento-palette-ref-palette-yellow-900);     /* #6B4B15 */
+  --hs-fg-discovery:    var(--bento-system-sys-discovery-500);           /* #7356BF */
+
+  /* ── Action / interactive ─────────────────────────────────────── */
+  /* PRIMARY CTA FILL = Bento blue #1F60C9 (info-600 / blue-600), confirmed against
+     production computed styles on Perch Calendar 2026-09-05. Navy #012B3A is CHROME
+     ONLY (see --hs-surface-nav) and must never fill a call to action.
+     FLAG: Bento documents no comp-layer button-fill token; these three aliases are
+     OURS, not documented. design calls the CTA colour "Luna" — no token of that
+     name exists in the kit or the .fig. Name unresolved; value confirmed. */
+  --hs-action-primary:           var(--bento-system-sys-info-600);               /* #1F60C9 */
+  /* PRIMARY HOVER GOES LIGHTER, secondary goes DARKER. Confirmed by REAL-POINTER
+     measurement (computed styles read while hovered), not by a synthetic event:
+       primary   rest #1F60C9 (info-600) → hover #4E87E4 (info-400)  LIGHTER
+       secondary rest #EEF1F2 (alt-300)  → hover #EBEEEF (alt-400)   DARKER
+     A single "darken on hover" rule — the usual default — is wrong on the primary,
+     i.e. on the most visible button on every page.
+     (Ported here 2026-09-07: previously ONLY in colors_and_type.css, so styles.css
+     and the bundle shipped info-700 #184B9D — darkening where production lightens.)
+     ⚠ OPEN AA CONFLICT: #FDFDFD (NOT white — see below) on #4E87E4 = 3.49:1 and the
+     label is 14px/700, which is NOT WCAG large text, so 4.5 is required and this
+     FAILS. #3670D4 measures 4.67:1 and is still lighter than the rest state,
+     honouring production's direction while clearing the floor. Awaiting the
+     veto — do not change the value here without it, and change it ONLY here now
+     that the sources are one.
+     §K123a — RECORD THE FOREGROUND WITH EVERY RATIO. These figures assume the
+     foreground #FDFDFD, confirmed from production's own component token
+     (--hs-comp-button-primary-color-text: #fdfdfd), NOT pure white. Against
+     #FFFFFF the same three fills give 3.55 / 4.75 / 5.87 — different digits, same
+     verdicts (#4E87E4 fails on both, #3670D4 passes on both). A contrast figure
+     without its pair is unreproducible.
+     §K123d — do NOT "simplify" this to --hs-sys-color-primary-content: that is
+     #012b3a (Dark Teal). The component tier overrides the system tier here on
+     purpose; using the sys token turns the label dark teal. */
+  --hs-action-primary-hover:     var(--bento-system-sys-info-400);               /* #4E87E4 */
+  --hs-action-primary-pressed:   var(--bento-system-sys-info-800);               /* #133A7A */
+  --hs-action-secondary:         var(--bento-system-sys-neutral-alt-300);        /* #EEF1F2 */
+  --hs-action-secondary-hover:   var(--bento-system-sys-neutral-alt-400);        /* #EBEEEF */
+  --hs-action-secondary-pressed: var(--bento-system-sys-neutral-alt-500);        /* #E6EAEB */
+  --hs-action-disabled:          var(--bento-palette-ref-palette-grey-100);      /* #F7F8F9 */
+
+  /* Modal / media scrim. Verified against production: the documented value and
+     production's modal scrim are identical — one of only two places where our
+     documentation and production already agreed, after the focus ring.
+     The kit previously had NINE scrim sites at SIX different values. */
+  --hs-scrim: rgba(51,51,51,0.64);
+
+  /* ── Brand ────────────────────────────────────────── */
+  --hs-brand-saffron: var(--bento-theme-color-brand-decorative-1); /* Owly coral */
+  --hs-brand-deep:    var(--bento-system-sys-primary-500);
+
+  /* ── Semantic surfaces ────────────────────────────────────────── */
+  --hs-bg-neutral:   var(--bento-palette-ref-palette-grey-300);      /* #EEF1F2 */
+  --hs-on-neutral:   var(--bento-theme-color-text-base);
+  --hs-bg-info:      var(--bento-theme-color-bg-info);               /* #E9F0FC */
+  --hs-bg-positive:  var(--bento-theme-color-bg-positive);           /* #E6F3E9 */
+  --hs-bg-negative:  var(--bento-palette-ref-palette-red-50);        /* #FBE6E6 */
+  --hs-bg-warning:   var(--bento-palette-ref-palette-yellow-100);    /* #FFE7C0 */
+  --hs-bg-discovery: var(--bento-theme-color-bg-discovery);          /* #F1EEF9 */
+
+  /* Hover overlay applied on top of interactive badges. */
+  --hs-overlay-hover: var(--bento-component-overlay-button-filled-fill);
+
+  /* ── Categorical (chart, network, tags) — solid hues ──────────── */
+  --hs-cat-1:  #658CF1; --hs-cat-2:  #3FC8CD; --hs-cat-3:  #5859AA;
+  --hs-cat-4:  #FDC86F; --hs-cat-5:  #E97A99; --hs-cat-6:  #85D4F3;
+  --hs-cat-7:  #9258B3; --hs-cat-8:  #FE9F6C; --hs-cat-9:  #31A19C;
+  --hs-cat-10: #DE93C3;
+
+  /* Tinted pairings — avatars, calendar event-chips, tag pills. */
+  --hs-cat-1-bg:  var(--bento-global-categorical-color-1-fill);  --hs-cat-1-fg:  var(--bento-global-categorical-color-1-text);
+  --hs-cat-2-bg:  var(--bento-global-categorical-color-2-fill);  --hs-cat-2-fg:  var(--bento-global-categorical-color-2-text);
+  --hs-cat-3-bg:  var(--bento-global-categorical-color-3-fill);  --hs-cat-3-fg:  var(--bento-global-categorical-color-3-text);
+  --hs-cat-4-bg:  var(--bento-global-categorical-color-4-fill);  --hs-cat-4-fg:  var(--bento-global-categorical-color-4-text);
+  --hs-cat-5-bg:  var(--bento-global-categorical-color-5-fill);  --hs-cat-5-fg:  var(--bento-global-categorical-color-5-text);
+  --hs-cat-6-bg:  var(--bento-global-categorical-color-6-fill);  --hs-cat-6-fg:  var(--bento-global-categorical-color-6-text);
+  --hs-cat-7-bg:  var(--bento-global-categorical-color-7-fill);  --hs-cat-7-fg:  var(--bento-global-categorical-color-7-text);
+  --hs-cat-8-bg:  var(--bento-global-categorical-color-8-fill);  --hs-cat-8-fg:  var(--bento-global-categorical-color-8-text);
+  --hs-cat-9-bg:  var(--bento-global-categorical-color-9-fill);  --hs-cat-9-fg:  var(--bento-global-categorical-color-9-text);
+  --hs-cat-10-bg: var(--bento-global-categorical-color-10-fill); --hs-cat-10-fg: var(--bento-global-categorical-color-10-text);
+
+  /* ── Suite shell nav accents (alias) ──────────────────────────── */
+  --suite-perch-fill: var(--bento-suite-perch-fill);           --suite-perch-icon: var(--bento-suite-perch-icon);
+  --suite-nest-fill: var(--bento-suite-nest-fill);             --suite-nest-icon: var(--bento-suite-nest-icon);
+  --suite-lumen-fill: var(--bento-suite-lumen-fill);           --suite-lumen-icon: var(--bento-suite-lumen-icon);
+  --suite-parliament-fill: var(--bento-suite-parliament-fill); --suite-parliament-icon: var(--bento-suite-parliament-icon);
+  --suite-wisdom-fill: var(--bento-suite-wisdom-fill);         --suite-wisdom-icon: var(--bento-suite-wisdom-icon);
+  --suite-vigil-fill: var(--bento-suite-vigil-fill);           --suite-vigil-icon: var(--bento-suite-vigil-icon);
+  --suite-settings-fill: var(--bento-suite-settings-fill);     --suite-settings-icon: var(--bento-suite-settings-icon);
+  --suite-nav-hover-wash: var(--bento-suite-nav-hover-wash);
+  /* Audit P0: referenced by components-ext.css rail/drawer labels but never defined
+     at kit scope (only inside templates/src/suite-shell.css, which no consumer loads).
+     Defined here so every consumer of styles.css resolves it. */
+  --suite-ink: var(--bento-theme-color-text-base);
+
+  /* ── Radii (alias to Bento) ───────────────────────────────────── */
+  --hs-radii-none: var(--bento-theme-border-radii-none);
+  --hs-radii-xs:   var(--bento-theme-border-radii-01);   /*  2px */
+  --hs-radii-sm:   var(--bento-theme-border-radii-01);
+  --hs-radii-md:   var(--bento-theme-border-radii-03);   /*  8px (small button, chip) */
+  --hs-radii-lg:   var(--bento-theme-border-radii-03);   /*  8px (card, button, input) */
+  --hs-radii-xl:   var(--bento-theme-border-radii-02);   /* 16px (large card / modal) */
+  --hs-radii-full: 999px;
+
+  /* ── Elevation ────────────────────────────────────────────────── */
+  --hs-elev-raised:        var(--bento-theme-elevation-shadow-raised);
+  --hs-elev-overlay-top:   var(--bento-theme-elevation-shadow-overlay-top);
+  --hs-elev-overlay-bot:   var(--bento-theme-elevation-shadow-overlay-bottom);
+  --hs-elev-overflow-top:  var(--bento-theme-elevation-shadow-overflow-top);
+  --hs-elev-overflow-bot:  var(--bento-theme-elevation-shadow-overflow-bottom);
+  --hs-elev-card:          var(--bento-theme-elevation-shadow-overlay-bottom);
+  --hs-elev-side:          var(--bento-theme-elevation-shadow-drawer-from-left);
+
+  /* ── Spacing (alias to Bento) ─────────────────────────────────── */
+  --hs-sp-0:  0; /* @kind spacing */
+  --hs-sp-1:  var(--bento-space-01);   /*  4px */
+  --hs-sp-2:  var(--bento-space-02);   /*  8px */
+  --hs-sp-3:  var(--bento-space-03);   /* 12px */
+  --hs-sp-4:  var(--bento-space-04);   /* 16px */
+  --hs-sp-5:  var(--bento-space-05);   /* 24px */
+  --hs-sp-6:  var(--bento-space-06);   /* 32px */
+  --hs-sp-8:  var(--bento-space-08);   /* 48px */
+  --hs-sp-10: var(--bento-space-10);   /* 64px */
+  --hs-sp-12: 80px;
+  --hs-sp-14: 96px;
+  --hs-sp-16: 112px;
+
+  /* ── Typography pairings (alias to Bento sizes) ───────────────── */
+  --hs-font-body:    var(--bento-theme-font-families-primary);
+  --hs-font-display: var(--bento-theme-font-families-secondary);
+
+  --hs-type-display-1:  var(--bento-theme-font-weights-semibold) var(--bento-theme-font-size-8)/var(--bento-theme-line-heights-8) var(--hs-font-display); /* 56/76 — Figma display line-height (node 4490:40960); was raw 72px */
+  --hs-type-display-2:  var(--bento-theme-font-weights-semibold) var(--bento-theme-font-size-7)/var(--bento-theme-line-heights-7) var(--hs-font-display); /* 44/60; was raw 64px */
+  --hs-type-display-3:  var(--bento-theme-font-weights-semibold) var(--bento-theme-font-size-6)/var(--bento-theme-line-heights-6) var(--hs-font-display); /* 36/48 */
+
+  --hs-type-title-hero:    var(--bento-theme-font-weights-semibold) 96px/96px var(--hs-font-body);
+  --hs-type-title-screen:  var(--bento-theme-font-weights-semibold) 30px/40px var(--hs-font-body);
+  --hs-type-title-section: var(--bento-theme-font-weights-semibold) 26px/32px var(--hs-font-body);
+  --hs-type-title-sub:     var(--bento-theme-font-weights-semibold) 22px/32px var(--hs-font-body);
+  --hs-type-title-base:    var(--bento-theme-font-weights-semibold) 18px/24px var(--hs-font-body);
+
+  --hs-type-body-md:    var(--bento-theme-font-weights-regular)   var(--bento-theme-font-size-2)/var(--bento-theme-line-heights-2) var(--hs-font-body);
+  --hs-type-body-md-b:  var(--bento-theme-font-weights-semibold)  var(--bento-theme-font-size-2)/var(--bento-theme-line-heights-2) var(--hs-font-body);
+  --hs-type-body-sm:    var(--bento-theme-font-weights-regular)   var(--bento-theme-font-size-1)/var(--bento-theme-line-heights-2) var(--hs-font-body);
+  --hs-type-body-sm-b:  var(--bento-theme-font-weights-semibold)  var(--bento-theme-font-size-1)/var(--bento-theme-line-heights-2) var(--hs-font-body);
+  --hs-type-button:     var(--bento-theme-font-weights-bold)      var(--bento-theme-font-size-1)/var(--bento-theme-line-heights-2) var(--hs-font-body); /* bold 700, matches tokens/typography.css .bento-text-button */
+  --hs-type-meta:       var(--bento-theme-font-weights-regular)   12px/16px var(--hs-font-body);
+  --hs-type-meta-b:     var(--bento-theme-font-weights-semibold)  12px/16px var(--hs-font-body);
+}
+
+/* ── Semantic element styles ────────────────────────────────────── */
+body {
+  font: var(--hs-type-body-md);
+  color: var(--hs-fg);
+  background: var(--hs-surface);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, .hs-h1 { font: var(--hs-type-title-screen);  color: var(--hs-fg); margin: 0; }
+h2, .hs-h2 { font: var(--hs-type-title-section); color: var(--hs-fg); margin: 0; }
+h3, .hs-h3 { font: var(--hs-type-title-sub);     color: var(--hs-fg); margin: 0; }
+h4, .hs-h4 { font: var(--hs-type-title-base);    color: var(--hs-fg); margin: 0; }
+
+.hs-display-1 { font: var(--hs-type-display-1); }
+.hs-display-2 { font: var(--hs-type-display-2); }
+.hs-display-3 { font: var(--hs-type-display-3); }
+
+.hs-hero-metric { font: var(--hs-type-title-hero); letter-spacing: -0.02em; }
+
+p, .hs-p           { font: var(--hs-type-body-md);   color: var(--hs-fg); margin: 0; }
+.hs-p-strong       { font: var(--hs-type-body-md-b); color: var(--hs-fg); }
+small, .hs-small   { font: var(--hs-type-body-sm);   color: var(--hs-fg-secondary); }
+.hs-meta           { font: var(--hs-type-meta);      color: var(--hs-fg-secondary); }
+
+a, .hs-link {
+  color: var(--hs-fg-link);
+  text-decoration: underline;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  text-decoration-thickness: auto;
+  text-decoration-skip-ink: none;
+  font-weight: var(--bento-theme-font-weights-semibold);
+}
+a:hover { text-decoration-thickness: 2px; }
+
+code, .hs-mono {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 13px;
+}
+
+/* Placeholder post media (added 2026.10.06.5): soft gradients from the categorical fills, for sample posts with no real image.
+   Use background: var(--bento-media-placeholder-N) — never a hex gradient. */
+:root {
+  --bento-media-placeholder-1: linear-gradient(135deg, var(--hs-cat-1-bg), var(--hs-cat-2-bg));
+  --bento-media-placeholder-2: linear-gradient(135deg, var(--hs-cat-3-bg), var(--hs-cat-4-bg));
+  --bento-media-placeholder-3: linear-gradient(135deg, var(--hs-cat-5-bg), var(--hs-cat-6-bg));
+  --bento-media-placeholder-4: linear-gradient(135deg, var(--hs-cat-7-bg), var(--hs-cat-8-bg));
+  --bento-media-placeholder-5: linear-gradient(135deg, var(--hs-cat-9-bg), var(--hs-cat-10-bg));
+  --bento-media-placeholder-6: linear-gradient(135deg, var(--hs-cat-2-bg), var(--hs-cat-5-bg));
+}

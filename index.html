@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Bulk roles MVP</title>
+<style>
+  :root { --cherry:#FF4C46; --teal:#012B3A; --mint:#DFFFDE; --ink:#1c1c1c; --sub:#5c5c5c; --line:#d6d9dc; --bg:#f4f5f6; --card:#ffffff; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:16px; background:var(--bg); color:var(--ink); font:16px/24px Arial, Helvetica, sans-serif; }
+  main { width:100%; max-width:400px; background:var(--card); border-radius:8px; padding:32px 24px; box-shadow:0 0 0 1px var(--line); }
+  .bar { height:4px; width:48px; background:var(--cherry); border-radius:2px; margin-bottom:16px; }
+  h1 { margin:0 0 8px; font-size:22px; line-height:32px; color:var(--teal); }
+  p { margin:0 0 24px; color:var(--sub); }
+  label { display:block; font-weight:700; margin-bottom:8px; }
+  input { width:100%; height:48px; padding:8px 16px; border:1px solid var(--line); border-radius:8px; font:inherit; }
+  input:focus { outline:2px solid var(--teal); outline-offset:1px; }
+  button { margin-top:16px; width:100%; height:48px; border:0; border-radius:8px; background:var(--teal); color:#fff; font:700 16px/24px Arial, Helvetica, sans-serif; cursor:pointer; }
+  #err { margin:12px 0 0; color:#b3261e; }
+  nav { display:flex; flex-direction:column; gap:12px; }
+  nav a { display:block; padding:12px 16px; border-radius:8px; background:var(--mint); color:var(--teal); font-weight:700; text-decoration:none; }
+  nav a:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+<main>
+  <div class="bar" aria-hidden="true"></div>
+  <h1>Bulk roles MVP</h1>
+  <p id="intro">Prototype for review. Enter the password to open it.</p>
+  <form id="f" novalidate>
+    <label for="pw">Password</label>
+    <input id="pw" type="password" autocomplete="current-password" required>
+    <button type="submit">Open prototype</button>
+    <p id="err" role="alert" hidden>That password isn’t right.</p>
+  </form>
+  <nav id="links" hidden aria-label="Prototype pages">
+    <a href="templates/bulk-roles-mvp/BulkRolesMVP.dc.html">Clickable prototype</a>
+    <a href="templates/bulk-roles-mvp/Board.dc.html">Flow board</a>
+  </nav>
+</main>
+<script>
+  const HASH = 'c31c5f674f2298ba0f60a9e7b000f3a3035f549bcf596a324e425fb691e79f55', ALT = '78707601dc8fff7262b2b948a03b07c6ab5ace8aadb8dd9e3db44f2047b813f2', KEY = 'brmvp-gate';
+  const sha = async (s) => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)))].map((x) => x.toString(16).padStart(2, '0')).join('');
+  const open = () => { document.getElementById('f').hidden = true; document.getElementById('links').hidden = false; document.getElementById('intro').textContent = 'Pick where to start.'; };
+  let ok = false; try { ok = localStorage.getItem(KEY) === HASH; } catch (e) {}
+  if (ok) open();
+  document.getElementById('f').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const h = await sha(document.getElementById('pw').value);
+    if (h === HASH || h === ALT) { try { localStorage.setItem(KEY, HASH); } catch (e) {} open(); }
+    else { document.getElementById('err').hidden = false; }
+  });
+</script>
+</body>
+</html>

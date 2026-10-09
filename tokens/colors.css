@@ -1,0 +1,598 @@
+/*
+ * Bento color tokens (Light)
+ * Generated from tokens/theme.json + system.json + palette.json
+ * Naming preserves token paths from export (DTCG).
+ */
+
+:root {
+  --bento-palette-ref-palette-blue-50: #e9f0fc;
+  --bento-palette-ref-palette-blue-100: #bad1f4;
+  --bento-palette-ref-palette-blue-200: #99baef;
+  --bento-palette-ref-palette-blue-300: #6b9be8;
+  --bento-palette-ref-palette-blue-400: #4e87e4;
+  --bento-palette-ref-palette-blue-500: #2269dd;
+  --bento-palette-ref-palette-blue-600: #1f60c9;
+  --bento-palette-ref-palette-blue-700: #184b9d;
+  --bento-palette-ref-palette-blue-800: #133a7a;
+  --bento-palette-ref-palette-blue-900: #0e2c5d;
+  --bento-palette-ref-palette-cedar-50: #e6f6f3;
+  --bento-palette-ref-palette-cedar-100: #b0e3db;
+  --bento-palette-ref-palette-cedar-200: #8ad6c9;
+  --bento-palette-ref-palette-cedar-300: #54c3b1;
+  --bento-palette-ref-palette-cedar-400: #33b8a1;
+  --bento-palette-ref-palette-cedar-500: #00a68a;
+  --bento-palette-ref-palette-cedar-600: #00977e;
+  --bento-palette-ref-palette-cedar-700: #007662;
+  --bento-palette-ref-palette-cedar-800: #005b4c;
+  --bento-palette-ref-palette-cedar-900: #00463a;
+  --bento-palette-ref-palette-dark-grey-50: #ebebeb;
+  --bento-palette-ref-palette-dark-grey-100: #c0c0c0;
+  --bento-palette-ref-palette-dark-grey-200: #a1a1a1;
+  --bento-palette-ref-palette-dark-grey-300: #767676;
+  --bento-palette-ref-palette-dark-grey-400: #5c5c5c;
+  --bento-palette-ref-palette-dark-grey-500: #333333;
+  --bento-palette-ref-palette-dark-grey-600: #2e2e2e;
+  --bento-palette-ref-palette-dark-grey-700: #242424;
+  --bento-palette-ref-palette-dark-grey-800: #1c1c1c;
+  --bento-palette-ref-palette-dark-grey-900: #151515;
+  --bento-palette-ref-palette-green-50: #e6f3e9;
+  --bento-palette-ref-palette-green-100: #b0d9b9;
+  --bento-palette-ref-palette-green-200: #8ac698;
+  --bento-palette-ref-palette-green-300: #55ad68;
+  --bento-palette-ref-palette-green-400: #349d4b;
+  --bento-palette-ref-palette-green-500: #01841e;
+  --bento-palette-ref-palette-green-600: #01781b;
+  --bento-palette-ref-palette-green-700: #015e15;
+  --bento-palette-ref-palette-green-800: #014911;
+  --bento-palette-ref-palette-green-900: #00370d;
+  --bento-palette-ref-palette-grey-50: #fdfdfd;
+  /** Absolute white — e.g. nav drawer aside surface where Figma uses solid #fff. */
+  --bento-palette-ref-palette-white: #ffffff;
+  --bento-palette-ref-palette-grey-100: #f7f8f9;
+  --bento-palette-ref-palette-grey-200: #f4f5f6;
+  --bento-palette-ref-palette-grey-300: #eef1f2;
+  --bento-palette-ref-palette-grey-400: #ebeeef;
+  --bento-palette-ref-palette-grey-500: #e6eaeb;
+  --bento-palette-ref-palette-grey-600: #d1d5d6;
+  --bento-palette-ref-palette-grey-700: #8a8e8f;
+  --bento-palette-ref-palette-grey-800: #7f8181;
+  --bento-palette-ref-palette-grey-900: #616263;
+  --bento-palette-ref-palette-jade-50: #ecfbf5;
+  --bento-palette-ref-palette-jade-100: #c4f2e0;
+  --bento-palette-ref-palette-jade-200: #a8ebd1;
+  --bento-palette-ref-palette-jade-300: #80e2bd;
+  --bento-palette-ref-palette-jade-400: #68ddb0;
+  --bento-palette-ref-palette-jade-500: #42d49c;
+  --bento-palette-ref-palette-jade-600: #3cc18e;
+  --bento-palette-ref-palette-jade-700: #2f976f;
+  --bento-palette-ref-palette-jade-800: #247556;
+  --bento-palette-ref-palette-jade-900: #1c5942;
+  --bento-palette-ref-palette-lake-50: #e6edef;
+  --bento-palette-ref-palette-lake-100: #b0c7cf;
+  --bento-palette-ref-palette-lake-200: #8aabb7;
+  --bento-palette-ref-palette-lake-300: #548596;
+  --bento-palette-ref-palette-lake-400: #336d82;
+  --bento-palette-ref-palette-lake-500: #004963;
+  --bento-palette-ref-palette-lake-600: #00425a;
+  --bento-palette-ref-palette-lake-700: #003446;
+  --bento-palette-ref-palette-lake-800: #002836;
+  --bento-palette-ref-palette-lake-900: #001f2a;
+  --bento-palette-ref-palette-mint-50: #f7fff9;
+  --bento-palette-ref-palette-mint-100: #e7ffed;
+  --bento-palette-ref-palette-mint-200: #dcffe5;
+  --bento-palette-ref-palette-mint-300: #cbffd9;
+  --bento-palette-ref-palette-mint-400: #c1ffd1;
+  --bento-palette-ref-palette-mint-500: #b2ffc6;
+  --bento-palette-ref-palette-mint-600: #a2e8b4;
+  --bento-palette-ref-palette-mint-700: #7eb58d;
+  --bento-palette-ref-palette-mint-800: #628c6d;
+  --bento-palette-ref-palette-mint-900: #4b6b53;
+  --bento-palette-ref-palette-nocturn-50: #e6eaeb;
+  --bento-palette-ref-palette-nocturn-100: #b0bdc2;
+  --bento-palette-ref-palette-nocturn-200: #8a9da4;
+  --bento-palette-ref-palette-nocturn-300: #55717b;
+  --bento-palette-ref-palette-nocturn-400: #345561;
+  --bento-palette-ref-palette-nocturn-500: #012b3a;
+  --bento-palette-ref-palette-nocturn-600: #012735;
+  --bento-palette-ref-palette-nocturn-700: #011f29;
+  --bento-palette-ref-palette-nocturn-800: #011820;
+  --bento-palette-ref-palette-nocturn-900: #001218;
+  --bento-palette-ref-palette-orange-50: #fff0eb;
+  --bento-palette-ref-palette-orange-100: #ffd1c1;
+  --bento-palette-ref-palette-orange-200: #ffbaa3;
+  --bento-palette-ref-palette-orange-300: #ff9b79;
+  --bento-palette-ref-palette-orange-400: #ff875f;
+  --bento-palette-ref-palette-orange-500: #ff6937;
+  --bento-palette-ref-palette-orange-600: #e86032;
+  --bento-palette-ref-palette-orange-700: #b54b27;
+  --bento-palette-ref-palette-orange-800: #8c3a1e;
+  --bento-palette-ref-palette-orange-900: #6b2c17;
+  --bento-palette-ref-palette-purple-50: #F1EEF9;
+  --bento-palette-ref-palette-purple-100: #d4cbeb;
+  --bento-palette-ref-palette-purple-200: #bfb1e2;
+  --bento-palette-ref-palette-purple-300: #a18ed4;
+  --bento-palette-ref-palette-purple-400: #8f78cc;
+  --bento-palette-ref-palette-purple-500: #7356bf;
+  --bento-palette-ref-palette-purple-600: #694eae;
+  --bento-palette-ref-palette-purple-700: #523d88;
+  --bento-palette-ref-palette-purple-800: #3f2f69;
+  --bento-palette-ref-palette-purple-900: #302450;
+  --bento-palette-ref-palette-red-50: #fbe6e6;
+  --bento-palette-ref-palette-red-100: #f1b3b1;
+  --bento-palette-ref-palette-red-200: #eb8e8b;
+  --bento-palette-ref-palette-red-300: #e25a56;
+  --bento-palette-ref-palette-red-400: #dc3a35;
+  --bento-palette-ref-palette-red-500: #d30903;
+  --bento-palette-ref-palette-red-600: #c00803;
+  --bento-palette-ref-palette-red-700: #960602;
+  --bento-palette-ref-palette-red-800: #740502;
+  --bento-palette-ref-palette-red-900: #590401;
+  --bento-palette-ref-palette-saffron-50: #ffeded;
+  --bento-palette-ref-palette-saffron-100: #ffc8c6;
+  --bento-palette-ref-palette-saffron-200: #ffadaa;
+  --bento-palette-ref-palette-saffron-300: #ff8783;
+  --bento-palette-ref-palette-saffron-400: #ff706b;
+  --bento-palette-ref-palette-saffron-500: #ff4c46;
+  --bento-palette-ref-palette-saffron-600: #e84540;
+  --bento-palette-ref-palette-saffron-700: #b53632;
+  --bento-palette-ref-palette-saffron-800: #8c2a27;
+  --bento-palette-ref-palette-saffron-900: #6b201d;
+  --bento-palette-ref-palette-spring-50: #f3fef7;
+  --bento-palette-ref-palette-spring-100: #dafde6;
+  --bento-palette-ref-palette-spring-200: #c8fcda;
+  --bento-palette-ref-palette-spring-300: #affac9;
+  --bento-palette-ref-palette-spring-400: #9ff9be;
+  --bento-palette-ref-palette-spring-500: #87f8ae;
+  --bento-palette-ref-palette-spring-600: #7be29e;
+  --bento-palette-ref-palette-spring-700: #60b07c;
+  --bento-palette-ref-palette-spring-800: #4a8860;
+  --bento-palette-ref-palette-spring-900: #396849;
+  --bento-palette-ref-palette-spruce-50: #e6f2f2;
+  --bento-palette-ref-palette-spruce-100: #b0d5d5;
+  --bento-palette-ref-palette-spruce-200: #8ac1c1;
+  --bento-palette-ref-palette-spruce-300: #54a5a5;
+  --bento-palette-ref-palette-spruce-400: #339493;
+  --bento-palette-ref-palette-spruce-500: #007978;
+  --bento-palette-ref-palette-spruce-600: #006e6d;
+  --bento-palette-ref-palette-spruce-700: #005655;
+  --bento-palette-ref-palette-spruce-800: #004342;
+  --bento-palette-ref-palette-spruce-900: #003332;
+  --bento-palette-ref-palette-tea-50: #fcfffc;
+  --bento-palette-ref-palette-tea-100: #f5fff5;
+  --bento-palette-ref-palette-tea-200: #f0fff0;
+  --bento-palette-ref-palette-tea-300: #eaffe9;
+  --bento-palette-ref-palette-tea-400: #e5ffe5;
+  --bento-palette-ref-palette-tea-500: #dfffde;
+  --bento-palette-ref-palette-tea-600: #cbe8ca;
+  --bento-palette-ref-palette-tea-700: #9eb59e;
+  --bento-palette-ref-palette-tea-800: #7b8c7a;
+  --bento-palette-ref-palette-tea-900: #5e6b5d;
+  --bento-palette-ref-palette-yellow-50: #fff7eb;
+  --bento-palette-ref-palette-yellow-100: #ffe7c0;
+  --bento-palette-ref-palette-yellow-200: #ffdca1;
+  --bento-palette-ref-palette-yellow-300: #ffd581;
+  --bento-palette-ref-palette-yellow-400: #ffc25c;
+  --bento-palette-ref-palette-yellow-500: #ffb333;
+  --bento-palette-ref-palette-yellow-600: #e8a32e;
+  --bento-palette-ref-palette-yellow-700: #b57f24;
+  --bento-palette-ref-palette-yellow-800: #8c621c;
+  --bento-palette-ref-palette-yellow-900: #6b4b15;
+  --bento-system-sys-accent-50: var(--bento-palette-ref-palette-cedar-50);
+  --bento-system-sys-accent-100: var(--bento-palette-ref-palette-cedar-100);
+  --bento-system-sys-accent-200: var(--bento-palette-ref-palette-cedar-200);
+  --bento-system-sys-accent-300: var(--bento-palette-ref-palette-cedar-300);
+  --bento-system-sys-accent-400: var(--bento-palette-ref-palette-cedar-400);
+  --bento-system-sys-accent-500: var(--bento-palette-ref-palette-cedar-500);
+  --bento-system-sys-accent-600: var(--bento-palette-ref-palette-cedar-600);
+  --bento-system-sys-accent-700: var(--bento-palette-ref-palette-cedar-700);
+  --bento-system-sys-accent-800: var(--bento-palette-ref-palette-cedar-800);
+  --bento-system-sys-accent-900: var(--bento-palette-ref-palette-cedar-900);
+  --bento-system-sys-discovery-50: var(--bento-palette-ref-palette-purple-50);
+  --bento-system-sys-discovery-100: var(--bento-palette-ref-palette-purple-100);
+  --bento-system-sys-discovery-200: var(--bento-palette-ref-palette-purple-200);
+  --bento-system-sys-discovery-300: var(--bento-palette-ref-palette-purple-300);
+  --bento-system-sys-discovery-400: var(--bento-palette-ref-palette-purple-400);
+  --bento-system-sys-discovery-500: var(--bento-palette-ref-palette-purple-500);
+  --bento-system-sys-discovery-600: var(--bento-palette-ref-palette-purple-600);
+  --bento-system-sys-discovery-700: var(--bento-palette-ref-palette-purple-700);
+  --bento-system-sys-discovery-800: var(--bento-palette-ref-palette-purple-800);
+  --bento-system-sys-discovery-900: var(--bento-palette-ref-palette-purple-900);
+  --bento-system-sys-info-50: var(--bento-palette-ref-palette-blue-50);
+  --bento-system-sys-info-100: var(--bento-palette-ref-palette-blue-100);
+  --bento-system-sys-info-200: var(--bento-palette-ref-palette-blue-200);
+  --bento-system-sys-info-300: var(--bento-palette-ref-palette-blue-300);
+  --bento-system-sys-info-400: var(--bento-palette-ref-palette-blue-400);
+  --bento-system-sys-info-500: var(--bento-palette-ref-palette-blue-500);
+  --bento-system-sys-info-600: var(--bento-palette-ref-palette-blue-600);
+  --bento-system-sys-info-700: var(--bento-palette-ref-palette-blue-700);
+  --bento-system-sys-info-800: var(--bento-palette-ref-palette-blue-800);
+  --bento-system-sys-info-900: var(--bento-palette-ref-palette-blue-900);
+  --bento-system-sys-negative-50: var(--bento-palette-ref-palette-red-50);
+  --bento-system-sys-negative-100: var(--bento-palette-ref-palette-red-100);
+  --bento-system-sys-negative-200: var(--bento-palette-ref-palette-red-200);
+  --bento-system-sys-negative-300: var(--bento-palette-ref-palette-red-300);
+  --bento-system-sys-negative-400: var(--bento-palette-ref-palette-red-400);
+  --bento-system-sys-negative-500: var(--bento-palette-ref-palette-red-500);
+  --bento-system-sys-negative-600: var(--bento-palette-ref-palette-red-600);
+  --bento-system-sys-negative-700: var(--bento-palette-ref-palette-red-700);
+  --bento-system-sys-negative-800: var(--bento-palette-ref-palette-red-800);
+  --bento-system-sys-negative-900: var(--bento-palette-ref-palette-red-900);
+  --bento-system-sys-neutral-50: var(--bento-palette-ref-palette-dark-grey-50);
+  --bento-system-sys-neutral-100: var(--bento-palette-ref-palette-dark-grey-100);
+  --bento-system-sys-neutral-200: var(--bento-palette-ref-palette-dark-grey-200);
+  --bento-system-sys-neutral-300: var(--bento-palette-ref-palette-dark-grey-300);
+  --bento-system-sys-neutral-400: var(--bento-palette-ref-palette-dark-grey-400);
+  --bento-system-sys-neutral-500: var(--bento-palette-ref-palette-dark-grey-500);
+  --bento-system-sys-neutral-600: var(--bento-palette-ref-palette-dark-grey-600);
+  --bento-system-sys-neutral-700: var(--bento-palette-ref-palette-dark-grey-700);
+  --bento-system-sys-neutral-800: var(--bento-palette-ref-palette-dark-grey-800);
+  --bento-system-sys-neutral-900: var(--bento-palette-ref-palette-dark-grey-900);
+  --bento-system-sys-neutral-alt-50: var(--bento-palette-ref-palette-grey-50);
+  --bento-system-sys-neutral-alt-100: var(--bento-palette-ref-palette-grey-100);
+  --bento-system-sys-neutral-alt-200: var(--bento-palette-ref-palette-grey-200);
+  --bento-system-sys-neutral-alt-300: var(--bento-palette-ref-palette-grey-300);
+  --bento-system-sys-neutral-alt-400: var(--bento-palette-ref-palette-grey-400);
+  --bento-system-sys-neutral-alt-500: var(--bento-palette-ref-palette-grey-500);
+  --bento-system-sys-neutral-alt-600: var(--bento-palette-ref-palette-grey-600);
+  --bento-system-sys-neutral-alt-700: var(--bento-palette-ref-palette-grey-700);
+  --bento-system-sys-neutral-alt-800: var(--bento-palette-ref-palette-grey-800);
+  --bento-system-sys-neutral-alt-900: var(--bento-palette-ref-palette-grey-900);
+  --bento-system-sys-positive-50: var(--bento-palette-ref-palette-green-50);
+  --bento-system-sys-positive-100: var(--bento-palette-ref-palette-green-100);
+  --bento-system-sys-positive-200: var(--bento-palette-ref-palette-green-200);
+  --bento-system-sys-positive-300: var(--bento-palette-ref-palette-green-300);
+  --bento-system-sys-positive-400: var(--bento-palette-ref-palette-green-400);
+  --bento-system-sys-positive-500: var(--bento-palette-ref-palette-green-500);
+  --bento-system-sys-positive-600: var(--bento-palette-ref-palette-green-600);
+  --bento-system-sys-positive-700: var(--bento-palette-ref-palette-green-700);
+  --bento-system-sys-positive-800: var(--bento-palette-ref-palette-green-800);
+  --bento-system-sys-positive-900: var(--bento-palette-ref-palette-green-900);
+  --bento-system-sys-primary-50: var(--bento-palette-ref-palette-nocturn-50);
+  --bento-system-sys-primary-100: var(--bento-palette-ref-palette-nocturn-100);
+  --bento-system-sys-primary-200: var(--bento-palette-ref-palette-nocturn-200);
+  --bento-system-sys-primary-300: var(--bento-palette-ref-palette-nocturn-300);
+  --bento-system-sys-primary-400: var(--bento-palette-ref-palette-nocturn-400);
+  --bento-system-sys-primary-500: var(--bento-palette-ref-palette-nocturn-500);
+  --bento-system-sys-primary-600: var(--bento-palette-ref-palette-nocturn-600);
+  --bento-system-sys-primary-700: var(--bento-palette-ref-palette-nocturn-700);
+  --bento-system-sys-primary-800: var(--bento-palette-ref-palette-nocturn-800);
+  --bento-system-sys-primary-900: var(--bento-palette-ref-palette-nocturn-900);
+  --bento-system-sys-surfing-50: var(--bento-palette-ref-palette-lake-50);
+  --bento-system-sys-surfing-100: var(--bento-palette-ref-palette-lake-100);
+  --bento-system-sys-surfing-200: var(--bento-palette-ref-palette-lake-200);
+  --bento-system-sys-surfing-300: var(--bento-palette-ref-palette-lake-300);
+  --bento-system-sys-surfing-400: var(--bento-palette-ref-palette-lake-400);
+  --bento-system-sys-surfing-500: var(--bento-palette-ref-palette-lake-500);
+  --bento-system-sys-surfing-600: var(--bento-palette-ref-palette-lake-600);
+  --bento-system-sys-surfing-700: var(--bento-palette-ref-palette-lake-700);
+  --bento-system-sys-surfing-800: var(--bento-palette-ref-palette-lake-800);
+  --bento-system-sys-surfing-900: var(--bento-palette-ref-palette-lake-900);
+  --bento-system-sys-warning-50: var(--bento-palette-ref-palette-yellow-50);
+  --bento-system-sys-warning-100: var(--bento-palette-ref-palette-yellow-100);
+  --bento-system-sys-warning-200: var(--bento-palette-ref-palette-yellow-200);
+  --bento-system-sys-warning-300: var(--bento-palette-ref-palette-yellow-300);
+  --bento-system-sys-warning-400: var(--bento-palette-ref-palette-yellow-400);
+  --bento-system-sys-warning-500: var(--bento-palette-ref-palette-yellow-500);
+  --bento-system-sys-warning-600: var(--bento-palette-ref-palette-yellow-600);
+  --bento-system-sys-warning-700: var(--bento-palette-ref-palette-yellow-700);
+  --bento-system-sys-warning-800: var(--bento-palette-ref-palette-yellow-800);
+  --bento-system-sys-warning-900: var(--bento-palette-ref-palette-yellow-900);
+  --bento-theme-color-bg-accent: var(--bento-system-sys-accent-600);
+  --bento-theme-color-bg-accent-hovered: var(--bento-system-sys-accent-200);
+  --bento-theme-color-bg-accent-pressed: var(--bento-system-sys-accent-300);
+  --bento-theme-color-bg-accent-selected: var(--bento-system-sys-accent-100);
+  --bento-theme-color-bg-accent-subtle: var(--bento-system-sys-accent-100);
+  --bento-theme-color-bg-accent-tint: var(--bento-system-sys-accent-50);
+  --bento-theme-color-bg-app: var(--hs-sys-color-bg-app, var(--bento-system-sys-neutral-alt-50));
+  --bento-theme-color-bg-disabled: var(--bento-system-sys-neutral-alt-200);
+  --bento-theme-color-bg-discovery: var(--bento-system-sys-discovery-50);
+  --bento-theme-color-bg-discovery-hovered: var(--bento-system-sys-discovery-100);
+  --bento-theme-color-bg-discovery-intense: var(--bento-system-sys-discovery-100);
+  --bento-theme-color-bg-discovery-pressed: var(--bento-system-sys-discovery-200);
+  --bento-theme-color-bg-info: var(--bento-system-sys-info-50);
+  --bento-theme-color-bg-info-intense: var(--bento-system-sys-info-200);
+  --bento-theme-color-bg-input: var(--bento-system-sys-neutral-alt-50);
+  --bento-theme-color-bg-nav: var(--bento-system-sys-surfing-500);
+  --bento-theme-color-bg-nav-hovered: var(--bento-system-sys-surfing-700);
+  --bento-theme-color-bg-nav-inverse-hovered: var(--bento-system-sys-surfing-100);
+  --bento-theme-color-bg-nav-inverse-pressed: var(--bento-system-sys-surfing-200);
+  --bento-theme-color-bg-nav-inverse-selected: var(--bento-system-sys-surfing-50);
+  --bento-theme-color-bg-nav-pressed: var(--bento-system-sys-surfing-800);
+  --bento-theme-color-bg-negative: var(--bento-system-sys-negative-50);
+  --bento-theme-color-bg-negative-intense: var(--bento-system-sys-negative-200);
+  --bento-theme-color-bg-positive: var(--bento-system-sys-positive-50);
+  --bento-theme-color-bg-positive-intense: var(--bento-system-sys-positive-200);
+  --bento-theme-color-bg-primary: var(--bento-system-sys-primary-500);
+  --bento-theme-color-bg-primary-hovered: var(--bento-system-sys-primary-300);
+  --bento-theme-color-bg-primary-pressed: var(--bento-system-sys-primary-400);
+  /** Primary-scale washes (parity with accent subtle/tint — calendar range strip, chips). */
+  --bento-theme-color-bg-primary-subtle: var(--bento-system-sys-primary-100);
+  --bento-theme-color-bg-primary-tint: var(--bento-system-sys-primary-50);
+  --bento-theme-color-bg-secondary: var(--bento-system-sys-neutral-alt-500);
+  --bento-theme-color-bg-secondary-hovered: var(--bento-system-sys-neutral-alt-600);
+  --bento-theme-color-bg-secondary-pressed: var(--bento-system-sys-neutral-alt-700);
+  --bento-theme-color-bg-surface: var(--hs-sys-color-bg-surface, var(--bento-system-sys-neutral-alt-50));
+  /** Figma hs/sys/color/base/surface-hovered (-pressed, selected/surface) — table + form affordances */
+  --bento-theme-color-bg-surface-hovered: var(--hs-sys-color-base-surface-hovered, var(--bento-system-sys-neutral-alt-100));
+  --bento-theme-color-bg-surface-intense: var(--bento-system-sys-neutral-alt-400);
+  --bento-theme-color-bg-surface-pressed: var(--hs-sys-color-base-surface-pressed, var(--bento-system-sys-neutral-alt-300));
+  --bento-theme-color-bg-surface-raised: var(--bento-system-sys-neutral-alt-100);
+  /** Figma hs/sys/color/raised/surface-hovered / -pressed (alt table rows). */
+  --bento-theme-color-bg-surface-raised-hovered: var(--bento-system-sys-neutral-alt-200);
+  --bento-theme-color-bg-surface-raised-pressed: var(--bento-system-sys-neutral-alt-300);
+  --bento-theme-color-bg-surface-recessed: var(--bento-system-sys-neutral-alt-200);
+  --bento-theme-color-bg-surface-selected: var(--bento-system-sys-neutral-alt-200);
+  --bento-theme-color-bg-surface-inverse: var(--bento-palette-ref-palette-dark-grey-500);
+  /* Interaction + hairline on the inverse surface (snackbar, bulk action bar, tooltip). */
+  --bento-theme-color-bg-inverse-hovered: color-mix(in srgb, var(--bento-theme-color-text-inverse) 16%, transparent);
+  --bento-theme-color-border-inverse-subtle: color-mix(in srgb, var(--bento-theme-color-text-inverse) 24%, transparent);
+  --bento-theme-color-bg-surface-shade: var(--bento-system-sys-neutral-800);
+  --bento-theme-color-bg-warning: var(--bento-system-sys-warning-50);
+  --bento-theme-color-bg-warning-intense: var(--bento-system-sys-warning-200);
+  --bento-theme-color-border-accent: var(--bento-system-sys-accent-600);
+  --bento-theme-color-border-base: var(--hs-global-color-border-base, var(--bento-system-sys-neutral-100));
+  --bento-theme-color-border-btn-outlined: var(--bento-system-sys-neutral-800);
+  --bento-theme-color-border-disabled: var(--bento-system-sys-neutral-alt-100);
+  --bento-theme-color-border-discovery: var(--bento-system-sys-discovery-800);
+  /* #0065FF measures 2.59:1 on the inverse surface. Inverse surfaces use the inverse
+     focus ring (12.42:1) so focus survives on dark chrome. */
+  --bento-theme-color-border-focus-inverse: var(--bento-theme-color-text-inverse);
+  /* The documented focus token (--hs-global-color-border-focus → --hs-sys-color-border-focus)
+     ships in tokens/fig-tokens.css in all three modes. Resolving through it instead of a raw
+     literal means the ring re-themes with the mode. */
+  --bento-theme-color-border-focus: var(--hs-global-color-border-focus, #0065FF);
+  --bento-theme-color-border-focus-alt: var(--bento-system-sys-neutral-alt-50);
+  --bento-theme-color-border-input: var(--bento-system-sys-neutral-300); /* #767676 — Figma form-control stroke */
+  --bento-theme-color-border-inverse: var(--bento-system-sys-neutral-alt-50);
+  --bento-theme-color-border-negative: var(--bento-system-sys-negative-500);
+  --bento-theme-color-border-positive: var(--bento-system-sys-positive-500);
+  --bento-theme-color-border-selected: var(--bento-system-sys-accent-900);
+  --bento-theme-color-border-shade: var(--bento-system-sys-neutral-800);
+  --bento-theme-color-border-subtle: var(--hs-global-color-border-subtle, var(--bento-system-sys-neutral-50));
+  /** Drag-and-drop pattern (HS-Bento-gallery *doc-card 59494:91687 · drag row). Ghost ≈ rgba(51,51,51,0.08). */
+  --bento-theme-color-opacity-drag: color-mix(
+    in srgb,
+    var(--bento-palette-ref-palette-dark-grey-500) 8%,
+    transparent
+  );
+  /** Drop target fill (Figma hs-global-color-fill-drop-area). */
+  --bento-theme-color-fill-drop-area: var(--bento-palette-ref-palette-grey-100);
+  /** Drop target border (Figma hs-global-color-border-drop-area). */
+  --bento-theme-color-border-drop-area: var(--bento-palette-ref-palette-dark-grey-500);
+  --bento-theme-color-border-warning: var(--bento-system-sys-warning-700);
+  --bento-theme-color-brand-decorative-1: var(--bento-palette-ref-palette-saffron-500);
+  --bento-theme-color-brand-decorative-2: var(--bento-palette-ref-palette-spring-500);
+  --bento-theme-color-brand-decorative-3: var(--bento-palette-ref-palette-tea-500);
+  --bento-theme-color-brand-decorative-4: var(--bento-palette-ref-palette-cedar-600);
+  --bento-theme-color-icon-accent: var(--bento-system-sys-accent-600);
+  --bento-theme-color-icon-base: var(--bento-system-sys-neutral-800);
+  --bento-theme-color-icon-disabled: var(--bento-system-sys-neutral-400);
+  --bento-theme-color-icon-info: var(--bento-system-sys-info-500);
+  --bento-theme-color-icon-interactive-hovered: var(--bento-system-sys-neutral-400);
+  --bento-theme-color-icon-inverse: var(--bento-system-sys-neutral-alt-50);
+  --bento-theme-color-icon-link: var(--bento-system-sys-info-600);
+  --bento-theme-color-icon-link-hovered: var(--bento-system-sys-info-700);
+  --bento-theme-color-icon-negative: var(--bento-system-sys-negative-500);
+  --bento-theme-color-icon-on-accent: var(--bento-system-sys-accent-900);
+  --bento-theme-color-icon-on-discovery: var(--bento-system-sys-discovery-800);
+  --bento-theme-color-icon-on-nav: var(--bento-system-sys-surfing-50);
+  --bento-theme-color-icon-on-nav-selected: var(--bento-system-sys-surfing-500);
+  --bento-theme-color-icon-on-primary: var(--bento-system-sys-neutral-alt-50);
+  --bento-theme-color-icon-on-secondary: var(--bento-system-sys-primary-500);
+  --bento-theme-color-icon-positive: var(--bento-system-sys-positive-500);
+  --bento-theme-color-icon-subtle: var(--bento-system-sys-neutral-400);
+  --bento-theme-color-icon-warning: var(--bento-system-sys-warning-700);
+  --bento-theme-color-opacity-disabled: rgba(255, 255, 255, 0.4);
+  --bento-theme-color-opacity-loading: rgba(255, 255, 255, 0.2);
+  --bento-theme-color-opacity-overlay: rgba(51, 51, 51, 0.64); /* audit: matches the gallery modal scrim, measured 2026-04-28 fe-global build */
+  /** Uploading-region scrim (Figma `hs-global-color-opacity-uploading` · rgba(51,51,51,0.64)). */
+  --bento-theme-color-opacity-uploading: color-mix(
+    in srgb,
+    var(--bento-palette-ref-palette-dark-grey-500) 64%,
+    transparent
+  );
+  --bento-theme-color-text-base: var(--hs-sys-color-fg-base, var(--bento-system-sys-neutral-800));
+  /* neutral-200 (#a1a1a1) per comp-hyperlink disabled, Figma 57754:96198. Deliberately
+     2.58:1 — WCAG 1.4.3 exempts inactive controls — and now distinct from text-subtle,
+     which it previously matched exactly. */
+  --bento-theme-color-text-disabled: var(--hs-sys-color-fg-disabled, var(--bento-system-sys-neutral-200));
+  --bento-theme-color-text-interactive-hovered: var(--bento-system-sys-neutral-400);
+  --bento-theme-color-text-inverse: var(--hs-sys-color-fg-inverse, var(--bento-system-sys-neutral-alt-50));
+  --bento-theme-color-text-link: var(--bento-system-sys-info-600);
+  --bento-theme-color-text-link-hovered: var(--bento-system-sys-info-700);
+  --bento-theme-color-text-negative: var(--bento-system-sys-negative-500);
+  --bento-theme-color-text-on-accent: var(--bento-system-sys-accent-900);
+  --bento-theme-color-text-on-discovery: var(--bento-system-sys-discovery-800);
+  --bento-theme-color-text-on-primary: var(--bento-system-sys-neutral-alt-50);
+  --bento-theme-color-text-on-secondary: var(--bento-system-sys-primary-500);
+  --bento-theme-color-text-placeholder: var(--bento-system-sys-neutral-400);
+  /* positive-600 (#01781b): 4.96:1 on bg-positive; positive-500 measured 4.25:1 and failed AA.
+     Same value as the ProgressIndicator marker fill, so success colour is one value system-wide. */
+  --bento-theme-color-text-positive: var(--bento-system-sys-positive-600);
+  --bento-theme-color-text-subtle: var(--hs-sys-color-base-content-subtle, var(--bento-system-sys-neutral-400));
+
+  /* warning-900 (#6b4b15): 5.93:1 on bg-surface. warning-700 (#b57f24) measured 3.43:1 and failed
+     AA at 13-16px — it was the fallback three templates reached for while this token was absent.
+     Mirrors the positive-600 decision above so warning ink is one value system-wide. */
+  --bento-theme-color-text-warning: var(--bento-system-sys-warning-900);
+
+  /* Global categorical fills (HS-Bento-gallery *documentation-tag 59494:91671 · hs-global-categorical-color-* ) */
+  --bento-global-categorical-color-1-fill: #cfdbfb;
+  --bento-global-categorical-color-1-fill-hovered: #b8caf9;
+  --bento-global-categorical-color-1-fill-pressed: #98b2f6;
+  --bento-global-categorical-color-1-text: #2a3b65;
+  --bento-global-categorical-color-2-fill: #c3eef0;
+  --bento-global-categorical-color-2-fill-hovered: #a7e6e8;
+  --bento-global-categorical-color-2-fill-pressed: #7edade;
+  --bento-global-categorical-color-2-text: #1b5456;
+  --bento-global-categorical-color-3-fill: #cbcce5;
+  --bento-global-categorical-color-3-fill-hovered: #b2b3d8;
+  --bento-global-categorical-color-3-fill-pressed: #8f90c6;
+  --bento-global-categorical-color-3-text: #252547;
+  --bento-global-categorical-color-4-fill: #feeed2;
+  --bento-global-categorical-color-4-fill-hovered: #fee6bd;
+  --bento-global-categorical-color-4-fill-pressed: #feda9f;
+  --bento-global-categorical-color-4-text: #6a542f;
+  --bento-global-categorical-color-5-fill: #f8d6df;
+  --bento-global-categorical-color-5-fill-hovered: #f5c2d0;
+  --bento-global-categorical-color-5-fill-pressed: #f0a6bb;
+  --bento-global-categorical-color-5-text: #623340;
+  --bento-global-categorical-color-6-fill: #d9f2fb;
+  --bento-global-categorical-color-6-fill-hovered: #c7ebf9;
+  --bento-global-categorical-color-6-fill-pressed: #ade2f7;
+  --bento-global-categorical-color-6-text: #385966;
+  --bento-global-categorical-color-7-fill: #e2ceed;
+  --bento-global-categorical-color-7-fill-hovered: #d3b6e4;
+  --bento-global-categorical-color-7-fill-pressed: #bf95d8;
+  --bento-global-categorical-color-7-text: #432953;
+  --bento-global-categorical-color-8-fill: #ffe1d1;
+  --bento-global-categorical-color-8-fill-hovered: #ffd3bb;
+  --bento-global-categorical-color-8-fill-pressed: #febf9d;
+  --bento-global-categorical-color-8-text: #6b432d;
+  --bento-global-categorical-color-9-fill: #bfe2e0;
+  --bento-global-categorical-color-9-fill-hovered: #a0d4d1;
+  --bento-global-categorical-color-9-fill-pressed: #75c0bd;
+  --bento-global-categorical-color-9-text: #154442;
+  --bento-global-categorical-color-10-fill: #f5deec;
+  --bento-global-categorical-color-10-fill-hovered: #f0cde3;
+  --bento-global-categorical-color-10-fill-pressed: #e9b7d7;
+  --bento-global-categorical-color-10-text: #5d3e52;
+
+  --bento-theme-color-visual-data-01: #2269DD;
+  --bento-theme-color-visual-data-02: #E67300;
+  --bento-theme-color-visual-data-03: #8B0AA5;
+  --bento-theme-color-visual-data-04: #006655;
+  --bento-theme-color-visual-data-05: #0D0887;
+  --bento-theme-color-visual-data-06: #DD4678;
+  --bento-theme-color-visual-data-07: #477700;
+  --bento-theme-color-visual-data-08: #345561;
+  --bento-theme-color-visual-data-01-compare: #628CD0;
+  --bento-theme-color-visual-data-02-compare: #D47B21;
+  --bento-theme-color-visual-data-03-compare: #B970C7;
+  --bento-theme-color-visual-data-04-compare: #009E84;
+  --bento-theme-color-visual-data-05-compare: #817EBE;
+  --bento-theme-color-visual-data-06-compare: #E46891;
+  --bento-theme-color-visual-data-07-compare: #7C9753;
+  --bento-theme-color-visual-data-08-compare: #788E97;
+  --bento-theme-color-visual-data-negative: #DA352F;
+  --bento-theme-color-visual-data-negative-compare: #E25A56;
+  --bento-theme-color-visual-data-neutral: #767676;
+  --bento-theme-color-visual-data-neutral-compare: #889395;
+  --bento-theme-color-visual-data-positive: #01841E;
+  --bento-theme-color-visual-data-positive-compare: #4DA260;
+
+  /* ── Suite shell — per-product nav accents (social-os-reboot.fig /Navigation) ── */
+  /* Selected nav item = tint circle + filled accent glyph. Hover/pressed deepen the tint.
+     ⚠⚠ VERIFICATION SPLIT — 12 of 24 values are PRODUCTION-CONFIRMED, 12 ARE NOT.
+     VERIFIED (rest state, measured on the route where each product is
+     aria-current="page", 2026-09-07): all six `-fill` + `-icon` pairs. Twelve
+     independently-measured values matching these twelve tokens exactly.
+     ⚠ UNVERIFIED — FIGMA-SOURCED, NOT PRODUCTION-CONFIRMED: every `-fill-hover`
+     and `-fill-pressed` below. Hover and pressed have NEVER been measured on the
+     rail. Production wins that conflict when it is finally read.
+     WHY THIS MATTERS RATHER THAN BEING PEDANTIC: the primary button is the exact
+     precedent — it PASSES at rest (5.78) and FAILS on hover (3.49 vs a 4.5
+     floor), so rest told us nothing about hover. And the rail's tightest REST
+     icon-on-tint pairs are already only Vigil 3.13 · Perch 3.20 · Nest 3.27
+     against the 3.0 non-text floor. There is almost no headroom, so a hover or
+     pressed tint shifting even slightly breaks AA on three of six products.
+     Do not read the -hover/-pressed values as measured.
+
+     ★★ 2026-09-07 §K124 — SUPERSEDED WITHIN THE HOUR BY §K125. The "ramp is offset
+     by one step" claim was measured on PERCH ALONE and RETRACTED once all six were
+     measured. THERE IS NO OFFSET RULE. Do NOT relabel hover from pressed.
+
+     ★★★ §K125 — ALL SIX HOVER FILLS MEASURED (real pointer, each product's own
+     route, :hover asserted, ICON UNCHANGED IN ALL SIX CASES). This block is the
+     reference; it is NOT what the tokens below ship (see the AA note).
+
+       product      production hover   our token hover   AA on rest icon
+       perch        #FFBE8A            #FFD0AD  differ   2.44  ✗ FAIL
+       nest         #FFB5CF            #FFC2D6  differ   2.54  ✗ FAIL
+       vigil        #A9EFFA            #A9EFFA  EXACT    2.79  ✗ FAIL
+       wisdom       #B7F5D5            #B4F1D3  differ   3.38  ✓
+       parliament   #BFD1FF            #C9DAFF  differ   3.58  ✓
+       lumen        #E8DCFF            #E8DCFF  EXACT    4.00  ✓
+
+     Two of six exact, four differ, and the four differ in NO consistent direction:
+     nest/wisdom/parliament match NEITHER of our tokens, lumen/vigil match our
+     HOVER, only perch matches our PRESSED. The relationship is per-product and
+     inconsistent — relabelling would have been wrong for five of six.
+
+     ⚠⚠ PRODUCTION FAILS WCAG 1.4.11 ON THREE OF SIX RAIL HOVERS (perch 2.44, nest
+     2.54, vigil 2.79 vs the 3.0 floor). The icon never darkens, so there is no
+     compensation anywhere. Global nav, every user, every page. SECOND confirmed AA
+     defect in the rail after the group-2 one.
+     → SO "MATCH PRODUCTION" IS NOT THE SAFE DEFAULT HERE — it is the option that
+       ships the WORST numbers. All three options diverge or fail; see §K125.
+
+     ★ THE PREDICTIVE GATE SCORED 6/6 AGAINST PRODUCTION, stated in advance from
+     rest ratios alone: vigil 3.13 / perch 3.20 / nest 3.27 predicted FAIL, all
+     three DO; wisdom 3.67 / lumen 4.63 / parliament 4.65 predicted pass, all three
+     DO. USABLE AS A GATE: an accent needs ~3.3 at rest to survive a hover
+     darkening, ~4.5 to survive a further pressed step. Check any proposed product
+     colour against that BEFORE it is built.
+
+     THE VALUES BELOW ARE THE §K122d LIGHTENING RAMP, restored after the §K124
+     relabel was retracted. All 21 pairs pass by construction. It is a deliberate
+     documented divergence on ACCESSIBILITY grounds — which is also the
+     recommendation now with design — and NOT a production match.
+     ⚠ -fill-pressed remains UNVERIFIED against production (:active needs a
+     sustained mouse-down, which cannot be held while probing) AND unconsumed by
+     our own CSS. Left as restored; do NOT relabel it from the perch observation.
+
+     2026-09-07 §K122 — the -hover/-pressed values below were REPLACED. The
+     original Figma-sourced ramp DARKENED the tint against a fixed icon hue,
+     shipping three AA failures (Perch 2.80 · Nest 2.77 · Vigil 2.79 vs the 3.0
+     non-text floor) and making Wisdom fail the moment -pressed is consumed
+     (2.88). With the icon hue fixed a darkening ramp is arithmetically
+     impossible here: Perch rests at 3.20, so there is no headroom to darken at
+     all. The ramp now LIGHTENS, which raises contrast monotonically — every
+     step is >= its rest pair, so all 21 pairs pass BY CONSTRUCTION rather than
+     by tuning — and it matches the only hover ramp ever measured in this system
+     (primary button #1F60C9 -> #4E87E4, lighter on hover).
+     THIS IS A DELIBERATE DIVERGENCE FROM FIGMA ON AA GROUNDS, NOT A PRODUCTION
+     MEASUREMENT. Production's hover/pressed remain unmeasured (blocked on
+     re-auth). If production is later measured to darken, it must compensate
+     somewhere we have not found, and this decision should be revisited.
+     Also resolves the settings-fill-hover collision, which reused #D1FAE5 —
+     Wisdom's REST fill — as Settings' hover fill.
+     PREDICTIVE: with a fixed icon hue, only a LIGHTENING tint ramp is AA-safe
+     for any accent starting below ~4.5 at rest. Check any new product colour
+     against that before it ships. */
+  --bento-suite-perch-fill: #FFE2CB;       --bento-suite-perch-icon: #D25D0F;   /* Perch — saffron (selected nav, board 67:24890) */
+  --bento-suite-perch-fill-hover: #FFEFE0; --bento-suite-perch-fill-pressed: #FFF7EF;
+  --bento-suite-nest-fill: #FFDAE7;        --bento-suite-nest-icon: #EC246B;    /* Nest — pink (board 67:24905) */
+  --bento-suite-nest-fill-hover: #FFEAF1;  --bento-suite-nest-fill-pressed: #FFF4F7;
+  --bento-suite-lumen-fill: #F4EFFF;       --bento-suite-lumen-icon: #7E48EC;   /* Lumen — purple (board 67:24920) */
+  --bento-suite-lumen-fill-hover: #FAF7FF; --bento-suite-lumen-fill-pressed: #FDFCFF;
+  --bento-suite-parliament-fill: #E5EDFF;  --bento-suite-parliament-icon: #1F5BF3; /* Parliament — blue (board 251:112563) */
+  --bento-suite-parliament-fill-hover: #F0F5FF; --bento-suite-parliament-fill-pressed: #F8FAFF;
+  --bento-suite-wisdom-fill: #D1FAE5;      --bento-suite-wisdom-icon: #218D5F;  /* Wisdom — green (board 67:24955) */
+  --bento-suite-wisdom-fill-hover: #E4FCF0; --bento-suite-wisdom-fill-pressed: #F1FDF7;
+  --bento-suite-vigil-fill: #D6F6FB;       --bento-suite-vigil-icon: #0B95AA;   /* Vigil — teal (board 67:24875) */
+  --bento-suite-vigil-fill-hover: #E8FBFD; --bento-suite-vigil-fill-pressed: #F3FDFE;
+  --bento-suite-settings-fill: #ECFDF5;    --bento-suite-settings-icon: #218D5F; /* Settings */
+  --bento-suite-settings-fill-hover: #F5FEFA; --bento-suite-settings-fill-pressed: #FAFEFC;
+  /* Unselected hover wash + glyph — §K124b/c. BOTH literals here were INVENTIONS;
+     #E6EDEF and #003446 appear nowhere in production or in any of the three theme
+     palettes. MEASURED (real pointer, inactive Nest rail item hovered): the wash is
+     #F7F8F9 = base-surface-hovered, the SAME semantic token as the drawer hover, and
+     THE GLYPH DOES NOT CHANGE COLOUR AT ALL (#1C1C1C = base-content, FILL 0).
+     Ratio 16.03, passes comfortably. -pressed remains UNMEASURED; it is set equal to
+     rest rather than invented darker. */
+  --bento-suite-nav-hover-wash: var(--bento-system-sys-neutral-alt-100);   /* #F7F8F9 */
+  --bento-suite-nav-glyph-hover: var(--bento-system-sys-neutral-800);      /* #1C1C1C — unchanged from rest, MEASURED */
+  --bento-suite-nav-glyph-pressed: var(--bento-system-sys-neutral-800);    /* UNMEASURED — set = rest, not invented */
+}
+
+:root {
+  --bento-color-text-base: var(--bento-theme-color-text-base);
+  --bento-color-text-subtle: var(--bento-theme-color-text-subtle);
+  --bento-color-text-inverse: var(--bento-theme-color-text-inverse);
+  --bento-color-text-link: var(--bento-theme-color-text-link);
+  --bento-color-icon-base: var(--bento-theme-color-icon-base);
+  --bento-color-border-base: var(--bento-theme-color-border-base);
+  --bento-color-border-focus: var(--bento-theme-color-border-focus);
+}
+

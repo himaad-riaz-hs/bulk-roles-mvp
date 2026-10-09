@@ -1,0 +1,27 @@
+/* ──────────────────────────────────────────────────────────────────
+   Bento — Hootsuite design system · root stylesheet
+   ──────────────────────────────────────────────────────────────────
+   Single entry point. Consuming projects link ONLY this file.
+   Everything reachable from here ships to consumers:
+     • Self-hosted brand fonts (Source Sans 3, Montserrat Alternates)
+     • --bento-* semantic tokens (colour, type, layout, component)
+     • --hs-* Figma-variable tokens across 5 theme/mode scopes
+       (light/dark/brand2020 · tablet/desktop/max breakpoint modes)
+     • Figma text styles (components/fig-typography.css) + asset vars
+     • --hs-* convenience aliases + base element styles
+     • .hs-* / .cf / .bento-text-* utility class library
+   Icons load from the Material Symbols webfont (link it per page).
+   ────────────────────────────────────────────────────────────────── */
+
+@import url("./fonts/fonts.css");
+@import url("./tokens/colors.css");
+@import url("./tokens/typography.css");
+@import url("./tokens/layout.css");
+@import url("./tokens/fig-tokens.css");
+@import url("./tokens/fig-assets.css");
+@import url("./tokens/aliases.css");
+@import url("./components/fig-typography.css");
+@import url("./components.css");
+@import url("./components-ext.css");
+
+@import url("tokens/chart-alias.css");

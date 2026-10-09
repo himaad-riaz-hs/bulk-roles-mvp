@@ -1,0 +1,110 @@
+/* notif-panel.css — global-nav Notifications panel.
+   FULLY MEASURED 2026-09-06 (production DOM + computed styles). Rebuilt to this
+   spec; every earlier guess about elevation, radius, width, title size, tab
+   selection and row structure was wrong.
+
+   THE DIALOG (#global-nav-notifications-panel)
+   · role="dialog" · aria-modal="true"
+   · width 536px · height = FULL VIEWPORT · position absolute
+   · background #FDFDFD · box-shadow NONE · border-radius 0
+   A full-height flush panel, NOT a floating card.
+
+   HEADER — title "Notifications" 30px/600 #241F21. That is LARGER than the
+   26px page titles everywhere else and the biggest type found outside Vigil's
+   56px hero: do NOT reuse the page-title token here.
+   "View all" 14px/700 · settings glyph 20px · close glyph 20px.
+
+   TABS — SELECTION IS COLOUR, NOT WEIGHT. Both tabs are 16px weight 600;
+   selected #1C1C1C, unselected #5C5C5C. This is the EXACT OPPOSITE of the
+   drawer nav (weight 600 vs 400 at constant colour). Production uses two
+   different selected-state mechanisms depending on the component. Do not unify
+   them and do not apply the nav rule here.
+
+   ROWS — 132px pitch, four parts, transparent, 0 radius. THEY ARE NOT CARDS.
+   · title      16px/600 #1C1C1C, left
+   · timestamp  14px/400 #5C5C5C, RIGHT-ALIGNED, same baseline as the title
+   · preview    14px/400 #1C1C1C at +52px
+   · breadcrumb 14px/400 #5C5C5C at +80px
+   NOT MEASURED, NOT INVENTED: no unread affordance (dot, fill, weight change)
+   was captured, so none is drawn — the Unread tab filters without a per-row
+   marker. Flagged in DEFECT-REGISTER. */
+
+.nfp-scrim { position: fixed; inset: 0; z-index: 80; background: var(--hs-scrim); }
+.nfp-panel {
+  position: fixed; z-index: 81; top: 0; bottom: 0; left: var(--suite-rail-w, 80px);
+  width: 536px; max-width: calc(100vw - var(--suite-rail-w, 80px));
+  height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+  background: #FDFDFD; border: 0; border-radius: 0; box-shadow: none;
+  font-family: var(--suite-font, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+}
+.nfp-panel, .nfp-panel:focus, .nfp-panel:focus-visible, .nfp-head h2:focus, .nfp-head h2:focus-visible { outline: none !important; box-shadow: none; }
+
+.nfp-head { flex-shrink: 0; display: flex; align-items: center; gap: 4px; padding: 20px 16px 12px 24px; }
+.nfp-head h2 { flex: 1; margin: 0; font-weight: 600; font-size: 30px; line-height: 40px; color: #241F21; }
+.nfp-viewall { border: 0; background: transparent; cursor: pointer; font: inherit; font-weight: 700; font-size: 14px; white-space: nowrap; color: var(--bento-theme-color-text-base); padding: 6px 8px; border-radius: 8px; }
+.nfp-viewall:hover { background: var(--bento-theme-color-bg-surface-hovered); }
+.nfp-iconbtn { flex-shrink: 0; color: #241F21; }
+.nfp-iconbtn .material-symbols-outlined { font-size: 20px; font-variation-settings: "wght" 400; }
+.nfp-iconbtn:hover, .nfp-iconbtn:active { background: var(--bento-theme-color-bg-surface-hovered); }
+
+/* Tabs — colour-selected, both weight 600 */
+.nfp-tabs { flex-shrink: 0; display: flex; gap: 24px; padding: 4px 24px 12px; }
+.nfp-tab { border: 0; background: transparent; cursor: pointer; font: inherit; font-weight: 600; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-subtle); padding: 4px 0; position: relative; }
+.nfp-tab[aria-selected="true"] { color: var(--bento-theme-color-text-base); }
+.nfp-tab[aria-selected="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; border-radius: 2px; background: var(--bento-theme-color-text-base); }
+
+/* Filter row */
+.nfp-filters { flex-shrink: 0; display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 0 16px 8px 20px; }
+.nfp-markall { font: inherit; font-weight: 600; font-size: 14px; white-space: nowrap; color: #1C1C1C; }
+.nfp-markall .material-symbols-outlined { font-size: 20px; }
+.nfp-markall:hover, .nfp-markall:active { background: var(--bento-theme-color-bg-surface-hovered); }
+.nfp-range { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; border: 0; border-radius: 8px; cursor: pointer; background: transparent; font: inherit; font-weight: 600; font-size: 16px; white-space: nowrap; color: #1C1C1C; }
+.nfp-range .material-symbols-outlined { font-size: 20px; }
+.nfp-range:hover { background: var(--bento-theme-color-bg-surface-hovered); }
+
+/* Rows — avatar | title+preview+crumb | time+unread dot; ~100px, not cards */
+.nfp-list { flex: 1; min-height: 0; overflow-y: auto; }
+.nfp-row {
+  display: flex; align-items: flex-start; gap: 16px; width: 100%; min-height: 100px; padding: 16px 24px; box-sizing: border-box;
+  border: 0; background: transparent; border-radius: 0; cursor: pointer; text-align: left; font: inherit;
+}
+.nfp-row:hover { background: var(--bento-theme-color-bg-surface-hovered); }
+.nfp-av { flex-shrink: 0; display: inline-flex; }
+.nfp-avfb { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--hs-cat-1-bg); color: var(--hs-cat-1-fg); font-weight: 700; font-size: 14px; }
+.nfp-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.nfp-rowtitle { font-weight: 600; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-base); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.nfp-preview { display: block; font-weight: 400; font-size: 14px; line-height: 20px; color: var(--bento-theme-color-text-base); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nfp-crumb { display: block; font-weight: 400; font-size: 14px; line-height: 20px; color: var(--bento-theme-color-text-subtle); }
+.nfp-side { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.nfp-time { font-weight: 400; font-size: 14px; line-height: 24px; color: var(--bento-theme-color-text-subtle); font-variant-numeric: tabular-nums; }
+.nfp-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--hs-fg-negative); }
+
+.nfp-empty { flex: 1; display: grid; place-items: center; padding: 40px; text-align: center; color: #5C5C5C; font-size: 14px; }
+
+/* Review host for templates/notifications — deliberately neutral, not a mock
+   of a product screen. */
+.nfp-host { flex: 1; min-width: 0; overflow: auto; padding: 56px 48px; max-width: 760px; font-family: var(--suite-font, "Source Sans 3", sans-serif); }
+.nfp-host h1 { margin: 0 0 12px; font-weight: 600; font-size: 26px; line-height: 32px; color: var(--bento-theme-color-text-base); }
+.nfp-host p { margin: 0 0 12px; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-subtle); text-wrap: pretty; }
+.nfp-host-note code { font-family: ui-monospace, monospace; font-size: 13px; background: #EEF1F2; padding: 1px 5px; border-radius: 4px; margin: 0 2px; color: var(--bento-theme-color-text-base); }
+
+/* Rail skip link — production has "Skip to main content" as the first
+   focusable element at x=8 y=8. Visually hidden until focused. */
+.suite-skip {
+  position: fixed; left: 8px; top: 8px; z-index: 200;
+  width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%);
+  border: 0; background: var(--hs-action-primary, #1F60C9); color: #FDFDFD;
+  font-family: inherit; font-weight: 700; font-size: 14px; border-radius: 8px; cursor: pointer;
+}
+.suite-skip:focus { width: auto; height: auto; overflow: visible; clip-path: none; padding: 10px 16px; }
+
+/* Network badge sits on the avatar's bottom-right edge, offset outward, so two-letter initials stay fully visible. */
+.nfp-av > span > span:last-child { left: 28px !important; top: 28px !important; }
+.nfp-av > span > span:last-child > span { box-shadow: 0 0 0 2px var(--bento-theme-color-bg-surface); }
+
+/* One control row (production 6 Oct): tabs left, Mark all as read + Date range right. */
+.nfp-ctrl { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 4px 16px 8px 24px; }
+.nfp-ctrl .nfp-tabs { padding: 0; }
+.nfp-ctrl .nfp-filters { padding: 0; }
+.nfp-head .nfp-viewall { height: 40px; padding: 0 12px; border-radius: 8px; }
+.nfp-ctrl .nfp-range { min-width: 144px; box-sizing: border-box; padding: 0 16px; gap: 8px; justify-content: center; }

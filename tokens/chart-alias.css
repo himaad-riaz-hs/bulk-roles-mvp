@@ -1,0 +1,41 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Chart colour: the documented namespace is --hs-chart-color-*
+   (Confluence 12436275363 "Colors · Data visualisation").
+
+   It already ships in this project via tokens/fig-tokens.css, in all three Figma
+   modes — including the documented dark-mode exception, where -compare is derived
+   from the categorical-200 range instead of -900.
+
+   --bento-theme-color-visual-data-* was authored locally in tokens/colors.css and is
+   NOT documented anywhere in the Bento space. It is kept here only so existing code
+   keeps working, and it is redefined as a thin alias of the documented tokens so that
+   (a) there is one source of truth and (b) charts inherit dark mode for free.
+
+   NEW WORK MUST USE --hs-chart-color-* DIRECTLY. This file is a migration shim.
+   ───────────────────────────────────────────────────────────────────────────── */
+:root {
+  --bento-theme-color-visual-data-01: var(--hs-chart-color-categorical-1-base);
+  --bento-theme-color-visual-data-02: var(--hs-chart-color-categorical-2-base);
+  --bento-theme-color-visual-data-03: var(--hs-chart-color-categorical-3-base);
+  --bento-theme-color-visual-data-04: var(--hs-chart-color-categorical-4-base);
+  --bento-theme-color-visual-data-05: var(--hs-chart-color-categorical-5-base);
+  --bento-theme-color-visual-data-06: var(--hs-chart-color-categorical-6-base);
+  --bento-theme-color-visual-data-07: var(--hs-chart-color-categorical-7-base);
+  --bento-theme-color-visual-data-08: var(--hs-chart-color-categorical-8-base);
+
+  --bento-theme-color-visual-data-01-compare: var(--hs-chart-color-categorical-1-compare);
+  --bento-theme-color-visual-data-02-compare: var(--hs-chart-color-categorical-2-compare);
+  --bento-theme-color-visual-data-03-compare: var(--hs-chart-color-categorical-3-compare);
+  --bento-theme-color-visual-data-04-compare: var(--hs-chart-color-categorical-4-compare);
+  --bento-theme-color-visual-data-05-compare: var(--hs-chart-color-categorical-5-compare);
+  --bento-theme-color-visual-data-06-compare: var(--hs-chart-color-categorical-6-compare);
+  --bento-theme-color-visual-data-07-compare: var(--hs-chart-color-categorical-7-compare);
+  --bento-theme-color-visual-data-08-compare: var(--hs-chart-color-categorical-8-compare);
+
+  --bento-theme-color-visual-data-positive: var(--hs-chart-color-positive-base);
+  --bento-theme-color-visual-data-negative: var(--hs-chart-color-negative-base);
+  --bento-theme-color-visual-data-neutral:  var(--hs-chart-color-neutral-base);
+  --bento-theme-color-visual-data-positive-compare: var(--hs-chart-color-positive-shade);
+  --bento-theme-color-visual-data-negative-compare: var(--hs-chart-color-negative-shade);
+  --bento-theme-color-visual-data-neutral-compare:  var(--hs-chart-color-neutral-shade);
+}

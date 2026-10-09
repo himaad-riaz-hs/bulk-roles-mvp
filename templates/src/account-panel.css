@@ -1,0 +1,38 @@
+
+/* account-panel.css — global-nav Account menu popover (re-measured 2026-10-06; see account-panel.jsx).
+   Anchored bottom-left beside the rail avatar, 441 x ~594, #FDFDFD, radius 8, standard elevation.
+   The scrim is transparent: it only catches the click outside. */
+
+.acp-scrim { position: fixed; inset: 0; z-index: 80; background: transparent; }
+.acp-panel {
+  position: fixed; z-index: 81; bottom: 8px; left: calc(var(--suite-rail-w, 80px) + 8px);
+  width: 441px; height: 594px; max-width: calc(100vw - var(--suite-rail-w, 80px) - 16px); max-height: calc(100vh - 16px);
+  box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden;
+  background: var(--bento-theme-color-bg-surface); border-radius: 8px;
+  box-shadow: var(--bento-theme-elevation-shadow-dialog);
+  font-family: var(--suite-font, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+}
+.acp-panel:focus, .acp-panel:focus-visible { outline: none; }
+
+.acp-head { flex-shrink: 0; padding: 24px 24px 12px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.acp-head h2 { margin: 0; font-weight: 600; font-size: 26px; line-height: 32px; color: var(--bento-theme-color-text-base); }
+.acp-plan { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; background: var(--bento-system-sys-neutral-alt-300); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-base); }
+.acp-plan .material-symbols-outlined { font-size: 20px; }
+
+.acp-promo { display: flex; align-items: center; gap: 16px; height: 60px; flex-shrink: 0; box-sizing: border-box; width: 100%; padding: 0 24px; border: 0; background: transparent; cursor: pointer; font: inherit; text-align: left; }
+.acp-promo:hover, .acp-row:hover, .acp-signout:hover { background: var(--bento-theme-color-bg-surface-hovered); }
+.acp-promo:focus-visible, .acp-row:focus-visible, .acp-signout:focus-visible { outline: 2px solid var(--bento-theme-color-border-focus); outline-offset: -2px; }
+.acp-promo .material-symbols-outlined { font-size: 24px; color: var(--bento-theme-color-icon-base); }
+.acp-promo .t { flex: 1; font-weight: 600; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-base); }
+.acp-new { flex-shrink: 0; padding: 0 8px; border-radius: 4px; font-weight: 600; font-size: 16px; line-height: 24px; background: var(--suite-lumen-fill); color: var(--suite-lumen-icon); }
+
+.acp-body { flex: 1; min-height: 0; overflow-y: auto; }
+.acp-row { display: flex; align-items: center; gap: 16px; width: 100%; height: 80px; box-sizing: border-box; padding: 0 24px; border: 0; background: transparent; cursor: pointer; text-align: left; font-family: inherit; }
+.acp-row .material-symbols-outlined { font-size: 24px; color: var(--bento-theme-color-icon-base); flex-shrink: 0; }
+.acp-row .tx { display: flex; flex-direction: column; min-width: 0; }
+.acp-row .ti { font-weight: 600; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-base); }
+.acp-row .de { font-weight: 400; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-subtle); }
+
+.acp-foot { flex-shrink: 0; }
+.acp-signout { display: flex; align-items: center; gap: 16px; width: 100%; height: 56px; box-sizing: border-box; padding: 0 24px; border: 0; background: transparent; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-base); text-align: left; }
+.acp-signout .material-symbols-outlined { font-size: 24px; color: var(--bento-theme-color-icon-base); }

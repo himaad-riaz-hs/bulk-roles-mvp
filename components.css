@@ -1,0 +1,720 @@
+/* Component library — used by preview cards and UI kits. */
+
+/* ── Box model ───────────────────────────────────────────────────────
+   The kit had NO universal box-sizing reset: every primitive declared it
+   individually, so any rule that forgot was content-box by default. That
+   is what shipped `.hs-input` at content-box (register I1/G1 — a 744px
+   input inside a 679px wrapper, clipping the Lumen Search button), and
+   `.hs-textarea` (+25px), `.hs-tp-input` (+33px) and `.hs-modal` (inset
+   cancelled by its own padding) carried the same bug undetected because
+   no template renders them full-width yet. One reset, so a new component
+   cannot reintroduce it. Register I6. */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ── Material Symbols base (icon-glyph sweep) ─────────────────────────
+   Hardened base so every built product renders glyphs consistently even
+   while the webfont loads: fixes vertical alignment, resolves the `liga`
+   ligature, sets the default axis (outlined, weight 400), and stops the
+   icon text from being selectable/draggable. FILL flips to 1 only on
+   active/selected toggles (per Bento icon rules). */
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-font-feature-settings: "liga";
+  font-feature-settings: "liga";
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  user-select: none;
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.hs-btn {
+  appearance: none;
+  border: 0;
+  border-radius: var(--hs-radii-lg);
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  /* Font: explicit individual properties so partial token resolution still works.
+     font: var(--hs-type-button) alone fails silently if any nested var is out of scope. */
+  font-size: var(--bento-theme-font-size-1, 14px);
+  line-height: var(--bento-theme-line-heights-2, 24px);
+  font-weight: var(--bento-theme-font-weights-bold, 700); /* Figma: fontWeight 700 (Bold) */
+  font-family: var(--hs-font-body, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+  height: 40px;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+              color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  user-select: none;
+  text-decoration: none; /* a.hs-btn must not pick up the browser link underline */
+}
+.hs-btn:hover, .hs-btn:focus-visible { text-decoration: none; }
+.hs-btn .material-symbols-outlined { font-size: 16px; margin: 0; }
+.hs-btn--icon .material-symbols-outlined { margin: 0 -2px; } /* icon-only keeps the old offset */ /* Figma button icon is 16×16 (node 3404:39041); was 18px */
+.hs-btn:focus-visible { outline: 2px solid var(--bento-theme-color-border-focus); outline-offset: 2px; }
+
+.hs-btn--primary {
+  background: var(--hs-action-primary);
+  color: var(--hs-fg-inverse);
+}
+.hs-btn--primary:hover  { background: var(--hs-action-primary-hover); }
+.hs-btn--primary:active { background: var(--hs-action-primary-pressed); }
+
+.hs-btn--secondary {
+  background: var(--hs-action-secondary);
+  color: var(--hs-fg);
+}
+.hs-btn--secondary:hover  { background: var(--hs-action-secondary-hover); }
+.hs-btn--secondary:active { background: var(--hs-action-secondary-pressed); }
+
+.hs-btn--outlined {
+  background: transparent;
+  color: var(--hs-fg);
+  box-shadow: inset 0 0 0 1px var(--hs-border-strong);
+}
+.hs-btn--outlined:hover  { background: var(--hs-action-secondary-hover); }
+.hs-btn--outlined:active { background: var(--hs-action-secondary-pressed); }
+
+.hs-btn--ghost {
+  background: transparent;
+  color: var(--hs-fg);
+}
+.hs-btn--ghost:hover  { background: var(--hs-action-secondary-hover); }
+.hs-btn--ghost:active { background: var(--hs-action-secondary-pressed); }
+
+/* Bento has NO destructive / negative / red button. Verified against
+   HS-Bento-master /button (configurations: primary · secondary · outlined ·
+   ghost · filled only). Destructive actions use a normal button whose label
+   names what it removes ("Delete draft"); the warning is carried by copy, and
+   the confirm action in a dialog is the navy primary button. */
+
+/* DISABLED, measured 2026-09-06 (first disabled-state data in the audit):
+     "Open apps"      transparent · #A1A1A1 · OPACITY 1 · cursor not-allowed
+     "Send to Wisdom" #F7F8F9     · #A1A1A1 · OPACITY 1 · cursor not-allowed
+   OPACITY IS 1 ON BOTH. Production does NOT fade disabled controls — it swaps
+   the ink to #A1A1A1 and sets cursor: not-allowed, keeping the control legible
+   and its footprint identical to the enabled state. Never add opacity here.
+   Both use the NATIVE disabled attribute, not aria-disabled.
+   THE SURFACE IS NOT UNIVERSAL: "Open apps" stays transparent while
+   "Send to Wisdom" is #F7F8F9, so only the INK is a global rule. This block
+   used to force `background !important` on every variant, which would paint a
+   transparent/ghost disabled button grey. The fill now applies to the FILLED
+   variants only.
+   NOT GENERALISED: #F7F8F9 is also the nav HOVER colour. Whether it is
+   deliberately doing double duty as a disabled surface is unknown from one
+   sample — --hs-action-disabled resolved to #F7F8F9 independently in our own
+   tokens, which corroborates the value but not the intent. No
+   "disabled surface = #F7F8F9" rule. */
+.hs-btn[disabled],
+.hs-btn--disabled {
+  cursor: not-allowed;
+  color: var(--hs-fg-disabled) !important;
+  box-shadow: none !important;
+}
+.hs-btn--primary[disabled], .hs-btn--secondary[disabled], .hs-btn--outlined[disabled],
+.hs-btn--primary.hs-btn--disabled, .hs-btn--secondary.hs-btn--disabled, .hs-btn--outlined.hs-btn--disabled {
+  background: var(--hs-action-disabled) !important;
+}
+/* ghost/icon variants keep their transparent surface when disabled */
+.hs-btn--ghost[disabled], .hs-btn--ghost.hs-btn--disabled { background: transparent !important; }
+
+.hs-btn--icon {
+  width: 40px;
+  padding: 0;
+  border-radius: var(--hs-radii-full);
+}
+.hs-btn--icon .material-symbols-outlined { font-size: 20px; margin: 0; }
+/* Button with a leading icon (class added by Button when `icon` is set): production pads 8 16 8 12 (Create a post 132.16). */
+.hs-btn--lead:not(.hs-btn--sm):not(.hs-btn--icon) { padding: 8px 16px 8px 12px; }
+
+/* Small size modifier — 32px height, tighter padding. Used in filter bars. */
+.hs-btn--sm {
+  height: 32px;
+  padding: 0 12px;
+  font-size: var(--bento-theme-font-size-1, 14px);
+  font-weight: var(--bento-theme-font-weights-bold, 700); /* Figma: Bold 700 */
+}
+
+/* ── Inputs ──────────────────────────────────────────────── */
+.hs-field { display: flex; flex-direction: column; gap: 8px; } /* Figma CompFormControl: gap 8px (was 6px) */
+/* Form label — 600 / 16 · 24, primary fg. */
+.hs-field-label {
+  font-size: var(--bento-theme-font-size-2, 16px);
+  line-height: var(--bento-theme-line-heights-2, 24px);
+  font-weight: var(--bento-theme-font-weights-semibold, 600);
+  font-family: var(--hs-font-body, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+  color: var(--hs-fg);
+}
+/* Form description — 400 / 16 · 24, primary fg (NOT muted). */
+.hs-field-desc {
+  font-size: var(--bento-theme-font-size-2, 16px);
+  line-height: var(--bento-theme-line-heights-2, 24px);
+  font-weight: var(--bento-theme-font-weights-regular, 400);
+  font-family: var(--hs-font-body, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+  color: var(--hs-fg);
+}
+/* Field hint row — 48px tall with an optional 24px status icon slot, 16/24 text
+   subtle. Was 12/16; the 12px size survives only as .hs-field-hint--meta. */
+.hs-field-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  font-size: var(--bento-theme-font-size-2, 16px);
+  line-height: var(--bento-theme-line-heights-2, 24px);
+  font-weight: var(--bento-theme-font-weights-regular, 400);
+  font-family: var(--hs-font-body, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+  color: var(--hs-fg-secondary);
+}
+.hs-field-hint > .material-symbols-outlined { font-size: 24px; flex-shrink: 0; }
+/* Legacy 12/16 size, kept only for anything still depending on it. */
+.hs-field-hint--meta { min-height: 0; font-size: 12px; line-height: 16px; }
+
+.hs-input {
+  /* SYSTEM DEFECT FIX 2026-09-06: was content-box, so any .hs-input with width:100%
+     plus horizontal padding rendered WIDER than its container and overflowed to the
+     right. On Lumen Quick Search this overlapped the adjacent Search button, clipping
+     its label to "rch" (register G1) and overlapping the content beneath (G2).
+     Affects every input in the kit, not just that page. */
+  box-sizing: border-box;
+  height: 40px;
+  padding: 0 var(--bento-component-input-padding-x); /* 16px — Figma comp-input padding-x (node 3020:32883); was raw 12px */
+  border-radius: var(--hs-radii-lg);
+  background: var(--hs-surface);
+  border: 1px solid var(--hs-border-input);
+  font-size: var(--bento-theme-font-size-2, 16px);
+  line-height: var(--bento-theme-line-heights-2, 24px);
+  font-weight: var(--bento-theme-font-weights-regular, 400);
+  font-family: var(--hs-font-body, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+  color: var(--hs-fg);
+  outline: none;
+  transition: border-color 150ms, box-shadow 150ms;
+}
+.hs-input::placeholder { color: var(--bento-theme-color-text-placeholder); }
+.hs-input:hover { border-color: var(--hs-fg); }
+.hs-input:focus {
+  border-color: var(--hs-border-input);
+  outline: 2px solid var(--bento-theme-color-border-focus);
+  outline-offset: 2px;
+}
+.hs-input--error { border-color: var(--bento-theme-color-border-negative); }
+.hs-input--error:focus {
+  border-color: var(--bento-theme-color-border-negative);
+  outline: 2px solid var(--bento-theme-color-border-focus);
+  outline-offset: 2px;
+}
+.hs-input:disabled {
+  background: var(--bento-component-input-fill-disabled);
+  border-color: var(--bento-component-input-border-disabled);
+  color: var(--hs-fg-disabled, var(--bento-theme-color-text-disabled));
+  cursor: not-allowed;
+}
+
+.hs-textarea {
+  box-sizing: border-box;              /* I6 */
+  min-height: 96px;
+  padding: 10px 12px;
+  width: 100%;
+  resize: vertical;
+}
+
+/* ── Badge ────────────────────────────────────────────────
+   Figma spec (ConfigurationNeutralIconOnlyFalse, node 59111:76506):
+   height 28px, border-radius 4px (rounded rect, NOT pill),
+   font 16px SemiBold, padding 2px 8px, gap 4px.
+   Use .hs-badge--{neutral|overlay|positive|warning|negative|discovery|info}
+   for tone, .hs-badge--square for the icon-only square form. */
+.hs-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;                              /* Figma: 4px (was 6px) */
+  padding: 2px 8px;                      /* Figma: 2px 8px (was 0 12px) */
+  height: 28px;
+  min-width: 28px;
+  box-sizing: border-box;
+  border-radius: 4px;                    /* Figma: 4px rounded rect (was 999px pill) */
+  font-size: var(--bento-theme-font-size-2, 16px); /* Figma: 16px (was 14px) */
+  line-height: var(--bento-theme-line-heights-2, 24px);
+  font-weight: var(--bento-theme-font-weights-semibold, 600);
+  font-family: var(--hs-font-body, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+  background: var(--hs-bg-neutral);
+  color: var(--hs-on-neutral);
+  white-space: nowrap;
+}
+.hs-badge .material-symbols-outlined {
+  font-size: 16px;
+  font-variation-settings: "FILL" 1, "wght" 500;
+}
+.hs-badge--square {
+  padding: 0;
+  width: 28px; min-width: 28px;
+  justify-content: center;
+  border-radius: 4px; /* Figma: 4px (was 6px) */
+}
+.hs-badge--square .material-symbols-outlined { font-size: 16px; }
+
+.hs-badge--neutral   { background: var(--hs-bg-neutral);   color: var(--hs-on-neutral); }
+.hs-badge--positive  { background: var(--hs-bg-positive);  color: var(--hs-fg-positive); }
+.hs-badge--warning   { background: var(--hs-bg-warning);   color: var(--hs-fg-warning); }
+.hs-badge--negative  { background: var(--hs-bg-negative);  color: var(--hs-fg-negative); }
+.hs-badge--discovery { background: var(--hs-bg-discovery); color: var(--hs-fg-discovery); }
+.hs-badge--info      { background: var(--hs-bg-info);      color: var(--hs-fg-info); }
+
+/* Interactive badges get a rgba(51,51,51,0.64) overlay on hover. */
+.hs-badge--interactive { cursor: pointer; }
+.hs-badge--interactive::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  background: var(--hs-overlay-hover);
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.hs-badge--interactive:hover::after { opacity: 1; }
+.hs-badge--interactive > * { position: relative; z-index: 1; }
+.hs-badge--interactive:hover { color: var(--hs-fg-inverse); }
+
+.hs-badge--dot::before {
+  content: ""; width: 6px; height: 6px; border-radius: 999px;
+  background: currentColor;
+}
+
+/* ── Chip / tag ─────────────────────────────────────────── */
+.hs-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  height: 32px;
+  border-radius: var(--hs-radii-md);
+  font-size: var(--bento-theme-font-size-2, 16px);
+  line-height: var(--bento-theme-line-heights-2, 24px);
+  font-weight: var(--bento-theme-font-weights-regular, 400);
+  font-family: var(--hs-font-body, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+  background: var(--hs-cat-1-bg);
+  color: var(--hs-cat-1-fg);
+}
+.hs-chip .material-symbols-outlined { font-size: 16px; }
+.hs-chip-dismiss { cursor: pointer; opacity: 0.7; }
+.hs-chip-dismiss:hover { opacity: 1; }
+
+/* ── Chip filter (ChipFilter component) ─────────────────────
+   Source: comp-chip-filter-options · figma 59111-92220
+   40px pill (master). active=false → trailing chevron (opens dropdown);
+   active=true → trailing × (clears the applied filter).
+   Add .selected for the gallery topic-chip extension (blue tint + count badge).
+   ──────────────────────────────────────────────────────────── */
+/* .cf is the FILTER chip (trailing chevron/count/×); a distinct .hs-chip already
+   exists in this file for the plain display/tag chip — cannot alias .hs-chip to
+   .cf without colliding with that component, so .cf stays the only class name
+   here (ground rule: no renamed .hs-* class). */
+.cf {
+  appearance: none; border: 0;
+  height: 40px;
+  padding: 0 8px 0 16px;
+  background: var(--bento-component-chip-fill);
+  color: var(--bento-component-chip-text);
+  border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: var(--bento-theme-font-size-2, 16px);
+  line-height: var(--bento-theme-line-heights-2, 24px);
+  font-weight: var(--bento-theme-font-weights-semibold, 600);
+  font-family: var(--hs-font-body, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: background-color 120ms, box-shadow 120ms;
+}
+.cf:has(.chev) { padding: 0 12px 0 16px; }
+.cf:has(.material-symbols-outlined:first-child) { padding: 0 16px 0 12px; }
+/* Pressed / open state shows a dark ring (master: pressed active=true) */
+.cf.open, .cf:active {
+  box-shadow: inset 0 0 0 1.5px var(--bento-theme-color-border-base);
+}
+/* Plain-text filter chips (no trailing chevron/count/×) get SYMMETRIC padding so
+   short labels like "All" render as a pill, not a circle. Chips with a trailing
+   element keep the 8px-right asymmetric padding for the icon. Shared across every
+   filter row (Wisdom Agents/Connectors/Knowledge, Vigil, Parliament, Lumen…). */
+.cf:not(:has(.chev)):not(:has(.ct)):not(:has(.x)) {
+  padding: 0 16px;
+}
+.cf:hover  { background: var(--bento-component-chip-fill-hovered); }
+.cf:active { background: var(--bento-component-chip-fill-pressed); }
+.cf:focus-visible {
+  outline: 2px solid var(--bento-theme-color-border-focus);
+  outline-offset: 0;
+}
+.cf[disabled] {
+  background: var(--bento-component-chip-fill-disabled);
+  color: var(--bento-component-chip-text-disabled);
+  cursor: not-allowed;
+}
+/* Selected / filtered state */
+.cf.selected {
+  background: var(--bento-theme-color-bg-info);
+  color: var(--bento-theme-color-bg-primary);
+  box-shadow: inset 0 0 0 1px var(--bento-theme-color-bg-primary);
+}
+.cf.selected:hover {
+  background: color-mix(in srgb, var(--bento-theme-color-bg-info) 85%, var(--bento-theme-color-bg-primary) 15%);
+}
+/* Chevron arrow — master trailing icon is 16px (nested SmallFalse 16×16, node 1796:19976) */
+.cf .chev { font-size: 16px; }
+/* Count badge inside chip */
+.cf .ct {
+  background: rgba(28,28,28,0.08); /* snowflake: chip count tint — no exact comp token */
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: var(--bento-theme-font-weights-semibold, 600);
+  font-family: var(--hs-font-body, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+}
+.cf.selected .ct {
+  background: var(--bento-theme-color-bg-primary);
+  color: var(--bento-theme-color-text-on-primary);
+}
+/* Dismiss (×) button inside chip — master .nested-chip/clear: 24px box, 16px glyph */
+.cf .x {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 50%;
+  cursor: pointer; color: inherit;
+}
+.cf .x:hover { background: rgba(28,28,28,0.1); /* snowflake: chip dismiss hover tint — no semantic token */ }
+.cf .x .material-symbols-outlined { font-size: 16px; }
+
+/* ── Input tag (InputTag) ───────────────────────────────────
+   Selected-value pill used inside Combobox & TreeSelect multi-select
+   fields. Master comp 2155:26654: charcoal pill, white 16/700 label,
+   optional counter, white × dismiss. Themed via --hs-comp-input-tag-*
+   (saffron-orange in brand2020). 32px tall, pill radius.
+   ──────────────────────────────────────────────────────────── */
+.hs-input-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 32px; padding: 0 4px 0 12px;
+  max-width: 216px;
+  background: var(--hs-comp-input-tag-color-fill);
+  color: var(--hs-comp-input-tag-color-text);
+  border-radius: var(--hs-radii-full, 999px);
+  font-size: var(--bento-theme-font-size-2, 16px);
+  line-height: 24px;
+  font-weight: var(--bento-theme-font-weights-bold, 700);
+  font-family: var(--hs-font-body, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+  white-space: nowrap;
+}
+.hs-input-tag .hs-input-tag-label { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.hs-input-tag .hs-input-tag-count { color: inherit; opacity: 0.85; }
+.hs-input-tag .x {
+  appearance: none; border: 0; background: transparent;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+  color: var(--hs-comp-input-tag-color-icon);
+  cursor: pointer;
+}
+.hs-input-tag .x:hover { background: rgba(253,253,253,0.18); }
+.hs-input-tag .x .material-symbols-outlined { font-size: 16px; }
+
+/* ── Card ───────────────────────────────────────────────── */
+.hs-card {
+  background: var(--hs-surface);
+  border: 1px solid var(--hs-border);
+  border-radius: var(--hs-radii-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.hs-card--quiet { background: var(--hs-surface-subtle); }
+
+/* ── Avatar ─────────────────────────────────────────────── */
+.hs-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--hs-radii-full);
+  background: var(--hs-surface-strong);
+  color: var(--hs-fg);
+  font-size: var(--bento-theme-font-size-1, 14px);
+  line-height: var(--bento-theme-line-heights-2, 24px);
+  font-weight: var(--bento-theme-font-weights-semibold, 600);
+  font-family: var(--hs-font-body, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.hs-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.hs-avatar--xs { width: 20px; height: 20px; font-size: 10px; }
+.hs-avatar--sm { width: 24px; height: 24px; font-size: 14px; } /* Figma Size06 initials 14px */
+.hs-avatar--32 { width: 32px; height: 32px; font-size: 14px; background: var(--hs-surface-strong); }
+.hs-avatar--md { width: 40px; height: 40px; font-size: 16px; } /* Figma Size10 initials 16px */
+.hs-avatar--lg { width: 48px; height: 48px; font-size: 16px; }
+.hs-avatar--56 { width: 56px; height: 56px; font-size: 16px; background: var(--hs-surface-strong); }
+.hs-avatar--xl { width: 64px; height: 64px; font-size: 28px; } /* Figma Size16 initials 28px */
+/* .hs-avatar--xs (20px) is NOT in the gallery's size set (24/32/40/48/56/64) \u2014 kept, not removed. */
+
+/* ── Alert ──────────────────────────────────────────────── */
+.hs-alert {
+  display: flex;
+  gap: var(--bento-component-alert-gap-inline);
+  align-items: flex-start;
+  padding: var(--bento-component-alert-padding-y) var(--bento-component-alert-padding-x);
+  border-radius: var(--hs-radii-lg);
+  background: var(--hs-bg-info);
+  color: var(--hs-fg);
+  font-size: var(--bento-theme-font-size-2, 16px);
+  line-height: var(--bento-theme-line-heights-2, 24px);
+  font-weight: var(--bento-theme-font-weights-regular, 400);
+  font-family: var(--hs-font-body, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+}
+.hs-alert > .material-symbols-outlined { color: inherit; font-size: 20px; }
+.hs-alert--positive { background: var(--hs-bg-positive); }
+.hs-alert--warning  { background: var(--hs-bg-warning); }
+.hs-alert--negative { background: var(--hs-bg-negative); }
+.hs-alert-title {
+  font-size: var(--bento-theme-font-size-2, 16px);
+  line-height: var(--bento-theme-line-heights-2, 24px);
+  font-weight: var(--bento-theme-font-weights-semibold, 600); /* was 700 (node 14686:30287) — corrected to 600 per fe-global Storybook, 28 Apr 2026 */
+  font-family: var(--hs-font-body, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+}
+
+/* ── Toggle ─────────────────────────────────────────────── */
+/* ── Switch / toggle (comp-switch, web, small) ──────────────
+   Track 39×24 pill. OFF: white fill, 1px #767676 border, 21px #767676 knob
+   at 1.5. ON: nav-fill track, white knob, knob slides +15px. figma 5632:53560 */
+.hs-toggle {
+  position: relative;
+  width: 39px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--bento-theme-color-bg-surface);
+  box-shadow: inset 0 0 0 1px var(--hs-border-input);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 150ms, box-shadow 150ms;
+}
+.hs-toggle::after {
+  content: "";
+  position: absolute; left: 1.5px; top: 1.5px;
+  width: 21px; height: 21px;
+  border-radius: 999px;
+  background: var(--hs-border-input);
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), background-color 150ms;
+}
+.hs-toggle.is-on {
+  background: var(--bento-component-switch-track-on, var(--hs-action-primary));
+  box-shadow: none;
+}
+.hs-toggle.is-on::after {
+  background: var(--bento-component-switch-thumb-fill, var(--bento-theme-color-text-inverse));
+  box-shadow: var(--bento-theme-elevation-shadow-raised);
+  transform: translateX(15px);
+}
+
+/* ── Checkbox / radio ───────────────────────────────────────
+   Bento renders these as 24px Material Symbols glyphs (comp-checkbox 175:1321,
+   comp-radio): off = check_box_outline_blank / radio_button_unchecked,
+   on = check_box / radio_button_checked (FILLED), indeterminate =
+   indeterminate_check_box — all icon-base (master fill rgb(0,0,0)), disabled =
+   icon-disabled. Drawn via ::before so existing empty-span markup
+   (<span class="hs-check is-on">) keeps working unchanged.
+   ──────────────────────────────────────────────────────────── */
+.hs-check, .hs-radio {
+  width: 24px; height: 24px;
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 0; /* suppress any legacy inner text/box */
+  color: var(--hs-border-input); /* unchecked glyph, #767676 */
+  background: none; border: 0; border-radius: 0;
+}
+.hs-check::before, .hs-radio::before {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal; font-style: normal;
+  font-size: 24px; line-height: 1;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  letter-spacing: normal; text-transform: none; white-space: nowrap;
+  -webkit-font-feature-settings: "liga"; font-feature-settings: "liga";
+}
+.hs-check::before        { content: "\e835"; } /* check_box_outline_blank */
+.hs-radio::before        { content: "\e836"; } /* radio_button_unchecked */
+.hs-check.is-on, .hs-check.indeterminate, .hs-radio.is-on { color: var(--hs-action-primary); } /* checked/indeterminate/radio-on, #1F60C9 */
+.hs-check.is-on::before  { content: "\e834"; font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24; } /* check_box */
+.hs-check.indeterminate::before { content: "\e909"; font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24; } /* indeterminate_check_box */
+.hs-radio.is-on::before  { content: "\e837"; font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24; } /* radio_button_checked */
+.hs-check[aria-disabled="true"], .hs-radio[aria-disabled="true"],
+.hs-check.is-disabled, .hs-radio.is-disabled { color: var(--bento-theme-color-icon-disabled); cursor: not-allowed; }
+
+/* ── Divider ────────────────────────────────────────────── */
+.hs-divider { height: 1px; background: var(--hs-border); border: 0; margin: 0; }
+
+/* ── Tabs ───────────────────────────────────────────────── */
+/* TABS — updated per 2026 QA audit against the fe-global Storybook build
+   (28 Apr 2026), which supersedes the 2026-09-06 Figma-vs-production note
+   below: weight is 600 (not 700) and the active indicator IS present.
+   Kept the corrected-mechanism history as context, not as the live rule. */
+.hs-tabs {
+  display: inline-flex; gap: var(--bento-component-tab-gap);
+  height: var(--bento-component-tab-height);
+  border-bottom: 0;
+}
+.hs-tab {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  height: var(--bento-component-tab-height);
+  box-sizing: border-box;
+  line-height: 24px;
+  white-space: nowrap;
+  padding: 0;
+  font-size: var(--bento-theme-font-size-2, 16px);
+  font-weight: 600;
+  font-family: var(--hs-font-body, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+  color: var(--bento-component-tab-text);
+  cursor: pointer;
+  position: relative;        /* active indicator hugs the text */
+  transition: color 150ms;
+}
+.hs-tab:hover { color: var(--hs-fg); }
+.hs-tab.is-active { color: var(--bento-component-tab-text-active); }
+/* Production 2026-10-05: 40 tall, 16 apart, 16/600, selected #1C1C1C with a 2px
+   #333333 underline drawn as an INSET BOX SHADOW (not a pseudo-element), unselected #5C5C5C. */
+.hs-tab.is-active { box-shadow: inset 0 -2px 0 0 var(--bento-palette-ref-palette-dark-grey-500); } /* #333333, production; --bento-component-tab-indicator-color resolves to #767676 */
+
+/* ── Accordion ──────────────────────────────────────────────
+   Shared Bento Accordion component (Confluence 11897012225).
+   Promoted from the accordion preview card so templates/patterns
+   can use it. Markup: .acc-list > .acc-item[.open|.compact|.disabled]
+   > .acc-head ( .acc-title / .acc-desc / .chevron ) + .acc-body */
+.acc-list {
+  border: 1px solid var(--bento-theme-color-border-subtle);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.acc-item {
+  border-bottom: 1px solid var(--bento-theme-color-border-subtle);
+  background: var(--bento-component-accordion-fill);
+}
+.acc-item:last-child { border-bottom: 0; }
+.acc-item.open { background: var(--bento-component-accordion-fill); }
+.acc-item.disabled .acc-title,
+.acc-item.disabled .acc-desc { color: var(--bento-theme-color-text-disabled); }
+
+.acc-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "title chev" "desc chev";
+  padding: 16px 12px 16px 16px;
+  gap: 0 12px;
+  align-items: center;
+  cursor: pointer;
+}
+.acc-head:hover { background: var(--bento-component-accordion-fill-hovered); }
+.acc-item.disabled .acc-head { cursor: not-allowed; }
+.acc-item.disabled .acc-head:hover { background: transparent; }
+.acc-head:focus-visible, .acc-item.is-focus .acc-head {
+  box-shadow: inset 0 0 0 2px var(--bento-theme-color-border-focus);
+}
+
+.acc-title { grid-area: title; font: var(--hs-type-body-md-b); color: var(--bento-theme-color-text-base); }
+.acc-desc  { grid-area: desc;  font: var(--hs-type-body-md);   color: var(--bento-theme-color-text-subtle); }
+.acc-head .chevron {
+  grid-area: chev;
+  min-width: 48px; height: 100%;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--bento-theme-color-icon-base);
+}
+.acc-item.disabled .chevron { color: var(--bento-theme-color-icon-disabled); }
+
+/* Compact — single-row, reduced padding, no description column */
+.acc-item.compact .acc-head {
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "title chev";
+  padding: 12px 12px 12px 16px;
+}
+.acc-item.compact .acc-head.iconrow {
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: "lead title chev";
+  gap: 0 12px;
+}
+.acc-head .lead { grid-area: lead; color: var(--bento-theme-color-icon-base); font-size: var(--bento-theme-icon-md); align-self: center; }
+
+.acc-body {
+  padding: 16px 20px 20px;
+  border-top: 1px solid var(--bento-theme-color-border-subtle);
+  font: var(--hs-type-body-md);
+  color: var(--bento-theme-color-text-base);
+}
+
+/* ── Listbox option row ─────────────────────────────────────
+   Shared "List item - listbox" selectable row (Confluence 11897012253).
+   A clickable row that wraps a control (.hs-check / .hs-radio) + label,
+   with an optional trailing count. Used in filter groups, menus, pickers. */
+.hs-option {
+  display: flex; align-items: center; gap: 10px;
+  min-height: 36px; padding: 0 8px; border-radius: 8px;
+  cursor: pointer; user-select: none;
+  font: var(--hs-type-body-md);
+  color: var(--bento-theme-color-text-base);
+}
+.hs-option:hover { background: var(--bento-component-accordion-fill-hovered); }
+.hs-option.is-selected { background: var(--bento-theme-color-bg-info); }
+.hs-option .hs-option-label { flex: 1; }
+.hs-option .hs-option-count {
+  margin-left: auto; font: var(--hs-type-body-sm);
+  color: var(--bento-theme-color-text-subtle);
+}
+.hs-option:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--bento-theme-color-border-focus);
+}
+
+/* ── Select (closed trigger) ────────────────────────────────
+   Shared Bento Select component (comp-select, figma 59494-123190).
+   Promoted from the select preview card so templates/patterns can
+   use it. Markup: <button class="hs-select"><span>Value</span>
+   <span class="material-symbols-outlined chev">keyboard_arrow_down</span></button> */
+.hs-select {
+  appearance: none;
+  width: 100%;
+  height: var(--bento-component-input-min-height);
+  padding: 0 var(--bento-component-input-padding-x);
+  background: var(--bento-component-input-fill);
+  border: 1px solid var(--hs-border-input);
+  border-radius: var(--bento-component-input-border-radius);
+  color: var(--bento-theme-color-text-base);
+  font: var(--hs-type-body-md);
+  display: inline-flex; align-items: center;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 150ms, box-shadow 150ms;
+}
+.hs-select > :first-child { flex: 1; min-width: 0; }
+.hs-select .placeholder { color: var(--bento-theme-color-text-placeholder); }
+.hs-select .chev { color: var(--bento-theme-color-icon-base); font-size: 20px;
+  transition: transform 150ms; margin-left: 8px; }
+.hs-select:hover { border-color: var(--bento-theme-color-text-base); }
+.hs-select.focused, .hs-select:focus {
+  border-color: var(--hs-border-input);
+  outline: 2px solid var(--bento-theme-color-border-focus);
+  outline-offset: 2px;
+}
+.hs-select[disabled] {
+  background: var(--bento-component-input-fill-disabled);
+  border-color: var(--bento-component-input-border-disabled);
+  color: var(--bento-theme-color-text-disabled);
+  cursor: not-allowed;
+}

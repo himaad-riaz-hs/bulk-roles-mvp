@@ -1,0 +1,1219 @@
+/* Extra component classes not in the base components.css.
+   Same token vocabulary — spinner, tooltip, progress, skeleton, empty state. */
+
+/* ── Spinner ── */
+@keyframes hs-spin { to { transform: rotate(360deg); } }
+.hs-spinner{display:inline-block;border-radius:50%;border:3px solid var(--bento-theme-color-border-base);border-top-color:var(--bento-theme-color-icon-base);animation:hs-spin .7s linear infinite;box-sizing:border-box;flex-shrink:0}
+.hs-spinner--inverse{border-color:rgba(255,255,255,.3);border-top-color:#fff}
+
+/* ── Tooltip ── */
+.hs-tooltip-wrap{position:relative;display:inline-flex}
+.hs-tooltip{position:absolute;z-index:1120;pointer-events:none;opacity:0;transition:opacity 120ms;white-space:nowrap;background:var(--bento-component-tooltip-fill);color:var(--bento-component-tooltip-text);padding:6px 12px;border-radius:var(--bento-theme-border-radii-03);font:var(--hs-type-body-sm);max-width:250px}
+.hs-tooltip-wrap:hover .hs-tooltip,.hs-tooltip-wrap:focus-within .hs-tooltip{opacity:1}
+.hs-tooltip--top{bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:8px}
+.hs-tooltip--bottom{top:100%;left:50%;transform:translateX(-50%);margin-top:8px}
+.hs-tooltip--left{right:100%;top:50%;transform:translateY(-50%);margin-right:8px}
+.hs-tooltip--right{left:100%;top:50%;transform:translateY(-50%);margin-left:8px}
+
+/* ── Progress bar ── */
+.hs-progress{width:100%;height:var(--bento-component-progress-bar-height-md);border-radius:999px;background:var(--bento-component-progress-bar-fill-track);overflow:hidden}
+.hs-progress--sm{height:var(--bento-component-progress-bar-height-sm)}
+.hs-progress--lg{height:var(--bento-component-progress-bar-height-lg)}
+.hs-progress>i{display:block;height:100%;border-radius:inherit;background:var(--bento-component-progress-bar-fill-indicator);transition:width 200ms}
+
+/* ── Skeleton ── */
+@keyframes hs-shimmer { 100% { background-position:-200% 0 } }
+.hs-skeleton{background:linear-gradient(90deg,var(--bento-component-skeleton-bg) 25%,color-mix(in srgb,var(--bento-component-skeleton-bg) 60%,#000 6%) 37%,var(--bento-component-skeleton-bg) 63%);background-size:200% 100%;animation:hs-shimmer 1.4s ease infinite;border-radius:var(--bento-theme-border-radii-03)}
+.hs-skeleton--circle{border-radius:50%}
+.hs-skeleton--text{height:16px;border-radius:4px}
+
+/* ── Empty state ── */
+.hs-empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding:40px 24px}
+.hs-empty .hs-empty-icon{width:64px;height:64px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:var(--bento-theme-color-bg-surface-recessed);color:var(--bento-theme-color-icon-subtle)}
+.hs-empty .hs-empty-icon .material-symbols-outlined{font-size:32px}
+.hs-empty-actions{display:flex;gap:8px}
+
+/* ── Stepper ── */
+.hs-stepper{display:inline-flex;align-items:center;gap:8px}
+.hs-stepper .hs-stepper-val{min-width:48px;text-align:center;font:var(--hs-type-body-md-b)}
+
+/* ── Slider (native range) ── */
+.hs-slider{-webkit-appearance:none;appearance:none;cursor:pointer}
+.hs-slider::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--bento-component-slider-thumb-bg);box-shadow:var(--bento-theme-elevation-shadow-raised);cursor:pointer}
+.hs-slider::-moz-range-thumb{width:26px;height:26px;border:0;border-radius:50%;background:var(--bento-component-slider-thumb-bg);box-shadow:var(--bento-theme-elevation-shadow-raised);cursor:pointer}
+.hs-slider:disabled{opacity:.4;cursor:not-allowed}
+
+/* ── File uploader drop zone ── */
+.hs-uploader{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:40px 48px;border:2px dashed var(--bento-component-file-uploader-border-color);border-radius:var(--bento-theme-border-radii-03);background:var(--bento-component-file-uploader-fill);color:var(--bento-theme-color-text-base);cursor:pointer;transition:background 120ms,border-color 120ms}
+.hs-uploader:hover{background:var(--bento-component-file-uploader-fill-hovered);border-color:var(--bento-component-file-uploader-border-color-hovered)}
+
+/* ── Table ── */
+.hs-table{width:100%;border-collapse:collapse;font:var(--hs-type-body-md);background:var(--bento-component-table-fill)}
+.hs-table th,.hs-table td{text-align:left;padding:8px var(--bento-component-table-cell-padding-x);border-bottom:1px solid var(--bento-component-table-border);vertical-align:middle}
+.hs-table thead th{height:var(--bento-component-table-row-min-height);padding:0 var(--bento-component-table-cell-padding-x);font:var(--hs-type-body-md-b);color:var(--hs-fg);white-space:nowrap;box-sizing:border-box}
+.hs-table tbody tr{min-height:var(--bento-component-table-row-min-height);transition:background 120ms}
+.hs-table tbody tr:hover{background:var(--bento-component-table-fill-hovered)}
+.hs-table tbody tr.is-selected{background:var(--bento-component-table-selected-fill)}
+.hs-table td.num,.hs-table th.num{text-align:right;font-variant-numeric:tabular-nums}
+
+/* ── Toggle group / display toggle (segmented pill) ── */
+.hs-toggle-group{display:inline-flex;padding:2px;gap:2px;background:var(--bento-theme-color-bg-surface-recessed);border-radius:999px}
+.hs-toggle-group button{appearance:none;border:0;background:transparent;height:36px;padding:0 16px;border-radius:999px;font:var(--hs-type-body-sm-b);color:var(--bento-theme-color-text-subtle);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background 120ms,color 120ms}
+.hs-toggle-group button .material-symbols-outlined{font-size:18px}
+.hs-toggle-group button.is-active{background:var(--hs-surface);color:var(--hs-fg);box-shadow:var(--bento-theme-elevation-shadow-raised)}
+
+/* ── Button choice (selectable card option) ── */
+.hs-choice{display:flex;gap:12px;align-items:flex-start;padding:16px;border:1px solid var(--bento-theme-color-border-base);border-radius:8px;cursor:pointer;background:var(--hs-surface);transition:border-color 120ms,background 120ms}
+.hs-choice:hover{background:var(--bento-theme-color-bg-surface-hovered)}
+.hs-choice.is-selected{border-width:2px;border-color:var(--bento-theme-color-border-selected);padding:15px}
+.hs-choice .hs-choice-body{display:flex;flex-direction:column;gap:2px}
+
+/* ── Thumbnail ── */
+.hs-thumb{background:var(--bento-component-thumbnail-fill-placeholder);display:inline-flex;align-items:center;justify-content:center;overflow:hidden;color:var(--bento-theme-color-icon-subtle);flex-shrink:0}
+.hs-thumb img{width:100%;height:100%;object-fit:cover}
+
+/* ── Overlays: modal / drawer / popover ── */
+.hs-overlay{position:absolute;inset:0;background:var(--bento-theme-color-opacity-overlay);display:flex;align-items:center;justify-content:center;z-index:1000}
+.hs-modal{box-sizing:border-box;/* I6 */background:var(--hs-surface);border-radius:8px;box-shadow:var(--bento-theme-elevation-shadow-dialog);max-width:408px;width:calc(100% - 48px);padding:0;display:flex;flex-direction:column;position:relative}
+.hs-modal--lg{max-width:456px}
+.hs-modal-header{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;padding:0 40px;flex-shrink:0}
+.hs-modal-header h3,.hs-modal-header .hs-modal-title{margin:0;font-size:22px;font-weight:600;line-height:1.2;color:var(--hs-fg)}
+.hs-modal-body{padding:0 40px 40px;font:var(--hs-type-body-md);color:var(--hs-fg);overflow:auto}
+.hs-modal-footer{display:flex;align-items:center;justify-content:flex-end;gap:8px;min-height:72px;padding:16px 40px;flex-shrink:0;box-shadow:inset 0 1px 0 0 var(--bento-theme-color-border-subtle)}
+.hs-modal-footer .hs-modal-footer-ghost{margin-right:auto}
+.hs-modal-close{position:absolute;top:12px;right:12px}
+
+/* ── Connect-flow modal geometry (Figma rXIxk6BHPkCfblep9XWgW3, page 9/25, IG Only
+   Auth final — redlined 2026-10-02). Three modifiers on .hs-modal, so the connect
+   modals use the real Modal component instead of a hand-built dialog surface.
+   --connect-entry   592 wide · 64 header · close at 8,8 · body 24/40/24
+   --connect-outcome 826 wide · NO header, NO close · body padding 40 all round
+   --connect-confirm 408 wide · header hugs a two-line title (min 96) · footer 16, no divider */
+.hs-modal--connect-entry{max-width:592px}
+.hs-modal--connect-entry .hs-modal-close{top:8px;right:8px}
+.hs-modal--connect-entry .hs-modal-body{padding:24px 40px}
+.hs-modal--connect-outcome{max-width:826px}
+.hs-modal--connect-outcome .hs-modal-body{padding:40px}
+.hs-modal--connect-confirm .hs-modal-close{top:8px;right:8px}
+.hs-modal--connect-confirm .hs-modal-header{height:auto;min-height:96px;align-items:flex-start;padding:16px 40px}
+.hs-modal--connect-confirm .hs-modal-body{padding:0 40px 40px}
+.hs-modal--connect-confirm .hs-modal-footer{padding:16px;box-shadow:none}
+/* Connected / review rows: 80 tall, no dividers, 56 avatar column (40 + 16 gap). */
+.hs-connect-row{display:flex;align-items:center;gap:16px;height:80px;padding:0 16px;box-sizing:border-box;list-style:none}
+.hs-connect-box{border:1px solid var(--hs-border);border-radius:8px;padding:16px;margin:0;display:flex;flex-direction:column}
+.hs-connect-group{border:1px solid var(--hs-border);background:var(--hs-surface)}
+.hs-connect-grouphead{display:flex;align-items:center;gap:16px;width:100%;min-height:80px;padding:16px;box-sizing:border-box;border:0;background:none;text-align:left;cursor:pointer;color:var(--hs-fg)}
+.hs-connect-groupbody{padding:0 16px;display:flex;flex-direction:column;gap:16px;border-top:1px solid var(--hs-border)}
+.hs-drawer{position:fixed;top:0;right:0;height:100vh;width:var(--bento-component-drawer-width-md);background:var(--hs-surface);box-shadow:var(--bento-theme-elevation-shadow-drawer-from-left);display:flex;flex-direction:column;z-index:1001}
+.hs-drawer--sm{width:var(--bento-component-drawer-width-sm)}
+.hs-drawer--md{width:var(--bento-component-drawer-width-md)}
+.hs-drawer--lg{width:var(--bento-component-drawer-width-lg)}
+.hs-drawer-header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 16px;height:56px;box-sizing:border-box}
+.hs-drawer-body{padding:16px;overflow:auto;flex:1}
+.hs-drawer-footer{display:flex;align-items:center;justify-content:space-between;height:48px;padding:4px 16px;box-sizing:border-box}
+.hs-drawer-footer .hs-btn{height:40px}
+/* MEASURED 2026-09-07 on Perch's date-range dialog (role=dialog,
+   aria-haspopup=dialog, 368×396, anchored to its trigger, no scrim), surface
+   rgb(253,253,253) = #FDFDFD: radius 8px all four corners, box-shadow the
+   two-layer overlay-bottom value (which --bento-theme-elevation-shadow-
+   overlay-bottom ALREADY matched character-for-character — four numeric
+   components and two alphas, not a coincidence), border 0px none.
+   The 1px border was ours; production has none. That is the only delta.
+   ⚠ THIS GOVERNS ANCHORED-TO-TRIGGER POPOVERS ONLY. Do not generalise it.
+   The Notifications panel measures the SAME #FDFDFD surface and is radius 0
+   with NO shadow — two components, same theme, opposite treatments. So the
+   variable is the COMPONENT CLASS, not the theme: edge-anchored full-height
+   panels are flush and unshadowed, and CENTRED MODALS are still unmeasured
+   (the only one captured sits on off-Light #FCFCFB). See §K111/§K111a. */
+.hs-popover{background:var(--hs-surface);border-radius:8px;box-shadow:var(--bento-theme-elevation-shadow-overlay-bottom);border:0;padding:16px;max-width:288px}
+
+/* ── Dropdown menu / listbox surface ── */
+.hs-menu{background:var(--hs-surface);border-radius:8px;box-shadow:var(--bento-theme-elevation-shadow-overflow-bottom);padding:8px 0;min-width:200px}
+.hs-menu-item{display:flex;align-items:center;gap:16px;height:56px;padding:0 16px;border-radius:0;cursor:pointer;font:var(--hs-type-body-md);color:var(--hs-fg);border:0;background:transparent;text-align:left;width:100%}
+.hs-menu-item:hover{background:var(--bento-theme-color-bg-surface-hovered)}
+.hs-menu-item:active{background:var(--bento-theme-color-bg-surface-pressed)}
+.hs-menu-item[aria-disabled="true"]{color:var(--bento-theme-color-text-disabled);cursor:not-allowed}
+.hs-menu-item .material-symbols-outlined{font-size:20px;color:var(--bento-theme-color-icon-base)}
+.hs-menu-sep{height:1px;background:var(--bento-theme-color-border-subtle);margin:4px 0}
+.hs-menu-label{font:var(--hs-type-meta-b);text-transform:uppercase;letter-spacing:.04em;color:var(--bento-theme-color-text-subtle);padding:8px 12px 4px}
+
+/* ── Emoji button + reaction ── */
+.hs-emoji-btn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:20px;line-height:1;transition:background 120ms}
+.hs-emoji-btn:hover{background:var(--bento-theme-color-bg-surface-hovered)}
+.hs-reaction{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:999px;border:1px solid var(--bento-theme-color-border-base);background:var(--hs-surface);cursor:pointer;font:var(--hs-type-body-sm-b);color:var(--hs-fg);transition:background 120ms,border-color 120ms}
+.hs-reaction:hover{background:var(--bento-theme-color-bg-surface-hovered)}
+.hs-reaction.is-selected{background:var(--bento-theme-color-bg-info);border-color:var(--bento-theme-color-bg-primary);color:var(--bento-theme-color-bg-primary)}
+
+/* ── Carousel ── */
+.hs-carousel{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px}
+.hs-carousel>*{scroll-snap-align:start;flex:0 0 auto}
+
+/* ── Action bar ── */
+.hs-action-bar{display:inline-flex;align-items:center;gap:8px;padding:4px;border-radius:8px;background:var(--hs-surface)}
+.hs-action-bar--floating{box-shadow:var(--bento-theme-elevation-shadow-overlay-bottom)}
+.hs-action-bar--outlined{border:1px solid var(--bento-theme-color-border-base)}
+.hs-action-bar .sep{width:1px;align-self:stretch;background:var(--bento-theme-color-border-subtle);margin:2px 0}
+
+/* ── Profile picker (pill trigger) ── */
+.hs-profile-picker{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 12px 0 6px;border-radius:999px;border:0;background:transparent;cursor:pointer;font:var(--hs-type-body-md-b);color:var(--hs-fg);transition:background 120ms}
+.hs-profile-picker:hover{background:var(--bento-palette-ref-palette-grey-100)}
+
+/* ── Tree ── */
+.hs-tree-row{display:flex;align-items:center;gap:8px;height:36px;padding:0 8px;border-radius:8px;cursor:pointer;font:var(--hs-type-body-md)}
+.hs-tree-row:hover{background:var(--bento-theme-color-bg-surface-hovered)}
+.hs-tree-row .twist{font-size:20px;color:var(--bento-theme-color-icon-base);transition:transform 120ms}
+
+/* ── Chip assist ── */
+.hs-chip-assist{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:999px;border:0;cursor:pointer;background:var(--bento-component-chip-fill);color:var(--bento-component-chip-text);font:var(--hs-type-body-sm-b);max-width:200px;transition:background 120ms}
+.hs-chip-assist:hover{background:var(--bento-component-chip-fill-hovered)}
+.hs-chip-assist .material-symbols-outlined{font-size:16px}
+
+/* ── Stepped progress ── */
+.hs-steps{display:flex;gap:8px;width:100%}
+.hs-steps>i{flex:1;height:4px;border-radius:999px;background:var(--bento-component-progress-step-fill-todo)}
+.hs-steps>i.done{background:var(--bento-component-progress-step-fill-done)}
+
+/* ── Message bubbles ── */
+.hs-msg{max-width:320px;padding:10px 14px;border-radius:16px;font:var(--hs-type-body-md);line-height:1.35}
+.hs-msg--in{background:var(--bento-theme-color-bg-surface-recessed);color:var(--hs-fg);border-bottom-left-radius:4px}
+.hs-msg--out{background:var(--bento-theme-color-bg-primary);color:var(--bento-theme-color-text-on-primary);border-bottom-right-radius:4px}
+
+/* ── Link preview ── */
+.hs-link-preview{display:flex;gap:0;max-width:576px;border:1px solid var(--bento-theme-color-border-subtle);border-radius:8px;overflow:hidden;background:var(--hs-surface)}
+.hs-link-preview .lp-media{width:104px;flex-shrink:0;background:var(--bento-theme-color-bg-surface-recessed);display:flex;align-items:center;justify-content:center;color:var(--bento-theme-color-icon-subtle)}
+.hs-link-preview .lp-body{padding:12px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+
+
+/* ── Overlay button (over media) ── */
+.hs-ovly{height:40px;border:0;padding:0 16px;border-radius:8px;font:var(--hs-type-button);display:inline-flex;align-items:center;gap:8px;cursor:pointer;transition:background 120ms}
+.hs-ovly .material-symbols-outlined{font-size:18px}
+.hs-ovly--filled{background:var(--bento-component-overlay-button-filled-fill);color:var(--bento-component-overlay-button-filled-text-noninverse)}
+.hs-ovly--filled:hover{background:var(--bento-component-overlay-button-filled-fill-hovered)}
+.hs-ovly--filled:active{background:var(--bento-component-overlay-button-filled-fill-pressed)}
+.hs-ovly--filled.hs-ovly--inverse{background:var(--bento-component-overlay-button-filled-inverse-fill);color:var(--bento-component-overlay-button-filled-text-inverse)}
+.hs-ovly--filled.hs-ovly--inverse:hover{background:var(--bento-component-overlay-button-filled-inverse-fill-hovered)}
+.hs-ovly--filled.hs-ovly--inverse:active{background:var(--bento-component-overlay-button-filled-inverse-fill-pressed)}
+.hs-ovly--ghost{background:transparent;color:var(--bento-component-overlay-button-ghost-text-noninverse)}
+.hs-ovly--ghost:hover{background:var(--bento-component-overlay-button-ghost-fill-hovered-noninverse)}
+.hs-ovly--ghost:active{background:var(--bento-component-overlay-button-ghost-fill-pressed-noninverse)}
+.hs-ovly--ghost.hs-ovly--inverse{color:var(--bento-component-overlay-button-ghost-text-inverse)}
+.hs-ovly--ghost.hs-ovly--inverse:hover{background:var(--bento-component-overlay-button-ghost-fill-hovered-inverse)}
+.hs-ovly--ghost.hs-ovly--inverse:active{background:var(--bento-component-overlay-button-ghost-fill-pressed-inverse)}
+.hs-ovly--icon{width:40px;padding:0;border-radius:50%;justify-content:center}
+
+/* ── Option trigger ── */
+.hs-option-trigger{border:0;background:var(--bento-component-option-trigger-fill);color:var(--bento-component-option-trigger-text);border-radius:var(--bento-component-option-trigger-radius,8px);padding:var(--bento-component-option-trigger-padding-y-inner,8px) var(--bento-component-option-trigger-padding-x,12px);min-width:var(--bento-component-option-trigger-min-width,auto);display:inline-flex;align-items:center;gap:var(--bento-component-option-trigger-gap-inline,8px);font:var(--hs-type-body-md-b);cursor:pointer;transition:background 120ms}
+.hs-option-trigger:hover,.hs-option-trigger.is-hovered{background:var(--bento-component-option-trigger-fill-hovered)}
+.hs-option-trigger:active,.hs-option-trigger.is-pressed,.hs-option-trigger.is-open{background:var(--bento-component-option-trigger-fill-pressed)}
+.hs-option-trigger.is-focused{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:0}
+.hs-option-trigger:disabled{background:var(--bento-component-option-trigger-fill-disabled);color:var(--bento-component-option-trigger-text-disabled);cursor:not-allowed}
+.hs-option-trigger .material-symbols-outlined{font-size:20px}
+
+/* ── Org trigger (transparent, in headers/drawers) ── */
+.hs-org-trigger{border:0;background:transparent;display:inline-flex;align-items:center;gap:12px;padding:8px;border-radius:8px;cursor:pointer;text-align:left;transition:background 120ms;font:600 16px/1.4 var(--bento-theme-font-families-primary);color:var(--hs-fg)}
+.hs-org-trigger:hover,.hs-org-trigger.is-hovered{background:var(--bento-component-option-trigger-fill-hovered)}
+.hs-org-trigger.is-open{background:var(--bento-component-option-trigger-fill-pressed)}
+.hs-org-trigger .logo{width:36px;height:36px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font:var(--hs-type-body-sm-b);flex-shrink:0}
+.hs-org-trigger .org{font:var(--hs-type-body-md-b);color:var(--bento-theme-color-text-base)}
+.hs-org-trigger .seat{font:var(--hs-type-body-sm);color:var(--bento-theme-color-text-subtle)}
+.hs-org-trigger .chev{font-size:20px;color:var(--bento-theme-color-icon-base)}
+.hs-org-trigger--titlerow{height:40px;padding:8px 16px;gap:8px;box-sizing:border-box;border-radius:8px;white-space:nowrap}
+.hs-org-trigger--titlerow .logo{width:24px;height:24px;border-radius:0;overflow:hidden;background:var(--hs-action-secondary-pressed);color:var(--hs-fg);font:var(--bento-theme-font-weights-bold) 12px/16px var(--hs-font-body)}
+.hs-org-trigger--titlerow .org{font:inherit;font-weight:600;font-size:16px;line-height:24px}
+.hs-org-trigger--titlerow .chev{margin:0}
+
+/* ── Time picker ── */
+.hs-tp-input{box-sizing:border-box;/* I6 */width:100%;height:var(--bento-component-input-min-height,40px);padding:0 var(--bento-component-input-padding-x,16px);background:var(--bento-component-input-fill,var(--hs-surface));border:1px solid var(--hs-border-input);border-radius:var(--bento-component-input-border-radius,8px);display:inline-flex;align-items:center;gap:8px;font:var(--hs-type-body-md);color:var(--bento-theme-color-text-base);cursor:pointer}
+.hs-tp-input.is-focused{border-color:var(--hs-border-focus);box-shadow:0 0 0 2px var(--hs-focus-halo)}
+.hs-tp-opt{display:flex;align-items:center;padding:6px 10px;border-radius:8px;font:var(--hs-type-body-md);cursor:pointer}
+.hs-tp-opt:hover{background:var(--bento-component-list-item-fill-hovered)}
+.hs-tp-opt.is-selected{background:var(--bento-component-list-item-fill-selected);font-weight:600}
+
+/* ── List item (inline dropdown / org menu) ── */
+.hs-list-item{display:flex;align-items:center;gap:16px;padding:0 var(--bento-component-list-item-padding-x);min-height:var(--bento-component-list-item-min-height);cursor:pointer;font:var(--hs-type-body-md-b);color:var(--hs-fg);transition:background 120ms}
+.hs-list-item--compact{min-height:var(--bento-component-list-item-min-height-compact)}
+.hs-list-item:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:-2px}
+.hs-list-item-body{display:flex;flex-direction:column;justify-content:center;gap:2px;flex:1;min-width:0;padding:8px 0}
+.hs-list-item-title{font:var(--hs-type-body-md-b);color:var(--hs-fg);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hs-list-item-desc{font:var(--hs-type-body-sm);color:var(--hs-fg-secondary)}
+.hs-list-item-trail{font:var(--hs-type-body-sm);color:var(--hs-fg-secondary);flex-shrink:0}
+.hs-list-item[aria-disabled="true"]{color:var(--bento-theme-color-text-disabled);cursor:not-allowed;pointer-events:none}
+.hs-list-item:hover{background:var(--bento-component-list-item-fill-hovered)}
+.hs-list-item.is-selected{background:var(--bento-component-list-item-fill-selected)}
+
+/* ── Footer region ── */
+.hs-footer{height:var(--bento-component-footer-region-height,64px);padding:0 var(--bento-component-footer-padding-x,24px);display:flex;align-items:center;justify-content:flex-end;gap:var(--bento-component-footer-inner-gap,8px);box-shadow:inset 0 1px 0 0 var(--bento-theme-color-border-subtle)}
+
+/* ── Side nav rail ── */
+.hs-sb{width:84px;background:var(--hs-surface);border-right:1px solid var(--hs-border);display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:6px}
+.hs-sb-item{display:flex;flex-direction:column;align-items:center;gap:4px;width:72px;padding:6px 0;text-decoration:none;cursor:pointer;color:var(--hs-fg);font:600 11px/14px var(--hs-font-body);border-radius:8px;transition:background 150ms}
+.hs-sb-item:hover{background:rgba(28,28,28,0.04)}
+.hs-sb-item--quiet{padding:4px 0}
+.hs-sb-glyph{width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:var(--hs-fg)}
+.hs-sb-glyph .material-symbols-outlined{font-size:22px}
+.hs-sb-circle{width:40px;height:40px;border-radius:999px;background:var(--hs-action-primary);color:var(--hs-fg-inverse);display:flex;align-items:center;justify-content:center}
+.hs-sb-circle .material-symbols-outlined{font-size:20px}
+.hs-sb-circle--outline{background:transparent;color:var(--hs-fg);box-shadow:inset 0 0 0 1.5px var(--hs-fg)}
+
+/* ── Calendar event chip ── */
+.hs-cal-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:2px;font:700 12px/16px var(--hs-font-body)}
+.hs-cal-chip .material-symbols-outlined{font-size:13px}
+
+/* ── Emoji picker ── */
+.hs-emoji-cat{appearance:none;border:0;flex:1;height:32px;background:transparent;border-radius:8px;cursor:pointer;font:18px/24px sans-serif}
+.hs-emoji-cat:hover{background:var(--bento-component-list-item-fill-hovered)}
+.hs-emoji-cat.is-active{background:var(--bento-component-list-item-fill-selected);box-shadow:inset 0 -2px 0 0 var(--bento-theme-color-bg-primary)}
+.hs-emoji-cell{appearance:none;border:0;height:36px;width:36px;background:transparent;border-radius:8px;font:22px/24px sans-serif;cursor:pointer}
+.hs-emoji-cell:hover{background:var(--bento-component-list-item-fill-hovered)}
+
+/* ── Uploading state ── */
+.hs-uploading-scrim{position:absolute;inset:0;background:var(--bento-component-feedback-uploading-fill)}
+.hs-uploading-prog{position:absolute;left:6px;right:6px;bottom:6px;height:4px;border-radius:2px;background:rgba(255,255,255,0.4);overflow:hidden}
+.hs-uploading-prog>i{display:block;height:100%;background:#fff}
+
+/* ── Hyperlink (comp-hyperlink) ── */
+.hs-link{display:inline-flex;align-items:center;gap:4px;font:var(--hs-type-body-md-b);color:var(--bento-component-hyperlink-text-rest);text-decoration:underline;cursor:pointer;border-radius:2px}
+.hs-link:hover,.hs-link:active{color:var(--bento-component-hyperlink-text-hovered)}
+.hs-link:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:2px}
+.hs-link .material-symbols-outlined{font-size:var(--bento-component-hyperlink-icon-size)}
+.hs-link[aria-disabled="true"]{color:var(--bento-component-hyperlink-text-disabled);cursor:not-allowed;pointer-events:none}
+
+/* ── Info button (comp-button-info) ── */
+.hs-info{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;padding:0;border:0;background:none;color:var(--bento-theme-color-icon-base);cursor:pointer;border-radius:50%}
+.hs-info .material-symbols-outlined{font-size:16px}
+.hs-info:hover{color:var(--hs-fg)}
+.hs-info:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:2px}
+
+/* ── Header / sub-header (comp-header, comp-sub-header) ── */
+.hs-header{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:16px;height:var(--bento-component-header-height);padding:0 var(--bento-component-header-padding-x);background:var(--hs-surface);box-shadow:inset 0 -1px 0 0 var(--bento-theme-color-border-subtle);box-sizing:border-box}
+.hs-header--flush{box-shadow:none}
+/* Production-measured 2026-10-05 (Suite Settings). Page header: 64 + 1px border,
+   surface, section title 26/600/32 at y16. Entity header (list + entity pages, under
+   the page header): 128 tall, padding 24, surface, 30/600/40 title. The entity header
+   replaces the earlier 88 (--tall) and 132 (--entity) heights; --tall is kept as an
+   alias so nothing that used it breaks. */
+.hs-header--page{height:65px;min-height:65px;box-shadow:none;border-bottom:1px solid var(--bento-theme-color-border-subtle);padding:0 var(--bento-space-05,24px)}
+.hs-header--page .hs-header-title{font-family:var(--bento-theme-font-families-primary);font-size:26px;font-weight:600;line-height:32px}
+.hs-header--tall,.hs-header--entity{height:128px;min-height:128px;padding:var(--bento-space-05,24px);box-shadow:none;align-items:center}
+.hs-header--entity .hs-header-title,.hs-header--tall .hs-header-title{font-family:var(--bento-theme-font-families-primary);font-size:30px;font-weight:600;line-height:40px}
+.hs-header--entity>.hs-header-slot:first-child,.hs-header--tall>.hs-header-slot:first-child{flex:1 1 auto;min-width:200px}
+.hs-header--entity>.hs-header-slot:last-child{flex:0 1 auto;min-width:0;flex-wrap:wrap;justify-content:flex-end}
+.hs-header--entity .hs-header-meta{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.hs-header-entity-text{flex:1 1 auto}
+.hs-header--entity .hs-header-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.hs-header-entity{display:flex;align-items:center;gap:16px;min-width:0}
+.hs-header-entity-text{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0}
+.hs-header-meta{font:var(--hs-type-body-sm);color:var(--bento-theme-color-text-subtle)}
+.hs-header-slot{display:flex;flex-direction:row;align-items:center;gap:8px;min-height:var(--bento-component-header-slot-height)}
+.hs-header-title{font:var(--hs-type-title-section);color:var(--hs-fg);margin:0}
+/* Lumen title-to-first-tab gap. Production measured ~31px (2026-10-01, structure
+   estimate, not exact); nearest existing token is --hs-ref-unit-8 (32px, 1px off)
+   vs --hs-sys-spacing-6 (24px, 7px off). --hs-ref-unit-* tokens are unitless
+   Figma numbers, not CSS lengths (var(--hs-ref-unit-8) computes to an invalid
+   "gap: 32" and is dropped) -- --bento-space-06 is the usable px equivalent
+   (32px, exact). Scoped to Lumen only so it doesn't move .hs-header-slot's
+   8px gap used elsewhere. */
+.hs-lumen-header-titleslot{gap:var(--bento-space-06)}
+.hs-subheader{background:var(--bento-theme-color-bg-app)}
+
+/* ── Snackbar (comp-snackbar 59175:206322) ── 
+   Anatomy, measured: 56 min-height, radius 8, inverse fill (#333) + overlay-tier
+   shadow, 0/16 padding with 16 gap, 20px leading icon (or 24px spinner), label
+   16/400 inverse, action 40px/14/700 inverse in an 8x16 padded slot, dismiss a
+   40px circle icon button. All already wired below except dismiss, added now. */
+.hs-snackbar{display:flex;flex-direction:row;align-items:center;min-height:var(--bento-component-snackbar-min-height);border-radius:var(--bento-component-snackbar-radius);background:var(--bento-component-snackbar-fill);box-shadow:var(--bento-component-snackbar-shadow);overflow:hidden;max-width:560px}
+.hs-snackbar-body{display:flex;flex-direction:row;align-items:center;gap:16px;padding:16px;flex:1;font:var(--hs-type-body-md);color:var(--bento-component-snackbar-text)}
+.hs-snackbar-body .material-symbols-outlined{font-size:20px;flex-shrink:0}
+.hs-snackbar-action{display:flex;padding:8px 8px 8px 0;flex-shrink:0}
+.hs-snackbar-close{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex-shrink:0;border:0;background:none;border-radius:50%;cursor:pointer;color:var(--bento-component-snackbar-text)}
+.hs-snackbar-close:hover{background:rgba(253,253,253,.16)}
+.hs-snackbar-close:focus-visible{outline:2px solid var(--bento-theme-color-border-focus-inverse);outline-offset:2px}
+
+/* ── Toast region — fixed top-right stack for .hs-alert--toast; there was no
+   container class for toast placement before this. ── */
+.hs-toast-region{position:fixed;top:24px;right:24px;display:flex;flex-direction:column;gap:8px;z-index:var(--bento-component-drawer-z-index-overlay,1000)}
+
+/* ── Pagination (comp-pagination) ── */
+.hs-pagination{display:flex;flex-direction:row;align-items:center;gap:8px;padding-top:16px}
+.hs-pagination-nav{display:inline-flex;align-items:center;gap:4px}
+.hs-pagination-nav .material-symbols-outlined{font-size:20px}
+.hs-pagination-nav:disabled{color:var(--hs-fg-disabled);cursor:not-allowed}
+.hs-pagination-page{font:var(--hs-type-body-md-b);color:var(--hs-fg)}
+.hs-pagination-page .material-symbols-outlined{font-size:20px}
+.hs-pagination-of{font:var(--hs-type-body-md);color:var(--bento-theme-color-text-subtle)}
+
+/* ── Bulk action bar (comp-bulk-action-bar) ── */
+.hs-bulk-bar{display:flex;flex-direction:row;align-items:center;gap:24px;height:var(--bento-component-bulk-action-bar-height);padding:0 8px 0 16px;border-radius:8px;background:var(--bento-component-snackbar-fill);box-shadow:var(--bento-component-snackbar-shadow);box-sizing:border-box}
+.hs-bulk-bar-count{font:var(--hs-type-body-sm);line-height:24px;color:var(--bento-component-snackbar-text);white-space:nowrap}
+.hs-bulk-bar-actions{display:flex;flex-direction:row;align-items:center;gap:8px;flex:1}
+.hs-bulk-bar .hs-btn--icon{color:var(--bento-component-snackbar-text);background:transparent}
+.hs-bulk-bar .hs-btn--icon:hover{background:rgba(253,253,253,.16)}
+
+/* ── Tag list / chip filter list (comp-tag-list, comp-chip-filter-list) ── */
+.hs-tag-list{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;gap:var(--bento-component-tag-list-gap);min-height:var(--bento-component-tag-list-row-height)}
+.hs-tag-list-more{appearance:none;border:0;background:none;padding:0;font:var(--hs-type-body-sm-b);color:var(--bento-theme-color-text-link);text-decoration:underline;cursor:pointer}
+.hs-chip-list{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start;gap:8px}
+
+/* ── Event note (✽sflakes/comp-event-note) ── */
+.hs-event-note{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:var(--bento-component-event-note-gap);padding:var(--bento-component-event-note-padding-y) var(--bento-component-event-note-padding-x);border-radius:var(--bento-component-event-note-radius);font:var(--hs-type-body-sm-b);line-height:24px;cursor:pointer;transition:filter 120ms;min-width:0}
+.hs-event-note:hover{filter:brightness(.96)}
+.hs-event-note:active{filter:brightness(.92)}
+.hs-event-note:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:1px}
+.hs-event-note-main{display:flex;flex-direction:row;align-items:center;gap:var(--bento-component-event-note-gap);flex:1;min-width:0}
+.hs-event-note-main .material-symbols-outlined{font-size:var(--bento-component-event-note-icon-size);flex-shrink:0}
+.hs-event-note-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hs-event-note-time{flex-shrink:0;white-space:nowrap}
+
+/* ── Calendar card (✽sflakes/comp-card-calendar) ── Fills its container (kit .40); --bento-component-card-calendar-width (192) is the Figma preview width only. */
+.hs-cal-card{display:flex;flex-direction:column;box-sizing:border-box;width:100%;min-width:0;height:var(--bento-component-card-calendar-height);max-height:var(--bento-component-card-calendar-max-height);border-radius:8px;overflow:hidden;background:var(--hs-surface);box-shadow:inset 0 0 0 1px var(--bento-theme-color-border-subtle);cursor:pointer;transition:background 120ms}
+.hs-cal-card--landscape{width:auto;height:auto;flex-direction:row}
+.hs-cal-card:hover{background:var(--bento-theme-color-bg-surface-hovered)}
+.hs-cal-card:active{background:var(--bento-theme-color-bg-surface-pressed)}
+.hs-cal-card:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:2px}
+.hs-cal-card-media{position:relative;flex:1;display:flex;align-items:center;justify-content:center;background:var(--bento-theme-color-bg-surface-recessed);overflow:hidden;min-height:0}
+.hs-cal-card--landscape .hs-cal-card-media{flex:0 0 64px;width:64px;align-self:stretch}
+.hs-cal-card-media img{width:100%;height:100%;object-fit:cover;display:block}
+.hs-cal-card-body{display:flex;flex-direction:column;padding:var(--bento-component-card-calendar-padding);flex:1;min-height:0;gap:0}
+.hs-cal-card-title{display:flex;flex-direction:row;align-items:center;gap:8px;font:var(--hs-type-body-md-b);color:var(--hs-fg);min-width:0}
+.hs-cal-card-title>span:first-child{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hs-cal-card-meta{font:var(--hs-type-body-sm);color:var(--hs-fg-secondary);flex-shrink:0;white-space:nowrap}
+.hs-cal-card-excerpt{font:var(--hs-type-body-sm);color:var(--hs-fg-secondary);overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+
+/* ── Uploaded file row (comp-file-uploaded) ── */
+.hs-file-row{display:flex;flex-direction:row;align-items:center;gap:8px;min-height:var(--bento-component-file-uploaded-height);padding:0 16px;border-radius:var(--bento-component-file-uploaded-radius);background:var(--bento-component-file-uploaded-fill);font:var(--hs-type-body-md);color:var(--hs-fg);box-sizing:border-box}
+.hs-file-row-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:8px 0}
+.hs-file-row-trail{display:flex;flex-direction:row;align-items:center;gap:8px;flex-shrink:0}
+.hs-file-row-thumb{width:32px;height:32px;border-radius:4px;object-fit:cover;flex-shrink:0}
+.hs-file-row .material-symbols-outlined{font-size:20px;flex-shrink:0}
+.hs-file-row--negative{background:var(--bento-theme-color-bg-negative)}
+.hs-file-row--negative .hs-file-row-name{color:var(--bento-theme-color-text-negative)}
+
+/* ── Character counter (.nested-character-counter) ── */
+.hs-char-count{display:block;text-align:right;font:var(--hs-type-body-md);color:var(--bento-component-character-counter-text);font-variant-numeric:tabular-nums}
+.hs-char-count.is-error{color:var(--bento-component-character-counter-text-error)}
+
+/* ── Field label (comp-label) ── */
+.hs-label-row{display:flex;flex-direction:row;align-items:center;gap:4px;font:var(--hs-type-body-md-b);color:var(--hs-fg)}
+.hs-label-req{color:var(--bento-theme-color-text-negative)}
+.hs-label-opt{font:var(--hs-type-body-sm);color:var(--hs-fg-secondary)}
+
+/* ── Sub-menu (comp-dropdown-sub-menu) ── */
+.hs-submenu-wrap{position:relative}
+.hs-submenu{position:absolute;left:100%;top:-8px;z-index:1130}
+.hs-menu-item--parent{justify-content:space-between}
+
+/* ── Listed progress (.nested-progress/listed-steps) ── */
+.hs-listed-progress{display:flex;flex-direction:column;gap:0}
+.hs-listed-step{display:flex;flex-direction:row;align-items:flex-start;gap:16px;position:relative}
+.hs-listed-step-rail{display:flex;flex-direction:column;align-items:center;flex-shrink:0;align-self:stretch}
+.hs-listed-step-marker{display:flex;align-items:center;justify-content:center;width:var(--bento-component-progress-indicator-size);height:var(--bento-component-progress-indicator-size);border-radius:50%;flex-shrink:0;font:var(--hs-type-body-md-b);background:var(--bento-component-progress-indicator-fill-todo);color:var(--hs-fg-secondary);box-shadow:inset 0 0 0 1px var(--bento-theme-color-border-base)}
+.hs-listed-step-marker .material-symbols-outlined{font-size:var(--bento-component-progress-indicator-icon-size)}
+.hs-listed-step--active .hs-listed-step-marker{background:var(--bento-component-progress-indicator-fill-active);color:var(--bento-theme-color-text-inverse);box-shadow:none}
+.hs-listed-step--done .hs-listed-step-marker{background:var(--bento-component-progress-indicator-fill-done);color:var(--bento-theme-color-text-inverse);box-shadow:none}
+.hs-listed-step-track{flex:1;width:2px;min-height:16px;background:var(--bento-theme-color-border-base);margin:4px 0}
+.hs-listed-step--done .hs-listed-step-track{background:var(--bento-component-progress-indicator-fill-done)}
+.hs-listed-step-body{display:flex;flex-direction:column;gap:2px;padding-bottom:24px;flex:1;min-width:0}
+.hs-listed-step:last-child .hs-listed-step-body{padding-bottom:0}
+.hs-listed-step-title{font:var(--hs-type-body-md-b);color:var(--hs-fg)}
+.hs-listed-step-desc{font:var(--hs-type-body-sm);color:var(--hs-fg-secondary)}
+.hs-listed-step[aria-disabled="true"] .hs-listed-step-title,.hs-listed-step[aria-disabled="true"] .hs-listed-step-desc{color:var(--bento-theme-color-text-disabled)}
+
+/* ── Conversation thread (doc-conversation) ── */
+.hs-conversation{display:flex;flex-direction:column;gap:16px;padding:16px}
+.hs-conversation-day{display:flex;flex-direction:row;align-items:center;gap:16px;font:var(--hs-type-meta);color:var(--hs-fg-secondary)}
+.hs-conversation-day::before,.hs-conversation-day::after{content:"";flex:1;height:1px;background:var(--bento-theme-color-border-subtle)}
+
+/* ── Reaction group (comp-emoji-reaction-group) ── */
+.hs-reaction-group{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px}
+
+/* ── Calendar day cell (.nested-calendar-day-surface / -week) ── */
+.hs-cal-grid{display:grid;grid-template-columns:repeat(7,var(--bento-component-calendar-day-size));gap:0}
+.hs-cal-dow{display:flex;align-items:center;justify-content:center;width:var(--bento-component-calendar-day-size);height:var(--bento-component-calendar-day-size);font:var(--hs-type-body-md-b);color:var(--hs-fg-secondary)}
+.hs-cal-day{position:relative;display:flex;align-items:center;justify-content:center;width:var(--bento-component-calendar-day-size);height:var(--bento-component-calendar-day-size);border:0;padding:0;background:none;border-radius:50%;font:var(--hs-type-body-md);color:var(--hs-fg);cursor:pointer;transition:background 120ms}
+.hs-cal-day:hover{background:var(--bento-theme-color-bg-surface-hovered)}
+.hs-cal-day:active{background:var(--bento-theme-color-bg-surface-pressed)}
+.hs-cal-day:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:1px}
+.hs-cal-day--muted{color:var(--hs-fg-secondary)}
+.hs-cal-day--today{box-shadow:inset 0 0 0 1px var(--bento-theme-color-border-base)}
+.hs-cal-day--range{background:var(--bento-component-calendar-day-fill-range);border-radius:0}
+.hs-cal-day--range-first{border-radius:50% 0 0 50%}
+.hs-cal-day--range-last{border-radius:0 50% 50% 0}
+.hs-cal-day--selected{background:var(--bento-component-calendar-day-fill-selected);box-shadow:inset 0 0 0 2px var(--bento-component-calendar-day-ring-selected);border-radius:50%}
+.hs-cal-day[disabled]{color:var(--bento-theme-color-text-disabled);cursor:not-allowed;background:none}
+
+/* ── Form control list (comp-form-control-list) ── */
+.hs-control-list{display:flex;flex-direction:column;gap:8px;border:0;padding:0;margin:0;min-width:0}
+.hs-control-list--row{flex-direction:row;flex-wrap:wrap;gap:24px}
+.hs-control-list-legend{font:var(--hs-type-body-md-b);color:var(--hs-fg);padding:0;margin-bottom:4px}
+.hs-control-list-desc{font:var(--hs-type-body-sm);color:var(--hs-fg-secondary);margin-bottom:4px}
+.hs-control-list-error{font:var(--hs-type-body-sm);color:var(--bento-theme-color-text-negative);display:flex;align-items:center;gap:4px;margin-top:4px}
+.hs-control-list-error .material-symbols-outlined{font-size:16px}
+.hs-control-row{display:flex;align-items:flex-start;gap:8px;font:var(--hs-type-body-md);color:var(--hs-fg);cursor:pointer;min-height:24px}
+.hs-control-row[aria-disabled="true"]{color:var(--bento-theme-color-text-disabled);cursor:not-allowed}
+.hs-control-row-body{display:flex;flex-direction:column;gap:2px}
+.hs-control-row-desc{font:var(--hs-type-body-sm);color:var(--hs-fg-secondary)}
+
+/* ── Avatar stack (comp-avatar-stack) — referenced by AvatarStack ── */
+.hs-avatar-stack{display:inline-flex;align-items:center}
+.hs-avatar-stack>*+*{margin-left:-8px}
+.hs-avatar-stack>*{box-shadow:0 0 0 2px var(--hs-surface)}
+
+/* ── Tree root (comp-tree) — referenced by Tree ── */
+.hs-tree{display:flex;flex-direction:column}
+
+/* ── Focus rings (core rule: 2px --bento-theme-color-border-focus, never removed) ──
+   Standalone controls get a 2px offset ring; full-width rows and grid cells use an
+   inset ring so the outline can't be clipped by the container. */
+.hs-textarea:focus-visible,
+.hs-slider:focus-visible,
+.hs-chip-filter:focus-visible,
+.hs-chip-assist:focus-visible,
+.hs-emoji-btn:focus-visible,
+.hs-reaction:focus-visible,
+.hs-tag-list-more:focus-visible,
+.hs-toggle:focus-visible,
+.hs-check:focus-visible,
+.hs-radio:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:0;border-radius:4px}
+.hs-choice:focus-within,
+.hs-emoji-cat:focus-visible,
+.hs-emoji-cell:focus-visible,
+.hs-cal-card:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:2px}
+.hs-tab:focus-visible,
+.hs-menu-item:focus-visible,
+.hs-tree-row:focus-visible,
+.hs-sb-item:focus-visible,
+.hs-tp-opt:focus-visible,
+.hs-option:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:-2px}
+.hs-toggle-group button:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:-2px}
+.hs-stepper button:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:2px}
+
+/* ── Icon button, overlay (comp-icon-button-overlay) ── */
+.hs-ovly-icon{display:inline-flex;align-items:center;justify-content:center;width:var(--bento-component-icon-button-overlay-size);height:var(--bento-component-icon-button-overlay-size);padding:var(--bento-component-icon-button-overlay-padding);border:0;border-radius:50%;cursor:pointer;background:var(--bento-component-icon-button-overlay-fill);color:var(--hs-surface-white);box-sizing:border-box;transition:background 120ms}
+.hs-ovly-icon .material-symbols-outlined{font-size:var(--bento-component-icon-button-overlay-icon-size)}
+.hs-ovly-icon:hover{background:color-mix(in srgb,var(--bento-component-icon-button-overlay-fill) 100%,#000 12%)}
+.hs-ovly-icon:active{background:color-mix(in srgb,var(--bento-component-icon-button-overlay-fill) 100%,#000 24%)}
+.hs-ovly-icon:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:2px}
+.hs-ovly-icon--ghost{background:transparent}
+.hs-ovly-icon--ghost:hover{background:var(--bento-component-icon-button-overlay-fill)}
+.hs-ovly-icon--inverse{background:var(--bento-component-icon-button-overlay-fill-inverse);color:var(--hs-fg)}
+.hs-ovly-icon--inverse.hs-ovly-icon--ghost{background:transparent}
+.hs-ovly-icon--inverse.hs-ovly-icon--ghost:hover{background:var(--bento-component-icon-button-overlay-fill-inverse)}
+
+/* ── Active icon (comp-icon-active) ── */
+.hs-icon-active{display:inline-flex;align-items:center;justify-content:center;color:var(--bento-theme-color-icon-base)}
+.hs-icon-active.is-on{font-variation-settings:"FILL" 1,"wght" 400,"GRAD" 0,"opsz" 24}
+
+/* ── Trailing icon (.nested-trailing-icon/*) ── */
+.hs-trailing-icon{position:relative;display:inline-flex;align-items:center;justify-content:center;border:0;padding:0;background:none;border-radius:50%;cursor:pointer;color:var(--bento-theme-color-icon-base);flex-shrink:0}
+.hs-trailing-icon .material-symbols-outlined{font-size:var(--bento-component-trailing-icon-size)}
+.hs-trailing-icon--small .material-symbols-outlined{font-size:var(--bento-component-trailing-icon-size-small)}
+.hs-trailing-icon--filled .material-symbols-outlined{font-variation-settings:"FILL" 1,"wght" 400,"GRAD" 0,"opsz" 24}
+.hs-trailing-icon--negative{color:var(--bento-theme-color-icon-negative)}
+.hs-trailing-icon--positive{color:var(--bento-theme-color-icon-positive)}
+.hs-trailing-icon:hover{color:var(--hs-fg)}
+.hs-trailing-icon:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:2px}
+.hs-trailing-icon[aria-disabled="true"],.hs-trailing-icon[disabled]{color:var(--bento-theme-color-icon-disabled);cursor:not-allowed}
+.hs-trailing-icon[data-touch-target="true"]::after{content:"";position:absolute;width:var(--bento-component-trailing-icon-touch-target);height:var(--bento-component-trailing-icon-touch-target);left:50%;top:50%;transform:translate(-50%,-50%)}
+.hs-trailing-icon--static{cursor:default}
+.hs-trailing-icon--static:hover{color:inherit}
+
+/* ── Input tag dismiss (.nested-input-tag-button) ── */
+.hs-input-tag-btn{display:inline-flex;align-items:center;justify-content:center;padding:var(--bento-component-input-tag-button-padding);border:0;background:none;border-radius:50%;cursor:pointer;color:var(--hs-fg);flex-shrink:0}
+.hs-input-tag-btn .material-symbols-outlined{font-size:var(--bento-component-input-tag-button-icon-size)}
+.hs-input-tag-btn:hover{background:var(--bento-theme-color-bg-surface-hovered)}
+.hs-input-tag-btn:active{background:var(--bento-theme-color-bg-surface-pressed)}
+.hs-input-tag-btn:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:-2px}
+.hs-input-tag-btn[disabled]{color:var(--bento-theme-color-icon-disabled);cursor:not-allowed;background:none}
+
+/* ── Chip clear (.nested-chip/clear) ── */
+.hs-chip-clear{display:inline-flex;align-items:center;justify-content:center;padding:var(--bento-component-chip-clear-padding);border:0;background:none;border-radius:50%;cursor:pointer;color:var(--hs-fg);flex-shrink:0}
+.hs-chip-clear .material-symbols-outlined{font-size:var(--bento-component-chip-clear-icon-size)}
+.hs-chip-clear:hover{background:var(--bento-theme-color-bg-surface-hovered)}
+.hs-chip-clear:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:-2px}
+.hs-chip-clear[disabled]{color:var(--bento-theme-color-icon-disabled);cursor:not-allowed;background:none}
+
+/* ── Expander (.nested-expaned) ── */
+.hs-expander{display:inline-flex;align-items:center;justify-content:center;width:var(--bento-component-expander-size);height:var(--bento-component-expander-size);flex-shrink:0}
+
+/* ── Selectable text (.nested-selectable/text) ── */
+.hs-selectable-text{display:flex;flex-direction:column;justify-content:center;gap:2px;flex:1;min-width:0}
+.hs-selectable-text-label{font:var(--hs-type-body-md-b);color:var(--hs-fg);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hs-selectable-text-sub{font:var(--hs-type-body-sm);color:var(--hs-fg-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hs-selectable-text[aria-disabled="true"] .hs-selectable-text-label,.hs-selectable-text[aria-disabled="true"] .hs-selectable-text-sub{color:var(--bento-theme-color-text-disabled)}
+
+/* ── Card engagement row (.nested-card/engagement) ── */
+.hs-engagement{display:flex;flex-direction:row;align-items:center;gap:24px;padding:8px 0}
+.hs-engagement-stat{display:inline-flex;align-items:center;gap:4px;font:var(--hs-type-body-sm);color:var(--hs-fg-secondary)}
+.hs-engagement-stat .material-symbols-outlined{font-size:16px}
+
+/* ── Batch D support ── */
+.hs-field-hint--error{color:var(--bento-theme-color-text-negative);display:inline-flex;align-items:center;gap:4px}
+.hs-field-hint--error .material-symbols-outlined{font-size:16px}
+.hs-visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ── List section heading (.nested-list-item/heading) ── */
+.hs-list-heading{display:flex;flex-direction:row;align-items:flex-end;gap:8px;min-height:var(--bento-component-list-item-heading-height);padding:var(--bento-component-list-item-heading-padding);box-sizing:border-box}
+.hs-list-heading-icon{display:flex;flex-direction:column;justify-content:center;align-items:center;width:24px;flex-shrink:0;align-self:stretch;color:var(--hs-fg-secondary)}
+.hs-list-heading-icon .material-symbols-outlined{font-size:20px}
+.hs-list-heading-label{font:var(--hs-type-body-sm-b);color:var(--hs-fg-secondary);flex:1;min-width:0}
+
+/* ── Snackbar action (.nested-snackbar-action) ── */
+.hs-snackbar-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:var(--bento-component-snackbar-action-padding);border:0;border-radius:8px;background:none;cursor:pointer;font:var(--hs-type-button);color:var(--bento-component-snackbar-text);white-space:nowrap}
+.hs-snackbar-btn:hover{background:rgba(253,253,253,.16)}
+.hs-snackbar-btn:active{background:rgba(253,253,253,.24)}
+.hs-snackbar-btn:focus-visible{outline:2px solid var(--bento-theme-color-border-focus-alt);outline-offset:2px}
+
+/* ── Nesting space (.nes-space/nesteding-space) — 32px per level ── */
+.hs-nesting-space{display:flex;flex-direction:row;align-items:center;flex-shrink:0}
+.hs-nesting-space>i{display:block;width:var(--bento-component-nesting-space-step);flex-shrink:0;align-self:stretch}
+.hs-nesting-space--guides>i{box-shadow:inset 1px 0 0 0 var(--bento-theme-color-border-subtle)}
+
+/* ── Touch target (.nested-touch/target) ── */
+.hs-touch{position:relative}
+.hs-touch::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:var(--bento-component-touch-target-size);height:var(--bento-component-touch-target-size)}
+
+/* ── Focus border (↪nested/focus-border) ── */
+.hs-focus-border{position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;box-shadow:0 0 0 2px var(--bento-theme-color-border-focus)}
+.hs-focus-border--inverse{box-shadow:0 0 0 2px var(--bento-theme-color-border-focus-alt)}
+
+/* ── Table head cell (↪nested/table-cell-thead) ── */
+.hs-th{display:flex;flex-direction:row;align-items:center;gap:8px;font:var(--hs-type-body-md-b);color:var(--hs-fg)}
+.hs-th--sortable{cursor:pointer;background:none;border:0;height:100%;width:100%;padding:0;text-align:left;border-radius:inherit}
+.hs-th--sortable:hover{background:var(--bento-theme-color-bg-surface-hovered)}
+.hs-th--sortable:active{background:var(--bento-theme-color-bg-surface-pressed)}
+.hs-th--sortable:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:2px}
+th[aria-sort="ascending"] .hs-th .material-symbols-outlined,th[aria-sort="descending"] .hs-th .material-symbols-outlined{color:var(--hs-fg)}
+.hs-th .material-symbols-outlined{font-size:16px;color:var(--bento-theme-color-icon-subtle)}
+.hs-th--num{justify-content:flex-end}
+
+/* ── Menu item artwork (.nes-dropdown-item/container-artwork | -avatar) ── */
+.hs-menu-artwork{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:32px;height:32px;border-radius:8px;overflow:hidden;background:var(--bento-theme-color-bg-surface-recessed);color:var(--bento-theme-color-icon-base)}
+.hs-menu-artwork--compact{width:24px;height:24px}
+.hs-menu-artwork--avatar{border-radius:50%}
+.hs-menu-artwork img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ── Accordion actions (.nested-accordion-actions) ── */
+.hs-accordion-actions{display:flex;flex-direction:row;align-items:center;gap:8px;flex-shrink:0;margin-left:auto}
+
+/* ── Card slot (.nested-card-slot / .nes-crad/slot) ── */
+.hs-card-slot{display:flex;flex-direction:column;gap:8px;min-width:0}
+.hs-card-slot--bordered{border-top:1px solid var(--bento-theme-color-border-subtle);padding-top:16px}
+
+/* ── Selection cleaner (.nested-cleaner/selection) ── */
+.hs-selection-cleaner{display:flex;flex-direction:row;align-items:center;gap:8px;font:var(--hs-type-body-sm);color:var(--hs-fg-secondary)}
+
+/* ── Bulk selection overlay (.nested-overlay-bulk-selection) ── */
+.hs-bulk-overlay{position:absolute;left:0;right:0;bottom:24px;display:flex;justify-content:center;pointer-events:none;z-index:1110}
+.hs-bulk-overlay>*{pointer-events:auto}
+
+/* ── Message media (.nested-message-media) ── */
+.hs-msg-media{display:block;max-width:100%;border-radius:8px;overflow:hidden;background:var(--bento-theme-color-bg-surface-recessed)}
+.hs-msg-media img{display:block;width:100%;height:auto}
+.hs-msg-media--mine{margin-left:auto}
+
+/* ── Progress indicator (.nested-progress/listed-indicator) ── */
+.hs-progress-dot{display:inline-flex;align-items:center;justify-content:center;width:var(--bento-component-progress-indicator-size);height:var(--bento-component-progress-indicator-size);border-radius:50%;flex-shrink:0;font:var(--hs-type-body-md-b);background:var(--bento-component-progress-indicator-fill-todo);color:var(--hs-fg-secondary);box-shadow:inset 0 0 0 1px var(--bento-theme-color-border-base)}
+.hs-progress-dot .material-symbols-outlined{font-size:var(--bento-component-progress-indicator-icon-size)}
+.hs-progress-dot--active{background:var(--bento-component-progress-indicator-fill-active);color:var(--bento-theme-color-text-inverse);box-shadow:none}
+.hs-progress-dot--done{background:var(--bento-component-progress-indicator-fill-done);color:var(--bento-theme-color-text-inverse);box-shadow:none}
+.hs-progress-dot--disabled{background:var(--bento-theme-color-bg-disabled);color:var(--bento-theme-color-text-disabled);box-shadow:none}
+
+/* ── Progress action row (.nested-progress/action) ── */
+.hs-progress-actions{display:flex;flex-direction:row;align-items:center;gap:8px}
+
+/* ── Time input (.nested-time-input) ── */
+.hs-time-input{display:inline-flex;flex-direction:row;align-items:center;gap:var(--bento-component-time-input-gap);font:var(--hs-type-body-md)}
+.hs-time-seg{appearance:none;border:0;background:none;padding:0 2px;border-radius:2px;font:inherit;color:var(--hs-fg);cursor:pointer;font-variant-numeric:tabular-nums;min-width:16px;text-align:center}
+.hs-time-seg[aria-selected="true"]{background:var(--bento-component-time-input-segment-fill-selected)}
+.hs-time-seg:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:1px}
+.hs-time-seg[disabled]{color:var(--bento-theme-color-text-disabled);cursor:not-allowed;background:none}
+.hs-time-sep{color:var(--hs-fg-secondary)}
+.hs-time-input--empty .hs-time-seg{color:var(--hs-fg-secondary)}
+
+/* ── Nav drawer heading (.nested-nav-drawer-item-heading) ── */
+.hs-nav-heading{display:flex;flex-direction:row;align-items:flex-end;gap:16px;min-height:var(--bento-component-nav-heading-height);padding:0 16px;border-radius:8px;box-sizing:border-box}
+.hs-nav-heading-content{display:flex;flex-direction:row;align-items:flex-end;gap:8px;padding:var(--bento-component-nav-heading-padding);flex:1;min-width:0}
+.hs-nav-heading-title{font:var(--hs-type-body-sm-b);color:var(--hs-fg-secondary);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ── Trailing text (nested-trailing/text) ── */
+.hs-trailing-text{font:var(--hs-type-body-sm);color:var(--hs-fg-secondary);flex-shrink:0;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hs-trailing-text--wrap{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+
+/* ── Dropdown navigation item (.master-dropdown/item-navigation) ── */
+.hs-dd-item{display:flex;flex-direction:row;align-items:center;min-height:var(--bento-component-dropdown-item-height);padding:0 16px;cursor:pointer;box-sizing:border-box;transition:background 120ms;font:var(--hs-type-body-md-b);color:var(--hs-fg)}
+.hs-dd-item--compact{min-height:var(--bento-component-dropdown-item-height-compact)}
+.hs-dd-item:hover{background:var(--bento-component-list-item-fill-hovered)}
+.hs-dd-item:active{background:var(--bento-theme-color-bg-surface-pressed)}
+.hs-dd-item.is-selected{background:var(--bento-component-list-item-fill-selected)}
+.hs-dd-item:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:-2px}
+.hs-dd-item[aria-disabled="true"]{color:var(--bento-theme-color-text-disabled);cursor:not-allowed;pointer-events:none}
+.hs-dd-item-control{display:flex;flex-direction:row;justify-content:center;align-items:center;width:var(--bento-component-dropdown-item-control-width);min-height:var(--bento-component-dropdown-item-control-min-height);padding-right:16px;flex-shrink:0;box-sizing:border-box}
+.hs-dd-item-body{display:flex;flex-direction:column;justify-content:center;gap:2px;flex:1;min-width:0;padding:8px 0}
+.hs-dd-item-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hs-dd-item-sub{font:var(--hs-type-body-sm);color:var(--hs-fg-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ── Row media containers (nested-contanier-artwork | -avatar | -thumbnail) ── */
+.hs-row-artwork{display:flex;flex-direction:row;align-items:center;justify-content:center;padding:var(--bento-component-row-artwork-padding);flex-shrink:0;box-sizing:border-box;color:var(--hs-fg)}
+.hs-row-artwork .material-symbols-outlined{font-size:var(--bento-component-row-artwork-icon-size)}
+.hs-row-media{display:flex;flex-direction:row;align-items:center;justify-content:center;padding:var(--bento-component-row-media-padding);flex-shrink:0;box-sizing:border-box}
+.hs-row-media-inner{width:var(--bento-component-row-media-size);height:var(--bento-component-row-media-size);flex-shrink:0;overflow:hidden;background:var(--bento-theme-color-bg-surface-recessed)}
+.hs-row-media--avatar .hs-row-media-inner{border-radius:50%}
+.hs-row-media--thumbnail .hs-row-media-inner{border-radius:8px}
+.hs-row-media-inner img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ══ Tree select (comp-tree-select · 67127:181635) ══════════════════════════
+   Figma marks this "Component not yet available": trigger geometry is exact,
+   the menu follows comp-dropdown-menu (400px) and comp-tree rows (56px). */
+.hs-tree-select{position:relative;display:flex;flex-direction:column;gap:8px}
+.hs-tree-select-trigger{display:flex;flex-direction:row;gap:8px;align-items:flex-start;min-height:40px;padding:0 16px;border-radius:8px;background:var(--hs-surface);box-shadow:inset 0 0 0 1px var(--bento-theme-color-border-input);box-sizing:border-box;cursor:text;overflow:hidden}
+.hs-tree-select-trigger.is-open,.hs-tree-select-trigger:focus-within{box-shadow:inset 0 0 0 2px var(--bento-theme-color-border-focus)}
+.hs-tree-select-trigger[aria-disabled="true"]{background:var(--bento-theme-color-bg-disabled);cursor:not-allowed}
+.hs-tree-select-slot{display:flex;flex-direction:row;flex-wrap:wrap;gap:16px 8px;padding:4px 0;align-items:center;flex:1;min-width:0}
+.hs-tree-select-search{flex:1;min-width:80px;border:0;outline:0;background:none;font:var(--hs-type-body-md);color:var(--hs-fg);height:32px}
+.hs-tree-select-search::placeholder{color:var(--bento-theme-color-text-placeholder)}
+.hs-tree-select-menu{max-height:400px;overflow-y:auto;border-radius:8px;background:var(--hs-surface);box-shadow:var(--bento-component-snackbar-shadow);padding:8px 0;box-sizing:border-box}
+.hs-tree-select-row{display:flex;flex-direction:row;align-items:center;min-height:56px;padding:0 16px;gap:0;box-sizing:border-box}
+.hs-tree-select-row:hover{background:var(--bento-theme-color-bg-surface-hovered)}
+.hs-tree-select-row.is-child{padding-left:48px}
+.hs-tree-select-expand{display:flex;align-items:center;justify-content:center;width:24px;min-width:24px;height:24px;flex-shrink:0;padding:0;border:0;background:none;color:var(--hs-fg);cursor:pointer}
+.hs-tree-select-expand .material-symbols-outlined{font-size:24px;transition:transform 120ms}
+.hs-tree-select-control{display:flex;justify-content:center;width:40px;padding:0 8px;flex-shrink:0;box-sizing:border-box}
+.hs-tree-select-label{font:var(--hs-type-body-md);color:var(--hs-fg);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Dismissible value tag inside the trigger (nested-input-tag) */
+.hs-input-tag{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 4px 0 8px;border-radius:4px;background:var(--bento-theme-color-bg-surface-intense);font:var(--hs-type-body-sm);color:var(--hs-fg);max-width:200px}
+.hs-input-tag-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hs-input-tag-dismiss{display:flex;align-items:center;justify-content:center;width:16px;height:16px;padding:0;border:0;background:none;color:var(--bento-theme-color-icon-base);cursor:pointer;flex-shrink:0}
+.hs-input-tag-dismiss .material-symbols-outlined{font-size:16px}
+
+/* ══ Input payment (comp-input-payment · 64459:183944) ══ */
+.hs-input-payment{display:flex;flex-direction:row;gap:8px;align-items:center;height:40px;padding:8px 16px;border-radius:8px;background:var(--hs-surface);box-shadow:inset 0 0 0 1px var(--bento-theme-color-border-input);box-sizing:border-box;overflow:hidden}
+.hs-input-payment:focus-within{box-shadow:inset 0 0 0 2px var(--bento-theme-color-border-focus)}
+.hs-input-payment.is-invalid{box-shadow:inset 0 0 0 2px var(--bento-theme-color-border-negative)}
+.hs-input-payment.is-disabled{background:var(--bento-theme-color-bg-disabled)}
+.hs-input-payment-brand{width:29.167px;height:20px;flex-shrink:0;object-fit:contain}
+.hs-input-payment-field{flex:1;min-width:0;border:0;outline:0;background:none;font:var(--hs-type-body-md);color:var(--hs-fg);text-overflow:ellipsis}
+.hs-input-payment-field::placeholder{color:var(--bento-theme-color-text-placeholder)}
+
+/* ══ Panel (comp-panel · 59111:85317) — layout region, not an overlay ══ */
+.hs-panel{display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding:24px;background:var(--hs-surface);border-radius:var(--hs-radii-lg);box-shadow:inset 0 0 0 1px var(--bento-theme-color-border-subtle);box-sizing:border-box}
+.hs-panel--bare{background:none;box-shadow:none;border-radius:0}
+
+/* ══ Mobile bottom nav (comp-mobile-nav-bar-bottom · 61829:324428) ══ */
+.hs-mobile-navbar{position:relative;display:flex;flex-direction:row;align-items:center;height:64px;background:var(--hs-surface);box-shadow:inset 0 1px 0 0 var(--bento-theme-color-border-subtle);box-sizing:border-box}
+.hs-mobile-navbar-item{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;flex:1;align-self:stretch;padding:0;border:0;background:none;cursor:pointer;color:var(--hs-fg);box-sizing:border-box}
+/* Active indicator sits ON the bar hairline, not below it — one 2px line, never two. */
+.hs-mobile-navbar-item.is-active::before{content:"";position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--bento-theme-color-bg-surface-inverse)}
+.hs-mobile-navbar-item:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:-2px}
+.hs-mobile-navbar-inner{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;width:34px;height:38px}
+.hs-mobile-navbar-inner .material-symbols-outlined{font-size:16px}
+.hs-mobile-navbar-label{font:600 14px/24px var(--hs-font-body);text-align:center;white-space:nowrap;color:var(--hs-fg)}
+.hs-mobile-navbar-hint{position:absolute;left:30px;top:-4px;width:12px;height:12px;border-radius:50%;background:var(--bento-theme-color-bg-negative)}
+.hs-mobile-navbar-counter{position:absolute;left:21.5px;top:-8px;min-width:22px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 4px;border-radius:8px;background:var(--bento-theme-color-bg-negative);color:var(--bento-theme-color-text-inverse);font:600 11px/16px var(--hs-font-body);box-sizing:border-box}
+
+/* ══ Mobile docked action sheet (comp-mobile-sheet-action · 59111:256271) ══ */
+.hs-mobile-sheet-action{display:flex;flex-direction:column;align-items:stretch;background:var(--hs-surface);box-shadow:0 -1px 0 0 var(--bento-theme-color-border-subtle)}
+.hs-mobile-sheet-action.is-docked{position:absolute;left:0;right:0;bottom:0}
+.hs-mobile-sheet-action-body{display:flex;flex-direction:column;gap:8px;padding:16px;align-items:stretch}
+.hs-mobile-home-indicator{display:flex;align-items:center;justify-content:center;height:34px}
+/* ══ Mobile bottom sheet (comp-mobile-sheet-bottom · 65374:113078) ══
+   Informational sheet — titled header + optional media + description body.
+   Geometry transcribed from the .fig, not rounded. ══ */
+.hs-mobile-sheet-bottom{width:375px;display:flex;flex-direction:column;align-items:stretch;overflow:hidden;border-radius:16px 16px 0 0;background:var(--hs-surface)}
+.hs-mobile-sheet-bottom-header{height:64px;flex-shrink:0;display:flex;flex-direction:column;gap:8px;padding:8px;align-items:center;justify-content:center;box-sizing:border-box}
+.hs-mobile-sheet-handle{width:48px;height:4px;border-radius:100px;background:var(--bento-theme-color-icon-subtle,#767676);flex-shrink:0}
+.hs-mobile-sheet-bottom-bar{height:48px;align-self:stretch;display:flex;flex-direction:row;gap:8px;align-items:center;flex-shrink:0}
+.hs-mobile-sheet-slot{width:48px;height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.hs-mobile-sheet-title{flex:1;min-width:0;font:600 18px/24px var(--bento-theme-font-families-primary);color:var(--hs-fg);text-align:center}
+.hs-mobile-sheet-media{height:200px;flex-shrink:0;align-self:stretch;overflow:hidden}
+.hs-mobile-sheet-media img{width:100%;height:100%;object-fit:cover;display:block}
+.hs-mobile-sheet-bottom-body{flex-shrink:0;align-self:stretch;padding:24px 16px;font:400 16px/24px var(--bento-theme-font-families-primary);color:var(--hs-fg);box-sizing:border-box}
+.hs-mobile-home-indicator span{width:139px;height:5px;border-radius:100px;background:var(--hs-fg)}
+
+/* ── Payment brand slot (comp-input-payment 64459:183944) ── */
+.hs-input-payment-brand{width:29.167px;height:20px;object-fit:contain;flex-shrink:0}
+.hs-input-payment-brand--fallback{display:flex;align-items:center;justify-content:center;color:var(--bento-theme-color-icon-subtle)}
+.hs-input-payment-brand--fallback .material-symbols-outlined{font-size:20px}
+
+/* ── Navigation drawer (comp-navigation-drawer · collapsible + sub-page)
+   Typography and head/section padding ported from templates/src/suite-shell.css
+   2026-09-10 (.suite-drawer): head 64px with a bottom hairline and a 22px/700
+   title; group headings 12px/700 uppercase 0.06em at 14px 20px 4px; items
+   16px/400 at 10px 16px. Width 288px already matched. The template is the
+   measured production read and wins on every disagreement. ── */
+/* MEASURED 2026-09-07 on Perch's date-range dialog width 288, PRODUCTION wins over
+   the gallery's 304 per kit rule ("match production"); token records both. */
+.hs-navdrawer{display:flex;flex-direction:column;width:var(--bento-component-navdrawer-width);flex-shrink:0;background:var(--hs-surface);box-shadow:inset -1px 0 0 0 var(--bento-theme-color-border-subtle);box-sizing:border-box;overflow-y:auto}
+.hs-navdrawer-head{display:flex;align-items:flex-start;gap:8px;min-height:64px;padding:16px 16px 0 17px;box-sizing:border-box}
+.hs-navdrawer-title{font-family:var(--bento-theme-font-families-primary);font-size:26px;font-weight:600;line-height:32px;color:var(--suite-ink);margin:0;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.hs-navdrawer-back{display:inline-flex;align-items:center;gap:4px;padding:0;border:0;background:none;cursor:pointer;font:var(--hs-type-body-sm-b);color:var(--bento-theme-color-text-link);border-radius:2px}
+.hs-navdrawer-back:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:2px}
+.hs-navdrawer-back .material-symbols-outlined{font-size:16px}
+.hs-navdrawer-body{display:flex;flex-direction:column;gap:0;padding:12px 16px 8px 17px}
+.hs-navdrawer-body:has(.hs-navdrawer-cta-split),.hs-navdrawer-orgwrap+.hs-navdrawer-body{padding-top:20px}
+/* Children never shrink: in a viewport-height shell (2026-10-05) the drawer scrolls instead of squashing the CTA. */
+.hs-navdrawer-body>*,.hs-navdrawer-head,.hs-navdrawer-orgwrap{flex-shrink:0}
+.hs-navdrawer-section{font-family:var(--bento-theme-font-families-primary);font-size:14px;font-weight:600;letter-spacing:normal;text-transform:none;color:var(--bento-theme-color-text-subtle);padding:24px 0 8px;line-height:24px;box-sizing:border-box;min-height:56px}
+.hs-navdrawer[data-product="wisdom"] .hs-navdrawer-item{min-height:58px}
+.hs-navdrawer-item{display:flex;align-items:center;gap:16px;min-height:56px;padding:0 0 0 16px;border:0;border-radius:8px;background:none;width:100%;text-align:left;cursor:pointer;text-decoration:none;font-family:var(--bento-theme-font-families-primary);font-size:16px;font-weight:400;color:var(--suite-ink);box-sizing:border-box}
+.hs-navdrawer-item:hover{background:var(--bento-component-list-item-fill-hovered)}
+.hs-navdrawer-item.is-active{background:var(--bento-component-list-item-fill-selected);font-weight:600}
+.hs-navdrawer-item.is-active .material-symbols-outlined{font-variation-settings:"FILL" 1}
+.hs-navdrawer-item:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:-2px}
+.hs-navdrawer-item[aria-disabled="true"]{color:var(--bento-theme-color-text-disabled);pointer-events:none}
+/* Production 2026-10-05: 24px Material Symbols, #241F21, FILL 0 inactive / FILL 1 active. */
+.hs-navdrawer-item .material-symbols-outlined{font-size:24px;color:var(--hs-ref-grey-dark-241f21);flex-shrink:0;font-variation-settings:"FILL" 0}
+.hs-navdrawer-item .hs-navdrawer-item-chevron{font-size:20px}
+.hs-navdrawer-item-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hs-navdrawer-item-chevron{font-size:20px;transition:transform 150ms}
+.hs-navdrawer-item[aria-expanded="true"] .hs-navdrawer-item-chevron{transform:rotate(180deg)}
+.hs-navdrawer-children{display:flex;flex-direction:column;gap:0;padding-left:32px}
+.hs-navdrawer-head h2{flex:1;min-width:0}
+.hs-navdrawer-subtitle{font:var(--hs-type-body-sm);color:var(--bento-theme-color-text-subtle);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* Primary action above the item list. Perch/Nest/etc use --hs-surface-strong; the
+   Analytics doc names --bento-theme-color-bg-surface-pressed \u2014 both resolve to the
+   same #EEF1F2 (bento-system-sys-neutral-alt-300), so one class covers both. */
+.hs-navdrawer-cta{display:flex;align-items:center;justify-content:flex-start;gap:8px;height:40px;min-width:132px;margin:0;padding:8px 16px 8px 12px;border:0;border-radius:8px 0 0 8px;flex:none;background:var(--hs-surface-strong);font-family:var(--bento-theme-font-families-primary);font-size:14px;font-weight:700;line-height:1;color:var(--suite-ink);cursor:pointer}
+.hs-navdrawer-cta--solo{border-radius:8px}
+.hs-navdrawer-cta .material-symbols-outlined{font-size:16px}
+.hs-navdrawer-cta-label{text-align:left;white-space:nowrap}
+.hs-navdrawer-cta-split{display:flex;gap:1px;margin:0 0 8px;align-self:flex-start}
+.hs-navdrawer-cta-more{display:grid;place-items:center;width:40px;height:40px;padding:0;border:0;border-radius:0 8px 8px 0;background:var(--hs-surface-strong);color:var(--suite-ink);cursor:pointer;flex:none}
+.hs-navdrawer-cta-more:hover{background:var(--bento-theme-color-bg-surface-hovered)}
+.hs-navdrawer-cta-more:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:2px}
+.hs-navdrawer-cta-more .material-symbols-outlined{font-size:20px}
+.hs-navdrawer-cta-chevron{font-size:20px!important;margin-left:auto}
+.hs-navdrawer-cta:hover{background:var(--bento-theme-color-bg-surface-hovered)}
+.hs-navdrawer-collapse{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;flex-shrink:0;padding:0;border:0;background:none;cursor:pointer;color:var(--bento-theme-color-icon-base);position:absolute;top:12px;right:9px;margin:0}
+.hs-navdrawer-collapse .material-symbols-outlined{font-size:20px}
+.hs-navdrawer-collapse:hover{background:var(--bento-theme-color-bg-surface-hovered)}
+.hs-navdrawer-head{position:relative}
+.hs-navdrawer-head:has(.hs-navdrawer-collapse){padding-right:22px}
+.hs-navdrawer-head:has(.hs-navdrawer-collapse) .hs-navdrawer-title{max-width:222px}
+.hs-navdrawer-head h2{line-height:32px}
+.hs-navdrawer-collapse:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:2px;border-radius:4px}
+.hs-navdrawer-listbox{display:flex;flex-direction:column;gap:2px}
+/* Org switcher row (Settings drawer, production 2026-10-05): org logo, org name,
+   chevron, 48 tall, directly under the title. Composed from .hs-org-trigger + .hs-menu. */
+.hs-navdrawer-orgwrap{position:relative;padding:8px 16px 0 17px}
+.hs-navdrawer-org{width:100%;height:48px;padding:0 16px;gap:12px;box-sizing:border-box}
+.hs-navdrawer-org .logo{width:24px;height:24px;border-radius:4px;font-size:12px}
+.hs-navdrawer-org .org{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hs-navdrawer-orgmenu{position:absolute;left:17px;right:16px;top:calc(100% + 4px);z-index:20}
+.hs-navdrawer[data-product="settings"] .hs-navdrawer-item{font-weight:400;color:var(--bento-theme-color-text-base)}
+.hs-navdrawer[data-product="settings"] .hs-navdrawer-item.is-active{font-weight:600}
+.hs-navdrawer-divider{height:1px;margin:8px;background:var(--bento-theme-color-border-subtle)}
+
+/* ── Table bulk actions (native · replaces the header row while rows are selected) ── */
+.hs-table-wrap{position:relative;width:100%}
+.hs-table-bulkrow > th{padding:0;border-bottom:1px solid var(--bento-component-table-border)}
+.hs-table-bulkrow .hs-bulk-bar{width:100%;max-width:none;border-radius:0;box-shadow:none}
+.hs-table-scroll{width:100%;overflow-x:auto}
+
+/* ── Focus on inverse chrome (#0065FF measures 2.59:1 there — see colors.css) ── */
+.hs-bulk-bar *:focus-visible,.hs-snackbar *:focus-visible,.hs-tooltip *:focus-visible{outline-color:var(--bento-theme-color-border-focus-inverse)}
+
+/* ── Suite rail (comp-main-nav) · 80px global product rail ──
+   Width reconciled to 80px 2026-09-10. Was 84px here while
+   templates/src/suite-shell.css used --suite-rail-w: 80px and SKILL.md Rule 1
+   documented 80 — three sources, two answers. 80 is the measured production
+   read (2026-09-06), so 84 was the outlier. Surface is var(--hs-surface),
+   NOT navy. ── */
+/* PORTED FROM templates/src/suite-shell.css 2026-09-10. The canvas rail had
+   DIVERGED from the template rail on six values; the template is the measured
+   production read and won on every one:
+     glyph puck          40px      -> 48px
+     item box            76px wide -> width auto / min-width 48 / height 72
+     glyph-to-label gap  4px       -> 0 (the circle's own padding is the gap)
+     label line-height   14px      -> 24px, 14px/400 explicit
+     group gap           space-02  -> 16px products / 2px utilities (TWO densities)
+     active fill         bg-nav (dark teal rgb(0,73,99)) -> per-product pastel
+                                      puck via [data-product], e.g. Perch
+                                      --suite-perch-fill = #FFE2CB
+   The dark-teal active fill was the canvas-only defect that produced navy
+   chrome in .dc.html builds. --bento-theme-color-bg-nav must never fill a rail
+   item. Utilities carry NO label and use the neutral-alt-300 active fill —
+   a single item height for both groups is a defect (suite-shell.css L71-73).
+   Border: kept as an inset box-shadow rather than the template's border-right
+   so the rail measures exactly 80px rather than 81px; same 1px #EBEBEB edge. */
+/* FULL HEIGHT IS PART OF THE COMPONENT (fixed 2026-09-23). The rail used to have
+   no height, so it only reached the bottom when its parent happened to be a
+   stretching full-height flex row; in a .dc.html mount, a canvas artboard or any
+   content-height parent it collapsed to content height and the bottom tray
+   stacked directly under the last product. Height comes from the rail itself now
+   (100% of the parent, min 100dvh when the parent is unsized), the tray is pinned
+   with margin-top:auto (not by a growing spacer), and the product group is the
+   part that gives way when the viewport is too short — it scrolls, so the two
+   groups can never collide. The viewport floor is scoped to a rail mounted
+   straight into an unsized page (body/#root); inside any sized parent the rail
+   takes the PARENT's height so it can never overflow a short container. Opt in
+   elsewhere with data-fit="viewport". */
+.hs-rail{display:flex;flex-direction:column;align-items:center;width:80px;flex-shrink:0;align-self:stretch;height:100%;padding:var(--bento-space-03) 0;background:var(--hs-surface);box-shadow:inset -1px 0 0 0 var(--bento-theme-color-border-subtle);box-sizing:border-box;overflow:hidden}
+body>.hs-rail,#root>.hs-rail,.hs-rail[data-fit="viewport"]{min-height:100dvh}
+.hs-rail-brand{display:flex;flex-direction:column;align-items:center;justify-content:center;width:48px;height:72px;flex-shrink:0;text-decoration:none}
+.hs-rail-brand img{width:48px;height:48px;display:block}
+.hs-rail-group{display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;flex:0 1 auto;min-height:0;overflow-y:auto;scrollbar-width:none}
+.hs-rail-group::-webkit-scrollbar{width:0;height:0}
+.hs-rail-group.is-utility{gap:2px;padding-bottom:8px;margin-top:auto;flex:none;overflow:visible}
+.hs-rail-spacer{flex:0 1 auto;min-height:var(--bento-space-04)}
+.hs-rail-item{display:flex;flex-direction:column;align-items:center;gap:0;width:auto;min-width:48px;height:72px;box-sizing:border-box;padding:0;border-radius:8px;text-decoration:none;cursor:pointer;color:var(--hs-fg)}
+.hs-rail-item.is-util{width:48px;height:48px;justify-content:center}
+.hs-rail-item.is-util .hs-rail-label{display:none}
+.hs-rail-item:hover .hs-rail-glyph{background:var(--suite-nav-hover-wash);color:var(--bento-suite-nav-glyph-hover)}
+.hs-rail-item:active .hs-rail-glyph{color:var(--bento-suite-nav-glyph-pressed)}
+.hs-rail-item:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:-2px}
+.hs-rail-glyph{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;flex-shrink:0;color:var(--bento-theme-color-icon-base);transition:background-color 120ms,color 120ms}
+.hs-rail-glyph .material-symbols-outlined{font-size:24px;font-variation-settings:"FILL" 0,"GRAD" 0,"opsz" 24,"wght" 400}
+.hs-rail-label{font-family:var(--bento-theme-font-families-primary);font-size:14px;font-weight:400;line-height:24px;color:var(--suite-ink);text-align:center}
+.hs-rail-item:not(.is-util).is-active .hs-rail-glyph .material-symbols-outlined{font-variation-settings:"FILL" 1,"GRAD" 0,"opsz" 24,"wght" 400}
+.hs-rail-item.is-active[data-product="perch"] .hs-rail-glyph{background:var(--suite-perch-fill);color:var(--suite-perch-icon)}
+.hs-rail-item.is-active[data-product="nest"] .hs-rail-glyph{background:var(--suite-nest-fill);color:var(--suite-nest-icon)}
+.hs-rail-item.is-active[data-product="lumen"] .hs-rail-glyph{background:var(--suite-lumen-fill);color:var(--suite-lumen-icon)}
+.hs-rail-item.is-active[data-product="parliament"] .hs-rail-glyph{background:var(--suite-parliament-fill);color:var(--suite-parliament-icon)}
+.hs-rail-item.is-active[data-product="wisdom"] .hs-rail-glyph{background:var(--suite-wisdom-fill);color:var(--suite-wisdom-icon)}
+.hs-rail-item.is-active[data-product="vigil"] .hs-rail-glyph{background:var(--suite-vigil-fill);color:var(--suite-vigil-icon)}
+.hs-rail-item.is-active[data-product="perch"]:hover .hs-rail-glyph{background:var(--bento-suite-perch-fill-hover)}
+.hs-rail-item.is-active[data-product="nest"]:hover .hs-rail-glyph{background:var(--bento-suite-nest-fill-hover)}
+.hs-rail-item.is-active[data-product="lumen"]:hover .hs-rail-glyph{background:var(--bento-suite-lumen-fill-hover)}
+.hs-rail-item.is-active[data-product="parliament"]:hover .hs-rail-glyph{background:var(--bento-suite-parliament-fill-hover)}
+.hs-rail-item.is-active[data-product="wisdom"]:hover .hs-rail-glyph{background:var(--bento-suite-wisdom-fill-hover)}
+.hs-rail-item.is-active[data-product="vigil"]:hover .hs-rail-glyph{background:var(--bento-suite-vigil-fill-hover)}
+.hs-rail-item.is-util.is-active .hs-rail-glyph{background:var(--bento-system-sys-neutral-alt-300)}
+.hs-rail-avatar{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:var(--hs-cat-3-bg);color:var(--hs-cat-3-fg);font-family:var(--bento-theme-font-families-primary);font-size:12px;font-weight:600}
+
+/* ── Metric tile (the KPI pattern the docs referenced but never defined) ── */
+.hs-metric{display:flex;flex-direction:column;gap:var(--bento-space-01);min-width:0}
+.hs-metric-label{display:flex;align-items:center;gap:4px;font:var(--hs-type-body-sm);color:var(--bento-theme-color-text-subtle)}
+.hs-metric-value{font:var(--hs-type-display-3);color:var(--hs-fg);font-variant-numeric:tabular-nums}
+.hs-metric-delta{display:inline-flex;align-items:center;gap:2px;font:var(--hs-type-body-sm-b);font-variant-numeric:tabular-nums}
+.hs-metric-delta--up{color:var(--bento-theme-color-text-positive)}
+.hs-metric-delta--down{color:var(--bento-theme-color-text-negative)}
+.hs-metric-delta--flat{color:var(--bento-theme-color-text-subtle)}
+.hs-metric-delta .material-symbols-outlined{font-size:16px}
+.hs-metric-foot{font:var(--hs-type-meta);color:var(--bento-theme-color-text-subtle)}
+
+/* ── Brand / network marks (components/icons) ──
+   Path 1 is the brand disc; the paths after it are the glyph knocked out of it.
+   The materializer flattened both to currentColor, collapsing each mark into a
+   solid blob — restore the two-tone split here. */
+.hs-icon path{fill:currentColor}
+.hs-icon path:not(:first-child){fill:var(--hs-surface)}
+.hs-icon--mono path:first-child{fill:none}
+.hs-icon--mono path:not(:first-child){fill:currentColor}
+/* Not glyph-on-disc — the two-tone rule would knock out their own geometry. */
+.hs-icon--flat path,.hs-icon--flat path:not(:first-child){fill:currentColor}
+
+/* Nav drawer: link item + static footer (Confluence 11896979485 · 12636323850) */
+.hs-navdrawer-item--link{color:var(--bento-theme-color-text-link);text-decoration:underline}
+.hs-navdrawer-item--link:hover{color:var(--bento-theme-color-text-link-hovered)}
+.hs-navdrawer-footer{margin-top:auto;padding:8px;border-top:1px solid var(--bento-theme-color-border-subtle);display:flex;flex-direction:column;gap:2px}
+.hs-navdrawer{display:flex;flex-direction:column}
+.hs-navdrawer-body{flex:1;min-height:0;overflow-y:auto}
+/* Collapsed drawer (production, Perch, 2026-10-05): 48px strip, only the Expand navigation button (40x40) on the head row. */
+.hs-navdrawer.is-collapsed{width:48px;min-width:48px;overflow:hidden}
+.hs-navdrawer.is-collapsed .hs-navdrawer-head{padding:0 4px;justify-content:center;align-items:center;border-bottom:0}
+.hs-navdrawer-expand{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:0;border-radius:8px;background:none;cursor:pointer;color:var(--bento-theme-color-icon-base)}
+.hs-navdrawer-expand .material-symbols-outlined{font-size:20px}
+.hs-navdrawer-expand:hover{background:var(--bento-theme-color-bg-surface-hovered)}
+.hs-navdrawer-expand:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:2px}
+
+/* ── App-core column + suite banner — implemented 2026-09-10.
+   Production chain, measured: rail | section.appCore( banners, appBody ).
+   appCore is a flex COLUMN; the banner is its first child at 68px with
+   flex 0 1 auto (natural height only); appBody is the sibling flex ROW that
+   holds the drawer and the content, so the DRAWER STARTS AT y68.
+   Measured reference: banner x80 y0 h68 to the right edge; drawer x80.21 y68
+   w288; rail w80.21; content x368.21.
+   This geometry sat in templates/src/suite-shell.css as a COMMENT ONLY from
+   2026-09-06 until now, so every shell laid rail | drawer | content out as one
+   flex row and a banner was unrepresentable. Do not flatten it back.
+   Banner internal padding/gap/content layout are UNMEASURED and therefore
+   unset — supply spacing on children rather than inventing it here. ── */
+.hs-appcore{display:flex;flex-direction:column;flex:1 1 auto;min-width:0;height:100%}
+.suite-app{display:flex;flex-direction:row;height:100%}
+/* SuiteShell fills its container (or the viewport) — fixed 2026-10-05. It used to
+   grow only to its content, so under a prototype strip the rail was short and
+   Analytics/Notifications/Account floated up under Vigil. flex/align-self cover
+   flex parents; SuiteShell.jsx measures and sets min-height for block parents. */
+.suite-app[data-bento-shell]{flex:1 1 auto;align-self:stretch;min-height:0;box-sizing:border-box}
+/* Banner = production's div.banners ALERT STACK, not a fixed row — fixed 2026-10-05.
+   Measured on production Perch Calendar: height auto, 68 only while a Reconnection
+   Required alert shows, empty slots 0, and with no alert the drawer title and page
+   header start at y0. So: no min-height, 0 tall when empty, sized by its content. */
+.hs-suite-banner:empty{box-shadow:none}
+.hs-suite-banner{display:flex;align-items:center;min-height:0;flex:0 0 auto;box-sizing:border-box;background:var(--hs-surface);box-shadow:inset 0 -1px 0 0 var(--bento-theme-color-border-subtle)}
+/* Lumen workspace-picker inset. Production: picker's left edge ~44px right of
+   the rail (estimate, +/-2px, 2026-10-01). Measured by rendering SuiteShell
+   product="lumen": padding-left on this class IS the rail-to-picker gap
+   (.hs-org-trigger's own 8px padding is internal to the button, it does not
+   add to the gap -- the earlier "48+8=56" theory was wrong, confirmed by
+   render). --bento-space-07 (36px) measured 36px, 8px off; --bento-space-08
+   (48px) measures 48px, 4px off and is the nearest token within tolerance.
+   No 44px spacing token exists.
+   Moved from .hs-suite-banner--lumen onto the trigger itself (2026-10-01):
+   the modifier only reached SuiteShell's own SuiteBanner mount, so any page
+   mounting SuiteBanner + LumenWorkspacePicker directly (templates/lumen) got
+   the unmodified 8px inset instead of 48px. Putting the inset on the trigger
+   means every mount path gets it, not just the SuiteShell path. */
+.hs-org-trigger--lumen{height:48px;padding:8px 16px;gap:8px;margin:12px 0 12px 16px;box-sizing:border-box}
+/* Production Lumen 2026-10-06: picker row 72 = 12 + 48 + 12; button x16 from the rail, 48 tall, padding 8 16, gap 8; 32px ROUND avatar on #EEF1F2 (org logo image, initial as fallback); chevron keyboard_arrow_down 20. */
+.hs-org-trigger--lumen .logo{width:32px;height:32px;border-radius:50%;overflow:hidden;background:var(--hs-surface-strong);color:var(--bento-theme-color-text-base)}
+.hs-org-trigger--lumen .logo img{width:100%;height:100%;object-fit:cover;display:block}
+/* ^ margin 8+8 around the 52px trigger keeps Lumen's picker row at its measured 68
+   now that the banner has no min-height (2026-10-05): the row is content-sized. */
+.hs-suite-banner--stack{flex-direction:column;align-items:stretch;background:none;box-shadow:none}
+.hs-appbody{display:flex;flex-direction:row;flex:1 1 auto;min-height:0}
+.hs-appcontent{flex:1 1 auto;min-width:0;min-height:0;overflow:auto}
+
+/* Table: select-all-beyond-page banner, bulk result, sticky columns (13330776079 · 11896979499) */
+.hs-table-wrap{position:relative}
+.hs-table-selectall{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 16px;background:var(--bento-theme-color-bg-info);color:var(--bento-theme-color-text-base);font:var(--hs-type-body-sm);border-bottom:1px solid var(--bento-theme-color-border-subtle)}
+.hs-table-result{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--bento-theme-color-bg-warning);color:var(--hs-fg-warning);font:var(--hs-type-body-sm)}
+.hs-table .is-sticky{position:sticky;left:0;z-index:1;background:var(--bento-theme-color-bg-surface)}
+.hs-table-emptyrow td{padding:32px 16px;text-align:center;color:var(--bento-theme-color-text-subtle);font:var(--hs-type-body-md)}
+.hs-visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* Accordion · outline variant — reads as a card, for data-heavy bodies (11897012225) */
+.acc-list--outline{display:flex;flex-direction:column;gap:8px}
+.acc-list--outline .acc-item{border:1px solid var(--bento-theme-color-border-subtle);border-radius:8px;background:var(--bento-theme-color-bg-surface)}
+.acc-list--outline .acc-item+.acc-item{border-top:1px solid var(--bento-theme-color-border-subtle)}
+
+/* OptionTrigger had no CSS anywhere (rendered as a browser-default button). Grey pill, trailing caret. */
+.hs-option-trigger{display:inline-flex;align-items:center;gap:var(--bento-space-02,4px);height:40px;padding:0 var(--bento-space-03,8px) 0 var(--bento-space-03,8px);border:0;border-radius:var(--hs-radii-lg);background:transparent;color:var(--hs-fg);font:var(--hs-type-body-md-b);font-family:var(--hs-font-body,var(--bento-theme-font-families-primary,"Source Sans 3",sans-serif));cursor:pointer}
+.hs-option-trigger:hover{background:var(--hs-surface-subtle)}
+.hs-option-trigger.is-open{background:var(--hs-surface-strong)}
+.hs-option-trigger:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:2px}
+.hs-option-trigger .material-symbols-outlined{font-size:24px}
+/* Prompt box (Wisdom chat): plain div, textarea on top, control row below. 760x124 in production (measured 6 Oct). */
+.hs-promptbox{box-sizing:border-box;width:100%;height:124px;padding:16px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;background:var(--hs-surface);border-radius:var(--hs-radii-lg);box-shadow:inset 0 0 0 1px var(--bento-palette-ref-palette-dark-grey-100)}
+.hs-promptbox:focus-within{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:2px}
+.hs-promptbox .hs-textarea{border:0;padding:0;min-height:0;height:36px;resize:none;background:transparent;outline:none}
+.hs-promptbox .hs-textarea:hover,.hs-promptbox .hs-textarea:focus{border:0;outline:none}
+.hs-promptbox-row{display:flex;align-items:center;gap:8px;min-width:0}
+.hs-promptbox-send{margin-left:auto}
+.hs-promptbox-cat .hs-option-trigger .material-symbols-outlined:first-child{color:var(--bento-suite-perch-icon)}
+
+/* Charts (kit-authored, not from Figma). Colours come only from --hs-chart-color-*; BarChart, BarList, StackedBar. */
+.hs-barchart{display:flex;flex-direction:column;gap:var(--bento-space-02,4px);min-width:0}
+.hs-barchart-plot{display:flex;align-items:flex-end;gap:var(--bento-space-02,4px)}
+.hs-barchart-bar{flex:1;min-width:0;border-radius:var(--hs-radii-xs) var(--hs-radii-xs) 0 0}
+.hs-barchart-axis{display:flex;justify-content:space-between;color:var(--hs-fg-secondary);font:var(--hs-type-body-md)}
+.hs-barlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--bento-space-03,8px);min-width:0}
+.hs-barlist-head{display:flex;justify-content:space-between;gap:var(--bento-space-03,8px);color:var(--hs-fg);font:var(--hs-type-body-md)}
+.hs-barlist-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hs-barlist-value{color:var(--hs-fg-secondary);font:var(--hs-type-body-md-b);flex:none}
+.hs-barlist-track{height:8px;border-radius:var(--hs-radii-full);background:var(--hs-surface-strong);overflow:hidden;margin-top:var(--bento-space-01,2px)}
+.hs-barlist-fill{height:100%;border-radius:var(--hs-radii-full)}
+.hs-stackedbar{display:flex;flex-direction:column;gap:var(--bento-space-03,8px);min-width:0}
+.hs-stackedbar-track{display:flex;height:16px;border-radius:var(--hs-radii-full);overflow:hidden;background:var(--hs-surface-strong)}
+.hs-stackedbar-seg{height:100%;min-width:0}
+.hs-stackedbar-legend{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:var(--bento-space-02,4px) var(--bento-space-04,16px);color:var(--hs-fg);font:var(--hs-type-body-md)}
+.hs-stackedbar-legend li{display:inline-flex;align-items:center;gap:var(--bento-space-02,4px)}
+.hs-stackedbar-legend b{color:var(--hs-fg-secondary);font:var(--hs-type-body-md-b)}
+.hs-stackedbar-dot{width:12px;height:12px;border-radius:var(--hs-radii-full);flex:none}
+
+/* Nest title-row overlays (production 2026-10-07): Personal preferences title 22/600/32; the view menu heading is sentence case 14/600 subdued. */
+.hs-modal--nestprefs .hs-modal-title{font-size:22px;font-weight:600;line-height:32px}
+.hs-menu--sentence .hs-menu-label{text-transform:none;letter-spacing:0;font-size:14px;font-weight:600;line-height:20px;color:var(--bento-theme-color-text-subtle)}
+
+/* LineChart (kit-authored, chart tokens only) */
+.hs-linechart{display:flex;flex-direction:column;gap:var(--bento-space-02,4px);min-width:0}
+.hs-linechart-plot{position:relative}
+.hs-linechart-plot svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.hs-linechart-grid{stroke:var(--hs-border);stroke-width:1}
+.hs-linechart-line{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.hs-linechart-dot{position:absolute;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%)}
+.hs-linechart-axis{display:flex;justify-content:space-between;color:var(--hs-fg-secondary);font:var(--hs-type-body-md)}
+
+/* Wisdom drawer (production 2026-10-06/07): current page is label 700 on the selected fill; "Chat history" 16/600 subdued with a 40 search button; empty state. */
+.hs-navdrawer[data-product="wisdom"] .hs-navdrawer-item.is-active{background:var(--bento-theme-color-bg-surface-pressed);font-weight:700}
+.hs-navdrawer-section--search{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:16px;font-weight:600;padding-top:8px;padding-bottom:8px}
+.hs-navdrawer-empty{display:flex;flex-direction:column;gap:4px;text-transform:none;letter-spacing:0;font-size:16px;line-height:24px;font-weight:400;color:var(--bento-theme-color-text-subtle)}
+.hs-navdrawer-empty strong{font-weight:700;color:var(--bento-theme-color-text-base)}
+
+/* ── NotificationsPanel + AccountMenu (ported from templates/src/notif-panel.css and account-panel.css, kit .87) ── */
+/* notif-panel.css — global-nav Notifications panel.
+   FULLY MEASURED 2026-09-06 (production DOM + computed styles). Rebuilt to this
+   spec; every earlier guess about elevation, radius, width, title size, tab
+   selection and row structure was wrong.
+
+   THE DIALOG (#global-nav-notifications-panel)
+   · role="dialog" · aria-modal="true"
+   · width 536px · height = FULL VIEWPORT · position absolute
+   · background #FDFDFD · box-shadow NONE · border-radius 0
+   A full-height flush panel, NOT a floating card.
+
+   HEADER — title "Notifications" 30px/600 #241F21. That is LARGER than the
+   26px page titles everywhere else and the biggest type found outside Vigil's
+   56px hero: do NOT reuse the page-title token here.
+   "View all" 14px/700 · settings glyph 20px · close glyph 20px.
+
+   TABS — SELECTION IS COLOUR, NOT WEIGHT. Both tabs are 16px weight 600;
+   selected #1C1C1C, unselected #5C5C5C. This is the EXACT OPPOSITE of the
+   drawer nav (weight 600 vs 400 at constant colour). Production uses two
+   different selected-state mechanisms depending on the component. Do not unify
+   them and do not apply the nav rule here.
+
+   ROWS — 132px pitch, four parts, transparent, 0 radius. THEY ARE NOT CARDS.
+   · title      16px/600 #1C1C1C, left
+   · timestamp  14px/400 #5C5C5C, RIGHT-ALIGNED, same baseline as the title
+   · preview    14px/400 #1C1C1C at +52px
+   · breadcrumb 14px/400 #5C5C5C at +80px
+   NOT MEASURED, NOT INVENTED: no unread affordance (dot, fill, weight change)
+   was captured, so none is drawn — the Unread tab filters without a per-row
+   marker. Flagged in DEFECT-REGISTER. */
+
+.nfp-scrim { position: fixed; inset: 0; z-index: 80; background: var(--hs-scrim); }
+.nfp-panel {
+  position: fixed; z-index: 81; top: 0; bottom: 0; left: var(--suite-rail-w, 80px);
+  width: 536px; max-width: calc(100vw - var(--suite-rail-w, 80px));
+  height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+  background: #FDFDFD; border: 0; border-radius: 0; box-shadow: none;
+  font-family: var(--suite-font, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+}
+.nfp-panel, .nfp-panel:focus, .nfp-panel:focus-visible, .nfp-head h2:focus, .nfp-head h2:focus-visible { outline: none !important; box-shadow: none; }
+
+.nfp-head { flex-shrink: 0; display: flex; align-items: center; gap: 4px; padding: 20px 16px 12px 24px; }
+.nfp-head h2 { flex: 1; margin: 0; font-weight: 600; font-size: 30px; line-height: 40px; color: #241F21; }
+.nfp-viewall { border: 0; background: transparent; cursor: pointer; font: inherit; font-weight: 700; font-size: 14px; white-space: nowrap; color: var(--bento-theme-color-text-base); padding: 6px 8px; border-radius: 8px; }
+.nfp-viewall:hover { background: var(--bento-theme-color-bg-surface-hovered); }
+.nfp-iconbtn { flex-shrink: 0; color: #241F21; }
+.nfp-iconbtn .material-symbols-outlined { font-size: 20px; font-variation-settings: "wght" 400; }
+.nfp-iconbtn:hover, .nfp-iconbtn:active { background: var(--bento-theme-color-bg-surface-hovered); }
+
+/* Tabs — colour-selected, both weight 600 */
+.nfp-tabs { flex-shrink: 0; display: flex; gap: 24px; padding: 4px 24px 12px; }
+.nfp-tab { border: 0; background: transparent; cursor: pointer; font: inherit; font-weight: 600; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-subtle); padding: 4px 0; position: relative; }
+.nfp-tab[aria-selected="true"] { color: var(--bento-theme-color-text-base); }
+.nfp-tab[aria-selected="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; border-radius: 2px; background: var(--bento-theme-color-text-base); }
+
+/* Filter row */
+.nfp-filters { flex-shrink: 0; display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 0 16px 8px 20px; }
+.nfp-markall { font: inherit; font-weight: 600; font-size: 14px; white-space: nowrap; color: #1C1C1C; }
+.nfp-markall .material-symbols-outlined { font-size: 20px; }
+.nfp-markall:hover, .nfp-markall:active { background: var(--bento-theme-color-bg-surface-hovered); }
+.nfp-range { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; border: 0; border-radius: 8px; cursor: pointer; background: transparent; font: inherit; font-weight: 600; font-size: 16px; white-space: nowrap; color: #1C1C1C; }
+.nfp-range .material-symbols-outlined { font-size: 20px; }
+.nfp-range:hover { background: var(--bento-theme-color-bg-surface-hovered); }
+
+/* Rows — avatar | title+preview+crumb | time+unread dot; ~100px, not cards */
+.nfp-list { flex: 1; min-height: 0; overflow-y: auto; }
+.nfp-row {
+  display: flex; align-items: flex-start; gap: 16px; width: 100%; min-height: 100px; padding: 16px 24px; box-sizing: border-box;
+  border: 0; background: transparent; border-radius: 0; cursor: pointer; text-align: left; font: inherit;
+}
+.nfp-row:hover { background: var(--bento-theme-color-bg-surface-hovered); }
+.nfp-av { flex-shrink: 0; display: inline-flex; }
+.nfp-avfb { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--hs-cat-1-bg); color: var(--hs-cat-1-fg); font-weight: 700; font-size: 14px; }
+.nfp-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.nfp-rowtitle { font-weight: 600; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-base); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.nfp-preview { display: block; font-weight: 400; font-size: 14px; line-height: 20px; color: var(--bento-theme-color-text-base); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nfp-crumb { display: block; font-weight: 400; font-size: 14px; line-height: 20px; color: var(--bento-theme-color-text-subtle); }
+.nfp-side { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.nfp-time { font-weight: 400; font-size: 14px; line-height: 24px; color: var(--bento-theme-color-text-subtle); font-variant-numeric: tabular-nums; }
+.nfp-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--hs-fg-negative); }
+
+.nfp-empty { flex: 1; display: grid; place-items: center; padding: 40px; text-align: center; color: #5C5C5C; font-size: 14px; }
+
+/* Review host for templates/notifications — deliberately neutral, not a mock
+   of a product screen. */
+.nfp-host { flex: 1; min-width: 0; overflow: auto; padding: 56px 48px; max-width: 760px; font-family: var(--suite-font, "Source Sans 3", sans-serif); }
+.nfp-host h1 { margin: 0 0 12px; font-weight: 600; font-size: 26px; line-height: 32px; color: var(--bento-theme-color-text-base); }
+.nfp-host p { margin: 0 0 12px; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-subtle); text-wrap: pretty; }
+.nfp-host-note code { font-family: ui-monospace, monospace; font-size: 13px; background: #EEF1F2; padding: 1px 5px; border-radius: 4px; margin: 0 2px; color: var(--bento-theme-color-text-base); }
+
+/* Rail skip link — production has "Skip to main content" as the first
+   focusable element at x=8 y=8. Visually hidden until focused. */
+.suite-skip {
+  position: fixed; left: 8px; top: 8px; z-index: 200;
+  width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%);
+  border: 0; background: var(--hs-action-primary, #1F60C9); color: #FDFDFD;
+  font-family: inherit; font-weight: 700; font-size: 14px; border-radius: 8px; cursor: pointer;
+}
+.suite-skip:focus { width: auto; height: auto; overflow: visible; clip-path: none; padding: 10px 16px; }
+
+/* Network badge sits on the avatar's bottom-right edge, offset outward, so two-letter initials stay fully visible. */
+.nfp-av > span > span:last-child { left: 28px !important; top: 28px !important; }
+.nfp-av > span > span:last-child > span { box-shadow: 0 0 0 2px var(--bento-theme-color-bg-surface); }
+
+/* One control row (production 6 Oct): tabs left, Mark all as read + Date range right. */
+.nfp-ctrl { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 4px 16px 8px 24px; }
+.nfp-ctrl .nfp-tabs { padding: 0; }
+.nfp-ctrl .nfp-filters { padding: 0; }
+.nfp-head .nfp-viewall { height: 40px; padding: 0 12px; border-radius: 8px; }
+.nfp-ctrl .nfp-range { min-width: 144px; box-sizing: border-box; padding: 0 16px; gap: 8px; justify-content: center; }
+
+
+/* account-panel.css — global-nav Account menu popover (re-measured 2026-10-06; see account-panel.jsx).
+   Anchored bottom-left beside the rail avatar, 441 x ~594, #FDFDFD, radius 8, standard elevation.
+   The scrim is transparent: it only catches the click outside. */
+
+.acp-scrim { position: fixed; inset: 0; z-index: 80; background: transparent; }
+.acp-panel {
+  position: fixed; z-index: 81; bottom: 8px; left: calc(var(--suite-rail-w, 80px) + 8px);
+  width: 441px; height: 594px; max-width: calc(100vw - var(--suite-rail-w, 80px) - 16px); max-height: calc(100vh - 16px);
+  box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden;
+  background: var(--bento-theme-color-bg-surface); border-radius: 8px;
+  box-shadow: var(--bento-theme-elevation-shadow-dialog);
+  font-family: var(--suite-font, var(--bento-theme-font-families-primary, "Source Sans 3", sans-serif));
+}
+.acp-panel:focus, .acp-panel:focus-visible { outline: none; }
+
+.acp-head { flex-shrink: 0; padding: 24px 24px 12px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.acp-head h2 { margin: 0; font-weight: 600; font-size: 26px; line-height: 32px; color: var(--bento-theme-color-text-base); }
+.acp-plan { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; background: var(--bento-system-sys-neutral-alt-300); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-base); }
+.acp-plan .material-symbols-outlined { font-size: 20px; }
+
+.acp-promo { display: flex; align-items: center; gap: 16px; height: 60px; flex-shrink: 0; box-sizing: border-box; width: 100%; padding: 0 24px; border: 0; background: transparent; cursor: pointer; font: inherit; text-align: left; }
+.acp-promo:hover, .acp-row:hover, .acp-signout:hover { background: var(--bento-theme-color-bg-surface-hovered); }
+.acp-promo:focus-visible, .acp-row:focus-visible, .acp-signout:focus-visible { outline: 2px solid var(--bento-theme-color-border-focus); outline-offset: -2px; }
+.acp-promo .material-symbols-outlined { font-size: 24px; color: var(--bento-theme-color-icon-base); }
+.acp-promo .t { flex: 1; font-weight: 600; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-base); }
+.acp-new { flex-shrink: 0; padding: 0 8px; border-radius: 4px; font-weight: 600; font-size: 16px; line-height: 24px; background: var(--bento-suite-lumen-fill); color: var(--bento-suite-lumen-icon); }
+
+.acp-body { flex: 1; min-height: 0; overflow-y: auto; }
+.acp-row { display: flex; align-items: center; gap: 16px; width: 100%; height: 80px; box-sizing: border-box; padding: 0 24px; border: 0; background: transparent; cursor: pointer; text-align: left; font-family: inherit; }
+.acp-row .material-symbols-outlined { font-size: 24px; color: var(--bento-theme-color-icon-base); flex-shrink: 0; }
+.acp-row .tx { display: flex; flex-direction: column; min-width: 0; }
+.acp-row .ti { font-weight: 600; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-base); }
+.acp-row .de { font-weight: 400; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-subtle); }
+
+.acp-foot { flex-shrink: 0; }
+.acp-signout { display: flex; align-items: center; gap: 16px; width: 100%; height: 56px; box-sizing: border-box; padding: 0 24px; border: 0; background: transparent; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 16px; line-height: 24px; color: var(--bento-theme-color-text-base); text-align: left; }
+.acp-signout .material-symbols-outlined { font-size: 24px; color: var(--bento-theme-color-icon-base); }
+
+/* ── WisdomPanel + WisdomHome (kit .94, measured 6 and 8 Oct; layout kit-authored) ── */
+.hs-wp{position:fixed;right:28px;bottom:28px;width:420px;max-width:calc(100vw - 56px);z-index:90;box-sizing:border-box;display:flex;flex-direction:column;background:var(--hs-surface);border-radius:8px;box-shadow:0 0 1px var(--hs-border),0 0 12px var(--hs-border)}
+.hs-wp-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 24px;flex:none}
+.hs-wp-title{display:inline-flex;align-items:center;gap:8px;font:600 22px/32px var(--hs-font-body);color:var(--hs-fg)}
+.hs-wp-title .material-symbols-outlined{font-size:16px}
+.hs-wp-acts{display:flex;gap:0}
+.hs-wp-body{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column}
+.hs-wh{flex:1;min-height:0;display:flex;flex-direction:column;gap:var(--bento-space-04);padding:0 24px 24px;box-sizing:border-box;width:100%}
+.hs-wh-mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:var(--bento-space-04);min-height:0}
+.hs-wh-hi{display:flex;flex-direction:column;align-items:center;gap:var(--bento-space-02);text-align:center}
+.hs-wh-hi h2{margin:0;font:600 30px/40px var(--hs-font-body);color:var(--hs-fg)}
+.hs-wh-hi p{margin:0;width:min(var(--hs-wh-w,369px),100%);font:400 16px/24px var(--hs-font-body);color:var(--hs-fg-secondary)}
+.hs-wh-name{background:linear-gradient(90deg,var(--bento-system-sys-positive-600) 40%,var(--bento-system-sys-positive-100));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hs-wh-box{width:min(var(--hs-wh-w,369px),100%);align-self:center}
+.hs-wh-agent .hs-option-trigger,.hs-wh-voice .hs-option-trigger{padding:0 8px;min-width:0;height:40px;gap:4px}
+.hs-wh-try{position:relative;display:flex;flex-direction:column;gap:var(--bento-space-02);min-width:0}
+.hs-wh-trylab{font:600 16px/24px var(--hs-font-body);color:var(--hs-fg-secondary)}
+.hs-wh-car{position:relative;min-width:0}
+.hs-wh-track{display:flex;gap:var(--bento-space-03);overflow-x:auto;scroll-behavior:smooth;padding-bottom:4px}
+.hs-wh-card{flex:none;width:224px;height:144px;box-sizing:border-box;padding:16px 24px;border:0;border-radius:8px;background:var(--hs-surface);box-shadow:inset 0 0 0 1px var(--hs-border);display:flex;flex-direction:column;align-items:flex-start;gap:var(--bento-space-02);text-align:left;font:inherit;cursor:pointer;color:var(--hs-fg)}
+.hs-wh-card:hover{background:var(--hs-surface-subtle)}
+.hs-wh-card:focus-visible{outline:2px solid var(--bento-theme-color-border-focus);outline-offset:2px}
+.hs-wh-tag{display:inline-flex;align-items:center;height:28px;padding:0 8px;border-radius:8px;font:400 16px/24px var(--hs-font-body);background:var(--bento-suite-perch-fill);color:var(--hs-fg)}
+.hs-wh-st{font:400 16px/24px var(--hs-font-body);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.hs-wh-next{position:absolute;right:0;top:52px}
+.hs-wh-foot{margin:0;text-align:center;font:400 13px/18px var(--hs-font-body);color:var(--hs-fg-secondary);flex:none}
+
+/* Settings drawer, the Figma (Suite Settings MVP frames, 8 Oct 2026): 20px icons on 40px rows, icon 16 in, 16 to the label; group headings indented to the icons. Production (8 Oct) is still text only on 56px rows. */
+.hs-navdrawer[data-product="settings"] .hs-navdrawer-item{min-height:40px;gap:var(--bento-theme-spacing-04);padding-left:var(--bento-theme-spacing-04)}
+.hs-navdrawer[data-product="settings"] .hs-navdrawer-item .material-symbols-outlined{font-size:20px;width:20px}
+.hs-navdrawer[data-product="settings"] .hs-navdrawer-section{padding-left:var(--bento-theme-spacing-04)}
+/* Tables, production-measured 8 Oct 2026 (Settings > Members): body cells padding 12 16 around 48px content (row 72 + 1px border); header rows 57 (16/600 text, padding 16, plus the border); option triggers in cells padding 0 16. */
+.hs-table tbody td{box-sizing:content-box;height:48px;padding-top:var(--bento-theme-spacing-03);padding-bottom:var(--bento-theme-spacing-03)}
+.hs-table thead th{height:57px}
+.hs-table .hs-option-trigger{padding-left:var(--bento-theme-spacing-04);padding-right:var(--bento-theme-spacing-04)}

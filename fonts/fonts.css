@@ -1,0 +1,118 @@
+/* Bento fonts — self-hosted brand families.
+   ⚠⚠ FAMILY UNCONFIRMED — DO NOT READ "Source Sans 3" AS SETTLED (§K120).
+   Production's document.fonts registry serves FIVE families: Source Sans Pro 56
+   faces · Open Sans 40 · Montserrat Alternates 25 · Montserrat 5 · Material
+   Symbols Outlined 2. THERE IS NO SOURCE SANS 3 FACE REGISTERED AT ALL, and
+   body computes to "Source Sans Pro", "Helvetica Neue", Helvetica, Arial,
+   sans-serif. Figma agrees with production: tokens/fig-tokens.css:1199 sets
+   --hs-sys-font-family-body: "Source Sans Pro".
+   So FIGMA says Pro · PRODUCTION serves Pro · CONFLUENCE says "Source Sans 3
+   (body)" · THIS FILE ships 3. Two of three sources say Pro.
+   Same design lineage (3 is the renamed successor), so visual risk is low, but
+   the name production actually serves is Pro. UNCHANGED pending design: his
+   standing rule is that production wins, but a rename may be a deliberate
+   forward migration in Bento, which is not ours to decide.
+   The Montserrat Alternates half of the Confluence line STANDS — 25 faces
+   registered (correction #14 holds).
+   ⚠ INSTRUMENT BAN: document.fonts.check() is unreliable in BOTH directions —
+   it returned TRUE for "Source Sans 3" (it reports fallback-renderability, not
+   registration) and FALSE for "Montserrat Alternates" despite 25 faces. Use the
+   document.fonts family registry only.
+   Source Sans 3 = workhorse product text. Montserrat = display / "saffron
+   moments". Both are self-hosted from uploaded static .ttf weights
+   (no CDN font dependency). */
+
+/* ── Source Sans 3 ─────────────────────────────────────────────── */
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-ExtraLight.ttf") format("truetype");  font-weight: 200; font-style: normal; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-ExtraLightItalic.ttf") format("truetype"); font-weight: 200; font-style: italic; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-Light.ttf") format("truetype");       font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-LightItalic.ttf") format("truetype");  font-weight: 300; font-style: italic; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-Regular.ttf") format("truetype");      font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-Italic.ttf") format("truetype");       font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-Medium.ttf") format("truetype");       font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-MediumItalic.ttf") format("truetype"); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-SemiBold.ttf") format("truetype");     font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-SemiBoldItalic.ttf") format("truetype"); font-weight: 600; font-style: italic; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-Bold.ttf") format("truetype");         font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-BoldItalic.ttf") format("truetype");   font-weight: 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-ExtraBold.ttf") format("truetype");    font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-ExtraBoldItalic.ttf") format("truetype"); font-weight: 800; font-style: italic; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-Black.ttf") format("truetype");        font-weight: 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("./SourceSans3-BlackItalic.ttf") format("truetype");  font-weight: 900; font-style: italic; font-display: swap; }
+
+/* ── Montserrat Alternates (display / saffron moments) ─────── */
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-Thin.ttf") format("truetype");        font-weight: 100; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-ThinItalic.ttf") format("truetype");  font-weight: 100; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-ExtraLight.ttf") format("truetype");  font-weight: 200; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-ExtraLightItalic.ttf") format("truetype"); font-weight: 200; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-Light.ttf") format("truetype");       font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-LightItalic.ttf") format("truetype"); font-weight: 300; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-Regular.ttf") format("truetype");     font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-Italic.ttf") format("truetype");      font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-Medium.ttf") format("truetype");      font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-MediumItalic.ttf") format("truetype"); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-SemiBold.ttf") format("truetype");    font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-SemiBoldItalic.ttf") format("truetype"); font-weight: 600; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-Bold.ttf") format("truetype");        font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-BoldItalic.ttf") format("truetype");  font-weight: 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-ExtraBold.ttf") format("truetype");   font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-ExtraBoldItalic.ttf") format("truetype"); font-weight: 800; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-Black.ttf") format("truetype");       font-weight: 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat Alternates"; src: url("./MontserratAlternates-BlackItalic.ttf") format("truetype"); font-weight: 900; font-style: italic; font-display: swap; }
+
+/* ── Montserrat (kept as metric-close fallback) ───────────── */
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-Thin.ttf") format("truetype");        font-weight: 100; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-ThinItalic.ttf") format("truetype");  font-weight: 100; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-ExtraLight.ttf") format("truetype");  font-weight: 200; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-ExtraLightItalic.ttf") format("truetype"); font-weight: 200; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-Light.ttf") format("truetype");       font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-LightItalic.ttf") format("truetype"); font-weight: 300; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-Regular.ttf") format("truetype");     font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-Italic.ttf") format("truetype");      font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-Medium.ttf") format("truetype");      font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-MediumItalic.ttf") format("truetype"); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-SemiBold.ttf") format("truetype");    font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-SemiBoldItalic.ttf") format("truetype"); font-weight: 600; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-Bold.ttf") format("truetype");        font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-BoldItalic.ttf") format("truetype");  font-weight: 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-ExtraBold.ttf") format("truetype");   font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-ExtraBoldItalic.ttf") format("truetype"); font-weight: 800; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-Black.ttf") format("truetype");       font-weight: 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("./Montserrat-BlackItalic.ttf") format("truetype"); font-weight: 900; font-style: italic; font-display: swap; }
+
+/* Montserrat Alternates + Montserrat are now both self-hosted — no CDN font dependency. */
+
+/* Bento font-family CSS variables consumed by tokens/typography.css.
+
+   ⚠⚠ A-font-2 REVERTED (§K123). This line briefly read
+   `var(--hs-sys-font-family-body, …)` to consume the Figma token. Withdrawn:
+   our build makes 6368 var() references across 665 distinct tokens and only
+   NINETEEN reach fig-tokens.css, while 1063 of that export's 1456 tokens are
+   referenced nowhere at all. The build runs on a hand-authored --bento-* layer
+   (778 declarations across colors.css + layout.css) plus 52 --hs-* aliases, and
+   THE TWO LAYERS ARE COMPLETELY UNLINKED — zero definitions in either
+   direction. Consuming one --hs-sys-* token would create a lone exception in a
+   namespace we touch nineteen times: inconsistency dressed as a fix.
+   A-font-2 was never an isolated defect — IT IS THE GENERAL CASE. The real
+   question is an ARCHITECTURE call: which layer is source of truth, the Figma
+   export or our --bento-* layer? That is with design.
+
+   ⚠ REORDERING THIS LINE IS A NO-OP. We self-host 18 SourceSans3 faces and
+   ZERO Source Sans Pro files, and Pro is not a system font — the browser finds
+   no Pro face, falls straight through, and renders Source Sans 3. Our build
+   CANNOT render production's typeface without adding ~18 font files, so the
+   open question is that COST, not the ordering.
+
+   STATE OF THE FAMILY QUESTION (§K120): Figma → Pro · production → Pro
+   (document.fonts registry: Source Sans Pro 56 faces, ZERO Source Sans 3) ·
+   Confluence → "Source Sans 3 (body)" · this file → 3. Two of three say Pro.
+   Source Sans 3 IS Pro, renamed and revised upstream by Adobe, so the visual
+   risk is low. The open question is a COST one and not ours: ship ~18 Pro faces
+   to match production exactly, or accept SS3 as a deliberate near-match.
+   NOTE the SS3-then-Pro order in the original line was itself evidence of a
+   DECISION, not an inherited doc error — whoever wrote it knew both families
+   and preferred SS3 on purpose. */
+:root {
+  --font-bento-primary: "Source Sans 3", "Source Sans Pro", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --font-bento-secondary: "Montserrat Alternates", "Montserrat", "Source Sans 3", -apple-system, sans-serif;
+}
