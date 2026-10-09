@@ -15,7 +15,8 @@ function MVPApp({ screen, isStatic }) {
   const [people, setPeople] = R.useState(mvpPeople), [sel, setSel] = R.useState([]), [loaded, setLoaded] = R.useState(MVP_LOADED), [listKey, setListKey] = R.useState(0);
   const [search, setSearch0] = R.useState(""), [perms, setPerms0] = R.useState([]), [stat, setStat0] = R.useState([]);
   const [bulk, setBulk] = R.useState(null), [job, setJob] = R.useState(null), [notifOpen, setNotifOpen] = R.useState(false);
-  const [roleRows, setRoleRows] = R.useState(MVP_ROLE_ROWS0), [rolePerms, setRolePerms] = R.useState(MVP_PERMS0), [rjob, setRjob] = R.useState(null);
+  // Test mode adds one custom role nobody has, so deleting a role can be tried (T7).
+  const [roleRows, setRoleRows] = R.useState(() => MVP_UT ? MVP_ROLE_ROWS0().concat({ id:"Social Intern", name:"Social Intern", type:"Custom", desc:"Limited permissions, plus schedule posts", count:0 }) : MVP_ROLE_ROWS0()), [rolePerms, setRolePerms] = R.useState(() => MVP_UT ? { ...MVP_PERMS0(), "Social Intern":["Basic Usage","Publish posts with approval","Schedule posts"] } : MVP_PERMS0()), [rjob, setRjob] = R.useState(null);
   const [edit, setEdit] = R.useState(null), [create, setCreate] = R.useState(null), [saveModal, setSaveModal] = R.useState(false);
   const [toasts, setToasts] = R.useState([]), [orgModal, setOrgModal] = R.useState(null), [delModal, setDelModal] = R.useState(null);
   const [acct, setAcct] = R.useState("a3"), [shellKey, setShellKey] = R.useState(0), store = R.useRef({});

@@ -92,9 +92,11 @@ function MVPSoftCheck({ id, label, tip, on }) {
 // Role cell: the Bento option trigger (comp-option-trigger in the Figma MVP frames: 40 tall, padding 8 16, 16/600,
 // transparent fill, caret), or a greyed one for Unlimited admins.
 function MVPRoleCell({ p, onChange }) {
+  const A = React.useContext(MVPC);
   const { OptionTrigger, DropdownMenuItem } = SS_NS();
   if (p.role === MVP_UNL) return <OptionTrigger disabled aria-label={p.name + ": Unlimited access from the organization"}>Unlimited</OptionTrigger>;
-  const options = BR_ROLES.concat(BR_CUSTOM.filter((r) => r !== MVP_P1));
+  // Test mode: the live roles list, so a role made in the session shows here too.
+  const options = MVP_UT ? A.roleRows.map((r) => r.name) : BR_ROLES.concat(BR_CUSTOM.filter((r) => r !== MVP_P1));
   return (
     <SSPopover trigger={(open, toggle) => <OptionTrigger open={open} aria-haspopup="menu" aria-expanded={open} onClick={toggle}>{p.role}</OptionTrigger>}>
       {(close) => options.map((o) => <DropdownMenuItem key={o} selected={o === p.role} onClick={() => { close(); onChange(o); }}>{o}</DropdownMenuItem>)}
@@ -145,7 +147,7 @@ function MVPMembers() {
         {tab === "teams" ? <SSListPanel title="1 team" explainer="Teams that carry this social account." link="Learn more about teams"><div style={{ width:"100%" }}><Table rows={[{ id:"t", name:"Content Team", members:"8", role:"Editor" }]} columns={[{ key:"name", header:"Team" }, { key:"members", header:"Members" }, { key:"role", header:"Default role" }]} /></div></SSListPanel> :
         <SSListPanel title="500 members" explainer="Manage members and permissions for this social account." link="Learn more about social account permissions">
           <MVPToolbar placeholder="Search for members" search={search} setSearch={A.setSearch}>
-            <MVPFilterChip label="Permissions" options={MVP_FILTER_ROLES} custom={BR_CUSTOM} value={perms} onChange={A.setPerms} initialOpen={A.screen === "1.0e"} />
+            <MVPFilterChip label="Permissions" options={MVP_UT ? A.roleRows.map((r) => r.name) : MVP_FILTER_ROLES} custom={MVP_UT ? A.roleRows.filter((r) => r.type === "Custom").map((r) => r.name) : BR_CUSTOM} value={perms} onChange={A.setPerms} initialOpen={A.screen === "1.0e"} />
             <SSFilterChip label="Status" options={["Active", "Pending"]} value={stat} onChange={A.setStat} /></MVPToolbar>
           <div style={{ width:"100%" }} className="mvp-members" data-mvp-table="">
             <MVPStyle />
