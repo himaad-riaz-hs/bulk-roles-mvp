@@ -73,7 +73,7 @@ function MVPApp({ screen, isStatic }) {
       "1.0b":() => { mem(); setSel(firstSel()); setLoaded(100); setListKey((k) => k + 1); },
       "1.0c":() => { mem(); setPerms0(["Editor"]); },
       "1.0d":() => { mem(); setAccess("none"); },
-      "1.0e":() => { mem(); setPerms0([P1]); },
+      "1.0e":() => { mem(); setPerms0(["Editor"]); },
       "2.0":() => { mem(); fail(); setPeople(applied(false)); mvpNotif(true); setNotifOpen(true); },
       "2.1":() => { mem(); fail(); setPeople(applied(false)); mvpNotif(true); setJob(resultJob()); setBulk({ step:"result", role:P1 }); },
       "2.2":() => { mem(); fail(); setPeople(applied(false)); mvpNotif(true); setJob(resultJob({ phase:"retry", frozen:isStatic })); setBulk({ step:"retry", role:P1 }); },
@@ -84,7 +84,7 @@ function MVPApp({ screen, isStatic }) {
       "3.3":() => { setView("roles"); withP2(); },
       "3.4":() => { setView("roles"); withP2(); setDelModal(MVP_P2); },
       "3.5":() => { setView("roles"); toast("Role “" + MVP_P2 + "” deleted"); },
-      "4.0":() => { setCreate({ name:"Publisher Two", from:null, perms:[], desc:"" }); setView("create"); },
+      "4.0":() => { setCreate({ name:"Publisher Two", from:null, perms:[], desc:"Publisher One permissions, plus boost posts" }); setView("create"); },
       "4.1":() => { setCreate({ name:"Publisher Two", from:P1, perms:BR_P1_PERMS, desc:MVP_P2_DESC }); setView("create"); },
       "4.1a":() => { setCreate({ name:"Publisher One", from:null, perms:[], desc:MVP_P2_DESC }); setView("create"); },
       "4.1b":() => { setCreate({ name:"Publisher Two", from:P1, perms:BR_P1_PERMS, desc:MVP_P2_DESC, same:true }); setView("create"); },
@@ -102,7 +102,7 @@ function MVPApp({ screen, isStatic }) {
   R.useLayoutEffect(() => { if (isStatic && screen && screen !== lastScreen.current) { lastScreen.current = screen; openScreen(screen); } }, [screen]);
   R.useEffect(() => { if (isStatic) return undefined; const h = () => { const s = mvpHashScreen(); if (s) openScreen(s); }; window.addEventListener("hashchange", h); return () => window.removeEventListener("hashchange", h); }, []);
   // 1.0b in the live prototype: scroll to where the second load starts, so the unticked rows show under the ticked ones.
-  R.useEffect(() => { if (isStatic || scr !== "1.0b") return undefined; const t = setTimeout(() => { const c = document.querySelector(".hs-appcontent"), rowsEl = c && c.querySelectorAll("[data-mvp-table] tbody tr"); if (c && rowsEl && rowsEl[41]) c.scrollTop = rowsEl[41].getBoundingClientRect().top - c.getBoundingClientRect().top + c.scrollTop - 200; }, 300); return () => clearTimeout(t); }, [scr, ready]);
+  // 1.0b (Figma 10/8): the top of the table, header checkbox partly ticked; no scroll to the second load.
   // The notification opens who failed on the account (the link back is a nice to have, not committed).
   R.useEffect(() => {
     if (isStatic) return undefined;
@@ -220,7 +220,7 @@ function MVPApp({ screen, isStatic }) {
                 {AcctPanel && !isStatic && <AcctPanel open={acctOpen} onClose={() => setAcctOpen(false)} />}
                 {bulk && <MVPBulkDrawer key={bulk.step + (scr || "")} />}{saveModal && <MVPSaveModal />}{delModal && <MVPDeleteModal />}
                 {orgModal && <div className="hs-overlay" style={{ zIndex:1050 }}><SSOrgModal kind={orgModal.kind} data={orgModal.data} ctx={orgCtx} close={() => setOrgModal(null)} /></div>}
-                {toasts.length > 0 && <div style={{ position:"absolute", top:80, right:24, zIndex:1100, display:"flex", flexDirection:"column", gap:8 }}>{toasts.map((t) => <AlertToast key={t.id} tone="positive" onDismiss={() => setToasts((x) => x.filter((y) => y.id !== t.id))}>{t.msg}</AlertToast>)}</div>}
+                {toasts.length > 0 && <div className="mvp-toasts" style={{ position:"absolute", top:108, right:40, zIndex:1100, display:"flex", flexDirection:"column", gap:8 }}>{toasts.map((t) => <AlertToast key={t.id} tone="positive" onDismiss={() => setToasts((x) => x.filter((y) => y.id !== t.id))}>{t.msg}</AlertToast>)}</div>}
               </React.Fragment>
             ) : view === "tpl" ? <div style={{ position:"absolute", inset:0 }}><SuiteSettingsApp key={tplKey} /></div> : <div style={{ position:"absolute", inset:0, overflow:"auto" }}><MVPFlows startRow={startRow} openScreen={openScreen} /></div>}
           </div>

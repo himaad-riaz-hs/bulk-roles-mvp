@@ -65,7 +65,7 @@ function MVPBulkDrawer() {
         <p style={{ ...mvpSub, color:"var(--bento-theme-color-text-base)", marginBottom:16 }}>{plan.changes} {plan.changes === 1 ? "person moves" : "people move"} to {b.role}.{plan.same > 0 ? " " + plan.same + " already " + (plan.same === 1 ? "has" : "have") + " it." : ""} Nothing has changed yet.</p>
         <div data-mvp-counts="" style={{ display:"flex", flexDirection:"column" }}>
           {plan.groups.map((g) => <React.Fragment key={g.role}>
-            <div style={{ ...mvpStrong, padding:"16px 0" }}>{g.role} · {g.ids.length} {noun(g.ids.length)}</div>
+            <div style={{ display:"flex", flexDirection:"column", padding:"16px 0" }}><span style={mvpStrong}>{g.role}</span><span style={{ ...mvpSub, font:"var(--hs-type-body-sm)" }}>{g.ids.length} {noun(g.ids.length)}</span></div>
             <div style={{ margin:"0 -16px" }}><Divider /></div></React.Fragment>)}
         </div>
       </BRDrawer>);
