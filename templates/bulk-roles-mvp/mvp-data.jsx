@@ -83,6 +83,16 @@ const MVP_ROLE_ROWS0 = () => BR_ROLE_ROWS0.map(([name, count]) => ({ id:name, na
 // Publisher Two, as 4.2 creates it: 0 people, so Delete is on (3.3 to 3.5).
 const MVP_P2 = "Publisher Two", MVP_P2_DESC = "Publisher One permissions, plus boost posts";
 const MVP_P2_ROW = () => ({ id:MVP_P2, name:MVP_P2, type:"Custom", desc:MVP_P2_DESC, count:0 });
+// Row 6 (exploration, 9 Oct customer check-in): unnamed custom permission sets on people. Starting the row gives Bryn Morales
+// and 23 other loaded members one shared set, and 4 more a set one permission away, so "exact matches only" shows.
+const MVP_CUSTOM = "Custom", MVP_NEW = "Inbox Lead";
+const MVP_SET_A = BR_P1_PERMS.concat("Facebook private messages"), MVP_SET_B = MVP_SET_A.concat("Boost posts");
+const MVP_SET_A_IDS = ["p1","p2","p6","p7","p10"].concat(Array.from({ length:19 }, (_, k) => "p" + (12 + 2 * k)));
+const MVP_SET_B_IDS = ["p5","p9","p13","p15"];
+const mvpWithCustom = (ps) => ps.map((p) => MVP_SET_A_IDS.includes(p.id) ? { ...p, role:MVP_CUSTOM, perms:MVP_SET_A } : MVP_SET_B_IDS.includes(p.id) ? { ...p, role:MVP_CUSTOM, perms:MVP_SET_B } : p);
+const mvpSameSet = (a, b) => !!a && !!b && a.length === b.length && a.every((x) => b.includes(x));
+// Similar = one or two permissions apart. Only exact matches are offered the new role (open question in 6.2).
+const mvpNearSet = (a, b) => { const d = a.filter((x) => !b.includes(x)).length + b.filter((x) => !a.includes(x)).length; return d > 0 && d <= 2; };
 
 // The notification the notification service sends when the job finishes (8 Oct lock session). Counts only, as the
 // Full Flows 2.0. Injected into the production Notifications panel's rows.
@@ -139,6 +149,20 @@ const MVP_ROWS = [
     { id:"5.2", caption:"Save, with who it reaches", tap:"Save and update 48 people", notes:[["d","Save says who the change reaches: 48 people on 12 social accounts."]] },
     { id:"5.3", caption:"Updating in the background", tap:"Everyone has the new version", notes:[["d","The update runs in the background. People can briefly keep the old version of the role until it finishes, and the admin can leave the page."]] },
     { id:"5.4", caption:"Updated, toast", notes:[["d","Once everyone has the new version, a toast confirms it."]] }] },
+  // Exploration from the 9 Oct customer check-in (first pass due 13 Oct). Not part of the locked MVP; test mode (?ut=1) never shows it.
+  { id:"6", title:"Create a role from existing permissions", summary:"Turn someone’s unnamed custom permissions into a named role, then give it to everyone else with exactly the same set. From the 9 Oct customer check-in.", status:["Exploration","Open question"], explore:true, screens:[
+    { id:"6.0", caption:"Members with custom permissions", tap:"Save permissions as a role", notes:[["d","Bryn Morales and 23 other members share one custom permission set; 4 more have a set one permission away. Their Permissions cell reads Custom. The row menu for a Custom member has Save permissions as a role. Nothing else in the row menu changes."],
+      ["p","Does the existing custom permission migration sync on its own, or do admins start this? To confirm with the PM.","Open question"]] },
+    { id:"6.1", caption:"Create role, prefilled from Bryn Morales", tap:"Create role", notes:[["d","The same Create role page, prefilled with Bryn’s permissions. Start from is read only and the name is empty, with focus on it. The name check works as before. The same permissions check compares with roles only, never with Bryn’s own set. If the permissions stay as they are, Bryn gets the new role; if they change, nobody does, so no one’s access changes by surprise."],
+      ["p","What happens if a set has permissions a role can’t hold?","Open question"]] },
+    { id:"6.2", caption:"Created, banner offers the 23", tap:"Review 23 people", notes:[["d","The roles list shows the new role at 1 person (Bryn) and a toast. An info banner says 23 other people have exactly these permissions. Nothing opens by itself (design system rule, 9 Oct): the drawer opens only from Review 23 people. Dismiss hides the banner."],
+      ["p","Exact matches only, or near matches too? Here the 4 with one extra permission aren’t offered.","Open question"]] },
+    { id:"6.3", caption:"Review the 23 in the drawer", tap:"Give Inbox Lead to 23 members", notes:[["d","The drawer lists the 23 with name, email and social account. A note says only exact matches are listed and the 4 with similar permissions aren’t included. What they can do doesn’t change; they get a named role instead of a custom set."],
+      ["p","Which social accounts count? Permissions are per social account, so this only matches people on YouTube Somos.","Open question"]] },
+    { id:"6.4", caption:"Applying, in the drawer", tap:"Everyone updated", notes:[["d","Reuses the bulk apply job from MVP 1.2: In progress in the drawer, no bar. Closing the drawer pauses role changes on the Members tab until it’s done, as in MVP 1.2."]] },
+    { id:"6.5", caption:"Given to 23, toast", notes:[["d","A toast confirms it. The 23 show Inbox Lead on the Members tab, the roles list says 24 people, and the banner is gone. The 4 with similar permissions stay Custom."],
+      ["p","Should Undo sit in the success toast? The design system suggests Undo on bulk toasts; not decided.","Open question"]] },
+    { id:"6.1a", caption:"From Manage roles: start from a person", from:"Second entry: Create role from Manage roles", notes:[["d","On the usual Create role page, Start from has one more option, A person’s current permissions. A member search lists people with custom permissions first; picking one prefills the page as in 6.1. Picking someone with a role copies that role, so the same permissions check names it."]] }] },
   { id:"cut", label:"Cut", title:"Cut on 8 Oct (lock session)", summary:"Taken out of the MVP at the lock session. Kept here for the record; not part of the flow.", status:["Cut on 8 Oct"], cut:true, screens:[
     { id:"x.1", label:"Cut 8 Oct", caption:"Review, counts only", tap:"Apply to 45 members", edge:"branch", notes:[["d","The review shows one line per current role with how many people move from it, counts only, no permission diff. 45 move, 3 already have it. Nothing changes until Apply."]] },
     { id:"x.2", label:"Cut 8 Oct", caption:"Applying, In progress in the top banner", notes:[["d","Apply closes the drawer. The top banner says In progress, with no percentage and no live count, so the page doesn’t poll the back end. Rows keep their current role until the job finishes, and it keeps going if the admin leaves the page."]] }] },
@@ -171,4 +195,4 @@ const MVP_CARD = { title:"In and out of the MVP", subtitle:"8 Oct lock session",
     "Failure reasons (PM and engineering checking the back end)",
     "Retry after leaving: a link from the notification isn’t committed",
     "Notification content: counts only, or with names"] }] };
-Object.assign(window, { MVP_UT, MVP_UT_FAIL_ACCT, MVP_NET, MVP_NAV, MVP_P1, MVP_UNL, MVP_LOADED, MVP_TOTAL, MVP_FAIL, MVP_REVIEW_ORDER, MVP_FILTER_ROLES, MVP_ACCOUNTS, MVP_PERMS, mvpPermDesc, MVP_EDIT_LIST, MVP_EDIT_ON, MVP_EDIT_SAVED, mvpPeople, mvpCanChange, mvpOrder, MVP_ROLE_ROWS0, MVP_P2, MVP_P2_DESC, MVP_P2_ROW, MVP_NOTIF, mvpNotif, MVP_ROWS, MVP_SCREEN_IDS, mvpScreen, MVP_CARD });
+Object.assign(window, { MVP_UT, MVP_UT_FAIL_ACCT, MVP_NET, MVP_NAV, MVP_P1, MVP_UNL, MVP_LOADED, MVP_TOTAL, MVP_FAIL, MVP_REVIEW_ORDER, MVP_FILTER_ROLES, MVP_ACCOUNTS, MVP_PERMS, mvpPermDesc, MVP_EDIT_LIST, MVP_EDIT_ON, MVP_EDIT_SAVED, mvpPeople, mvpCanChange, mvpOrder, MVP_ROLE_ROWS0, MVP_P2, MVP_P2_DESC, MVP_P2_ROW, MVP_CUSTOM, MVP_NEW, MVP_SET_A, MVP_SET_B, MVP_SET_A_IDS, MVP_SET_B_IDS, mvpWithCustom, mvpSameSet, mvpNearSet, MVP_NOTIF, mvpNotif, MVP_ROWS, MVP_SCREEN_IDS, mvpScreen, MVP_CARD });

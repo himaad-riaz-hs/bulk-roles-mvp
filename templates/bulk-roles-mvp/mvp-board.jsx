@@ -140,7 +140,7 @@ function MVPBoard() {
         <path d={"M" + sx + " " + B.CAP + " V" + ry + " H" + dx + " V" + ty + " H" + tx} fill="none" stroke={GREY} strokeWidth="2" strokeDasharray="8 6" strokeLinejoin="round" />
         <path d={"M" + (tx - 12) + " " + (ty - 6) + " L" + tx + " " + ty + " L" + (tx - 12) + " " + (ty + 6)} fill="none" stroke={GREY} strokeWidth="2" strokeLinejoin="round" /></svg>
       <span style={{ position:"absolute", left:(sx + dx) / 2 - 200, width:400, top:ry - 26, textAlign:"center", font:"600 14px/18px var(--bento-theme-font-families-primary)", color:GREY, pointerEvents:"none" }}>{label}</span></div>; };
-  const nMvp = MVP_ROWS.filter((r) => !r.cut).reduce((k, r) => k + r.screens.length, 0), nCut = ids.length - nMvp;
+  const nMvp = MVP_ROWS.filter((r) => !r.cut && !(r.status || []).includes("Exploration")).reduce((k, r) => k + r.screens.length, 0), nCut = ids.length - nMvp;
 
   return (
     <div ref={cont} data-flow-board="" data-bento-not-product="" onPointerDown={down} style={{ position:"absolute", inset:0, overflow:"hidden", cursor:grab ? "grabbing" : "grab", touchAction:"none", userSelect:"none", background:"var(--bento-theme-color-bg-app)", backgroundImage:"radial-gradient(var(--bento-theme-color-border-subtle, #EBEBEB) 1px, transparent 1px)", backgroundSize:(24 * view.z) + "px " + (24 * view.z) + "px", backgroundPosition:view.x + "px " + view.y + "px", fontFamily:"var(--bento-theme-font-families-primary)" }}>
@@ -149,7 +149,7 @@ function MVPBoard() {
           <div style={{ display:"flex", alignItems:"center", gap:24, padding:"28px 40px", borderRadius:8, background:"var(--hs-surface)", border:"1px solid " + edge, borderLeft:"8px solid var(--bento-theme-color-bg-primary)", color:ink }}>
             <span style={{ font:"700 40px/48px var(--bento-theme-font-families-primary)" }}>Bulk roles MVP, locked 8 Oct</span>
             <span style={{ marginLeft:"auto", display:"flex", flexDirection:"column", alignItems:"flex-end", gap:8, font:"400 20px/28px var(--bento-theme-font-families-primary)", color:sub }}>
-              <span>{MVP_ROWS.filter((r) => !r.cut).length} rows and {nMvp} screens, from the Figma “Bulk Roles MVP 10/8”, locked on 8 Oct, plus {nCut} screens cut that day. Click any screen to open it in the prototype.</span>
+              <span>{MVP_ROWS.filter((r) => !r.cut && !(r.status || []).includes("Exploration")).length} rows and {nMvp} screens, from the Figma “Bulk Roles MVP 10/8”, locked on 8 Oct, plus {nCut} screens cut that day. Click any screen to open it in the prototype.</span>
               <span data-flow-legend="" style={{ display:"flex", alignItems:"center", gap:24, font:"600 16px/20px var(--bento-theme-font-families-primary)" }}>
                 <span style={{ display:"inline-flex", alignItems:"center", gap:8, color:ink }}><svg width="48" height="6" aria-hidden="true"><line x1="0" y1="3" x2="48" y2="3" stroke={RED} strokeWidth="3" /></svg>Main path</span>
                 <span style={{ display:"inline-flex", alignItems:"center", gap:8, color:ink }}><svg width="48" height="6" aria-hidden="true"><line x1="0" y1="3" x2="48" y2="3" stroke={GREY} strokeWidth="2" strokeDasharray="8 6" /></svg>Branch</span></span></span></div>

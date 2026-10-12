@@ -4,7 +4,10 @@ const MVP_BOARD_URL = "Board.dc.html";
 const mvpHashScreen = () => { const m = /[#&]screen=([0-9x]+\.[0-9]+[a-e]?)/.exec(location.hash || ""); return m ? m[1] : null; };
 const MVP_PERMS0 = () => ({ ...{ "Publisher One":BR_P1_PERMS, "Editor":BR_P1_PERMS, "Limited":["Publish posts with approval","Comment and reply with approval","Basic Usage"], "Responder":["Comment and reply with approval","Reply to public messages in Inbox 2.0","Basic Usage"],
   "Advanced":BR_P1_PERMS.concat(["Boost posts","Manage ad accounts","Manage social account permissions","Manage social account profile"]), "Care Agent":["Approve Messages","Manage conversations in Inbox 2.0","Reply to private messages in Inbox 2.0","Reply to public messages in Inbox 2.0","Engage with your audience in Inbox 2.0","Take conversations in Inbox 2.0","Basic Usage"] } });
-const mvpLow = (s) => s.charAt(0).toLowerCase() + s.slice(1);
+const mvpLow = (s) => /^(Facebook|Instagram|LinkedIn|YouTube|TikTok|X) /.test(s) ? s : s.charAt(0).toLowerCase() + s.slice(1);
+// Row 6: describe a set by the largest role it contains, plus what it adds ("Publisher One permissions, plus Facebook private messages").
+const mvpNearDesc = (perms, rp) => { const r = Object.keys(rp).filter((k) => rp[k].length && rp[k].every((x) => perms.includes(x))).sort((a, b) => rp[b].length - rp[a].length)[0];
+  if (!r) return "Custom permissions"; const add = perms.filter((x) => !rp[r].includes(x)); return r + " permissions" + (add.length ? ", plus " + add.map(mvpLow).join(", ") : ""); };
 
 function MVPApp({ screen, isStatic }) {
   const R = React;
@@ -19,6 +22,8 @@ function MVPApp({ screen, isStatic }) {
   const [roleRows, setRoleRows] = R.useState(() => MVP_UT ? MVP_ROLE_ROWS0().concat({ id:"Social Intern", name:"Social Intern", type:"Custom", desc:"Limited permissions, plus schedule posts", count:0 }) : MVP_ROLE_ROWS0()), [rolePerms, setRolePerms] = R.useState(() => MVP_UT ? { ...MVP_PERMS0(), "Social Intern":["Basic Usage","Publish posts with approval","Schedule posts"] } : MVP_PERMS0()), [rjob, setRjob] = R.useState(null);
   const [edit, setEdit] = R.useState(null), [create, setCreate] = R.useState(null), [saveModal, setSaveModal] = R.useState(false);
   const [toasts, setToasts] = R.useState([]), [orgModal, setOrgModal] = R.useState(null), [delModal, setDelModal] = R.useState(null);
+  // Row 6: the inline banner on the roles list that offers a new role to the others with exactly the same custom set (nothing opens by itself).
+  const [offer, setOffer] = R.useState(null);
   const [acct, setAcct] = R.useState("a3"), [shellKey, setShellKey] = R.useState(0), store = R.useRef({});
   const timers = R.useRef([]), live = R.useRef({});
   live.current = { job, outcome, bulk, acct, people };
@@ -37,7 +42,7 @@ function MVPApp({ screen, isStatic }) {
   const resetAll = () => {
     timers.current.forEach(clearTimeout); timers.current = [];
     setPeople(mvpPeople()); setSel([]); setLoaded(MVP_LOADED); setListKey((k) => k + 1); setSearch0(""); setPerms0([]); setStat0([]);
-    setBulk(null); setJob(null); setNotifOpen(false); setRoleRows(MVP_ROLE_ROWS0()); setRolePerms(MVP_PERMS0()); setRjob(null); setEdit(null); setCreate(null); setSaveModal(false); setToasts([]); setOrgModal(null); setDelModal(null);
+    setBulk(null); setJob(null); setNotifOpen(false); setRoleRows(MVP_ROLE_ROWS0()); setRolePerms(MVP_PERMS0()); setRjob(null); setEdit(null); setCreate(null); setSaveModal(false); setToasts([]); setOrgModal(null); setDelModal(null); setOffer(null);
     mvpNotif(false); setAccess("full");
   };
   const scrollTop = () => { const c = document.querySelector(".hs-appcontent"); if (c) c.scrollTop = 0; };
@@ -73,6 +78,7 @@ function MVPApp({ screen, isStatic }) {
     if (id === "2") openScreen("2.0");
     if (id === "3") { setView("accounts"); }
     if (id === "4" || id === "5") { setView("roles"); }
+    if (id === "6") { setPeople(mvpWithCustom(mvpPeople())); setView("members"); }
     if (id === "cut") openScreen("x.1");
     scrollTop();
   };
@@ -83,6 +89,10 @@ function MVPApp({ screen, isStatic }) {
     // Publisher Two in the list at 0 people, as right after 4.2 (3.3, 3.4).
     const withP2 = () => { setRolePerms({ ...MVP_PERMS0(), [MVP_P2]:BR_P1_PERMS.concat("Boost posts") }); setRoleRows(MVP_ROLE_ROWS0().concat(MVP_P2_ROW())); };
     const resultJob = (extra) => mkJob({ done:48, phase:"result", failed:MVP_FAIL, ...extra });
+    // Row 6: custom sets seeded; n = how many of set A have Inbox Lead (1 = Bryn after 6.2, 24 = everyone after 6.5).
+    const custom = (n) => setPeople(mvpWithCustom(mvpPeople()).map((p) => n && (p.id === "p1" || (n > 1 && MVP_SET_A_IDS.includes(p.id))) ? { ...p, role:MVP_NEW } : p));
+    const withNew = (count) => { setRolePerms({ ...MVP_PERMS0(), [MVP_NEW]:MVP_SET_A }); setRoleRows(MVP_ROLE_ROWS0().concat({ id:MVP_NEW, name:MVP_NEW, type:"Custom", desc:mvpNearDesc(MVP_SET_A, MVP_PERMS0()), count })); };
+    const others = MVP_SET_A_IDS.filter((x) => x !== "p1"), offer0 = { role:MVP_NEW, ids:others, near:MVP_SET_B_IDS.length, kept:true };
     const S = {
       "1.0":() => { mem(); setOutcome("all"); setSel(firstSel()); },
       "1.1":() => { mem(); setOutcome("all"); setSel(firstSel()); setBulk({ step:"pick", role:P1 }); },
@@ -115,6 +125,13 @@ function MVPApp({ screen, isStatic }) {
       "5.2":() => { setEdit({ name:P1, origName:P1, desc:BR_DESC[P1], origDesc:BR_DESC[P1], perms:MVP_EDIT_ON, orig:MVP_EDIT_SAVED }); setView("edit"); setSaveModal(true); },
       "5.3":() => { setView("roles"); setRjob({ name:P1, n:48 }); later(() => { setRjob(null); toast(P1 + " updated for 48 people"); }, MVP_DUR); },
       "5.4":() => { setView("roles"); toast(P1 + " updated for 48 people"); },
+      "6.0":() => { mem(); custom(0); },
+      "6.1":() => { custom(0); setCreate({ name:"", from:null, perms:MVP_SET_A, desc:"", src:"person", person:"p1", lock:true, back:"members" }); setView("create"); },
+      "6.1a":() => { custom(0); setCreate({ name:"", from:null, perms:[], desc:"", src:"person", person:null }); setView("create"); },
+      "6.2":() => { custom(1); withNew(1); setView("roles"); setOffer(offer0); toast("New role “" + MVP_NEW + "” created"); },
+      "6.3":() => { custom(1); withNew(1); setView("roles"); setOffer(offer0); setBulk({ step:"offer", role:MVP_NEW }); },
+      "6.4":() => { custom(1); withNew(1); setView("roles"); const j = { role:MVP_NEW, total:others.length, done:0, phase:"run", failed:[], retries:0, ids:others, order:mvpOrder(others), willFail:[], bump:true }; setJob(isStatic ? { ...j, frozen:true } : j); setBulk({ step:"applying", role:MVP_NEW }); },
+      "6.5":() => { custom(24); withNew(24); setView("roles"); toast(MVP_NEW + " applied to " + mvpMembers(others.length)); },
     };
     (S[sid] || (() => setView("flows")))();
   };
@@ -171,7 +188,8 @@ function MVPApp({ screen, isStatic }) {
       if (phase === "run") {
         const failed = j.willFail || [], b = live.current.bulk, inDrawer = !!(b && b.step === "applying");
         const upd = (ps) => ps.map((x) => j.ids.includes(x.id) && !failed.includes(x.id) ? { ...x, role:j.role } : x);
-        if (MVP_UT) { bumpCounts(j.acct, j.ids.filter((x) => !failed.includes(x)), j.role); peopleFor(j.acct, upd); } else setPeople(upd);
+        if (MVP_UT) { bumpCounts(j.acct, j.ids.filter((x) => !failed.includes(x)), j.role); peopleFor(j.acct, upd); }
+        else { setPeople(upd); if (j.bump) { const k = j.ids.filter((x) => !failed.includes(x)).length; setRoleRows((rs) => rs.map((r) => r.name === j.role ? { ...r, count:r.count + k } : r)); } }
         setSel([]);
         // Everyone updated: the toast (MVP 1.3), whether or not the drawer is still open.
         if (!failed.length) { if (inDrawer) setBulk(null); toast(j.role + " applied to " + j.total + " members"); setJob(null); return; }
@@ -207,15 +225,31 @@ function MVPApp({ screen, isStatic }) {
     setView("roles"); scrollTop();
     if (n > 0) { setRjob({ name:e.name, n }); later(() => { setRjob(null); toast(e.name + " updated for " + n + " people"); }, MVP_DUR); } else toast(e.name + " updated");
   };
-  const startCreate = () => { setCreate({ name:MVP_UT ? "" : roleRows.some((r) => r.name === "Publisher Two") ? "" : "Publisher Two", from:null, perms:[], desc:"" }); setView("create"); scrollTop(); };
+  const startCreate = () => { const nm = MVP_UT ? "" : roleRows.some((r) => r.name === "Publisher Two") ? "" : "Publisher Two"; setCreate({ name:nm, from:null, perms:[], desc:"", auto:!!nm }); setView("create"); scrollTop(); };
   const nameTaken = (nm, own) => { const t = (nm || "").trim().toLowerCase(); return !!t && t !== (own || "").toLowerCase() && roleRows.some((r) => r.name.toLowerCase() === t); };
-  const pickFrom = (r) => setCreate((c) => ({ ...c, from:r, perms:rolePerms[r] || [], same:false }));
+  const pickFrom = (r) => setCreate((c) => ({ ...c, from:r, perms:rolePerms[r] || [], same:false, sameAs:null, src:null, person:null }));
+  // Row 6. Save permissions as a role (Members row menu): Create role prefilled with that person's set, Start from read only.
+  const saveAsRole = (p) => { setBulk(null); setSel([]); setCreate({ name:"", from:null, perms:p.perms || [], desc:"", src:"person", person:p.id, lock:true, back:"members" }); setView("create"); scrollTop(); };
+  // Second entry: Start from, A person's current permissions, then a member search. A person with a role copies that role.
+  const pickPerson = (p) => setCreate((c) => ({ ...c, src:"person", from:null, person:p ? p.id : null, perms:p ? (p.role === MVP_CUSTOM ? p.perms : rolePerms[p.role]) || [] : [], same:false, sameAs:null, name:c.auto ? "" : c.name, auto:false }));
   const saveCreate = () => {
     const c = create, base = c.from ? (rolePerms[c.from] || []) : [], add = c.perms.filter((p) => !base.includes(p)), rem = base.filter((p) => !c.perms.includes(p));
     const desc = c.from ? c.from + " permissions" + (add.length ? ", plus " + add.map(mvpLow).join(", ") : "") + (rem.length ? ", without " + rem.map(mvpLow).join(", ") : "") : "Custom permissions";
-    setRolePerms((m) => ({ ...m, [c.name]:c.perms })); setRoleRows((rs) => rs.concat({ id:c.name, name:c.name, type:"Custom", desc, count:0 }));
+    // Row 6: from a person's custom set, they get the role only if the permissions stayed as they were. The others with exactly
+    // the same set get an inline banner on the roles list; nothing opens by itself (design system rule, 9 Oct).
+    const src = c.person ? people.find((p) => p.id === c.person) : null, kept = !!src && src.role === MVP_CUSTOM && mvpSameSet(src.perms, c.perms);
+    const rest = MVP_UT ? [] : people.filter((p) => p.role === MVP_CUSTOM && (!src || p.id !== src.id)), same = rest.filter((p) => mvpSameSet(p.perms, c.perms)).map((p) => p.id);
+    const desc2 = src && !c.from ? mvpNearDesc(c.perms, rolePerms) : desc;
+    setRolePerms((m) => ({ ...m, [c.name]:c.perms })); setRoleRows((rs) => rs.concat({ id:c.name, name:c.name, type:"Custom", desc:desc2, count:kept ? 1 : 0 }));
+    if (kept) setPeople((ps) => ps.map((p) => p.id === src.id ? { ...p, role:c.name } : p));
+    setOffer(same.length ? { role:c.name, ids:same, near:rest.filter((p) => mvpNearSet(p.perms, c.perms)).length, kept } : null);
     setView("roles"); scrollTop(); toast("New role “" + c.name + "” created");
   };
+  // Review N people (banner) opens the drawer; Give ... goes straight to In progress with the bulk apply job (MVP 1.2), and the banner goes.
+  const openOffer = () => { if (offer) { setToasts([]); setBulk({ step:"offer", role:offer.role }); } };
+  const startOffer = () => { const o = offer; if (!o) return; dropFail(); setOffer(null);
+    setJob({ role:o.role, total:o.ids.length, done:0, phase:"run", failed:[], retries:0, ids:o.ids, order:mvpOrder(o.ids), willFail:outcome === "fail" ? MVP_FAIL.filter((x) => o.ids.includes(x)) : [], bump:true });
+    setBulk({ step:"applying", role:o.role }); };
   const deleteRole = (name) => { setRoleRows((rs) => rs.filter((r) => r.name !== name)); toast("Role “" + name + "” deleted"); };
   // Delete (only on for a role nobody has) asks once first (MVP 3.4). Cancel or close keeps the role.
   const askDelete = (name) => setDelModal(name);
@@ -223,7 +257,7 @@ function MVPApp({ screen, isStatic }) {
 
   const A = { screen:scr, isStatic, view, acct:acctOf(acct), openAcct, access, outcome, people, roleOf, sel, setSel, toggle:(id) => setSel((s) => s.includes(id) ? s.filter((x) => x !== id) : s.concat(id)), loaded:scr === "1.0b" ? 100 : loaded,
     search, setSearch, perms, setPerms, stat, setStat, bulk, setBulk, job, paused, roleRows, rolePerms, rjob, edit, setEdit, create, setCreate, saveModal, setSaveModal,
-    go, goView, toast, openBulk, startApply, startLegacy, closeApplying, closeRun, finish, retry, manageRoles, roleDesc, startEdit, saveEdit, confirmSave, startCreate, nameTaken, pickFrom, saveCreate, deleteRole, askDelete, confirmDelete, delModal, closeDelete:() => setDelModal(null),
+    go, goView, toast, openBulk, startApply, startLegacy, closeApplying, closeRun, finish, retry, manageRoles, roleDesc, startEdit, saveEdit, confirmSave, startCreate, nameTaken, pickFrom, saveCreate, saveAsRole, pickPerson, offer, setOffer, openOffer, startOffer, deleteRole, askDelete, confirmDelete, delModal, closeDelete:() => setDelModal(null),
     openOrg:(kind, data) => setOrgModal({ kind, data }), setRole:(id, r) => { if (MVP_UT) bumpCounts(acct, [id], r); setPeople((ps) => ps.map((p) => p.id === id ? { ...p, role:r } : p)); } };
 
   const NS = SS_NS();
@@ -266,7 +300,7 @@ function MVPApp({ screen, isStatic }) {
                 {AcctPanel && !isStatic && <AcctPanel open={acctOpen} onClose={() => setAcctOpen(false)} />}
                 {bulk && <MVPBulkDrawer key={bulk.step + (scr || "")} />}{saveModal && <MVPSaveModal />}{delModal && <MVPDeleteModal />}
                 {orgModal && <div className="hs-overlay" style={{ zIndex:1050 }}><SSOrgModal kind={orgModal.kind} data={orgModal.data} ctx={orgCtx} close={() => setOrgModal(null)} /></div>}
-                {toasts.length > 0 && <div className="mvp-toasts" style={{ position:"absolute", top:108, right:40, zIndex:1100, display:"flex", flexDirection:"column", gap:8 }}>{toasts.map((t) => t.warn
+                {toasts.length > 0 && <div className="mvp-toasts" style={{ position:"absolute", top:view === "roles" && offer ? 160 : 108, right:40, zIndex:1100, display:"flex", flexDirection:"column", gap:8 }}>{toasts.map((t) => t.warn
                   ? <AlertToast key={t.id} tone="warning" title={t.warn.title} data-mvp-toast="warning" actions={<Button variant="ghost" size="sm" style={{ marginLeft:-12 }} onClick={openResult}>Show details</Button>} onDismiss={() => setToasts((x) => x.filter((y) => y.id !== t.id))}>{t.warn.body}</AlertToast>
                   : <AlertToast key={t.id} tone="positive" onDismiss={() => setToasts((x) => x.filter((y) => y.id !== t.id))}>{t.msg}</AlertToast>)}</div>}
               </React.Fragment>
@@ -306,11 +340,11 @@ function MVPCardView({ wide }) {
 
 function MVPFlows({ startRow, openScreen }) {
   const { Button, Badge, Divider } = SS_NS();
-  const tone = { "In the MVP":"positive", "Open question":"warning" };
+  const tone = { "In the MVP":"positive", "Open question":"warning" }, mvp = MVP_ROWS.filter((r) => !r.cut && !r.explore);
   return (
     <div data-bento-not-product="" style={{ maxWidth:1040, margin:"0 auto", padding:"40px 32px 64px", boxSizing:"border-box", fontFamily:"var(--bento-theme-font-families-primary)", color:"var(--bento-theme-color-text-base)" }}>
       <h1 style={ssTitle(32, 40)}>Bulk roles MVP</h1>
-      <p style={{ ...ssBody, marginTop:8, maxWidth:720 }}>The MVP from the Figma “Bulk Roles MVP 10/8”, locked on 8 Oct: no review step, Apply goes straight to In progress in the drawer, and a notification says how it went. {MVP_ROWS.filter((r) => !r.cut).length} rows and {MVP_ROWS.filter((r) => !r.cut).reduce((k, r) => k + r.screens.length, 0)} screens on the Suite Settings shell, plus the screens cut on 8 Oct. 50 members load at a time; Dar Khan and Mateo Rossi have Unlimited access, so the header checkbox ticks 48. Start a row below, or open the board to jump to any screen.</p>
+      <p style={{ ...ssBody, marginTop:8, maxWidth:720 }}>The MVP from the Figma “Bulk Roles MVP 10/8”, locked on 8 Oct: no review step, Apply goes straight to In progress in the drawer, and a notification says how it went. {mvp.length} rows and {mvp.reduce((k, r) => k + r.screens.length, 0)} screens on the Suite Settings shell, plus an exploration from the 9 Oct customer check-in (row 6) and the screens cut on 8 Oct. 50 members load at a time; Dar Khan and Mateo Rossi have Unlimited access, so the header checkbox ticks 48. Start a row below, or open the board to jump to any screen.</p>
       <div style={{ marginTop:16, display:"flex", gap:8 }}><Button variant="primary" size="sm" icon="dashboard" onClick={() => { location.href = MVP_BOARD_URL; }}>Open the flow board</Button></div>
       {MVP_ROWS.map((r) => (
         <section key={r.id} style={{ marginTop:32 }}>

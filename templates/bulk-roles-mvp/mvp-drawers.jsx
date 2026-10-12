@@ -71,6 +71,20 @@ function MVPBulkDrawer() {
       </BRDrawer>);
   }
 
+  // Row 6 (6.3): opened only from the roles list banner. Only exact matches are listed; Give ... runs the same job as MVP 1.2.
+  if (b.step === "offer") {
+    const o = A.offer; if (!o) return null;
+    const list = A.people.filter((p) => o.ids.includes(p.id)), n = list.length, give = "Give " + o.role + " to " + mvpMembers(n);
+    const { Avatar } = SS_NS();
+    return (
+      <BRDrawer title={give} onClose={() => A.setBulk(null)} footer={<BRFoot><Button variant="secondary" onClick={() => A.setBulk(null)}>Cancel</Button><Button variant="primary" disabled={!n} onClick={() => A.startOffer()}>{give}</Button></BRFoot>}>
+        <p style={{ ...mvpSub, color:"var(--bento-theme-color-text-base)", marginBottom:16 }}>{"Their custom permissions on " + A.acct.name + " match " + o.role + " exactly, so what they can do doesn’t change."}</p>
+        <Alert tone="info">{"Only people with exactly the same permissions are listed." + (o.near ? " " + o.near + (o.near === 1 ? " person" : " people") + " with similar permissions aren’t included." : "")}</Alert>
+        <div data-mvp-offer-list="" style={{ display:"flex", flexDirection:"column", marginTop:8 }}>{list.map((p) => <div key={p.id} style={{ display:"flex", alignItems:"flex-start", gap:12, padding:"12px 0" }}><Avatar initials={p.initials} size="md" />
+          <div style={{ flex:1, minWidth:0, display:"flex", flexDirection:"column" }}><span style={mvpStrong}>{p.name}</span><span style={{ ...mvpSub, overflow:"hidden", textOverflow:"ellipsis" }}>{p.email}</span></div><span style={{ ...mvpSub, whiteSpace:"nowrap" }}>{A.acct.name}</span></div>)}</div>
+      </BRDrawer>);
+  }
+
   if (!job) return null;
   // MVP 1.2: Applying, in the drawer. No bar, no percentage, no diff list. Closing it pauses the page behind it until it ends.
   if (b.step === "applying") return (

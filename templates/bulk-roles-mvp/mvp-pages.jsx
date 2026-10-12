@@ -14,7 +14,9 @@ const MVP_CSS = "[data-mvp-stage]{--bento-theme-color-icon-selected:var(--bento-
   + ".mvp-members .hs-option-trigger[aria-disabled=true],.mvp-members .hs-option-trigger[aria-disabled=true]:hover{white-space:nowrap;background:var(--bento-component-option-trigger-fill-disabled);color:var(--bento-component-option-trigger-text-disabled);cursor:not-allowed}"
   + ".mvp-tip .hs-tooltip{left:-8px;transform:none;white-space:nowrap;max-width:none}.mvp-tip--on .hs-tooltip{opacity:1}"
   + ".mvp-tip--left .hs-tooltip{left:auto;right:calc(100% + 16px);top:50%;bottom:auto;transform:translateY(-50%);margin:0}"
-  + ".mvp-filter-opt{display:flex;align-items:center;gap:var(--bento-space-03);width:100%}.mvp-filter-opt>span:nth-child(2){flex:1;text-align:left}";
+  + ".mvp-filter-opt{display:flex;align-items:center;gap:var(--bento-space-03);width:100%}.mvp-filter-opt>span:nth-child(2){flex:1;text-align:left}"
+  // Row 6: "Give Inbox Lead to 23 members" needs two lines; the kit header is a fixed 56, so only this drawer's header grows.
+  + "[data-mvp-stage] .hs-drawer:has([data-mvp-offer-list]) .hs-drawer-header{height:auto;min-height:56px;align-items:flex-start;padding-top:12px;padding-bottom:12px}";
 const MVPStyle = () => <style>{MVP_CSS}</style>;
 // Figma 10/8 sortable headers carry a caret (arrow_drop_down), not the kit's unfold_more.
 function MVPSort({ label, k, sort, setSort }) {
@@ -143,7 +145,7 @@ function MVPMembers() {
     { key:"assigned", width:150, header:<MVPSort label="Assigned on" k="assigned" sort={sort} setSort={setSort} /> },
     { key:"email", width:250, header:<MVPSort label="Email address" k="email" sort={sort} setSort={setSort} /> },
     { key:"role", width:200, header:<MVPSort label="Permissions" k="role" sort={sort} setSort={setSort} />, render:(m) => <MVPRoleCell p={m} onChange={(r) => { A.setRole(m.id, r); A.toast(m.name + " is now " + r + " on " + A.acct.name); }} /> },
-    { key:"actions", header:"Actions", align:"right", width:96, render:() => null },
+    { key:"actions", header:"Actions", align:"right", width:96, render:(m) => !MVP_UT && m.role === MVP_CUSTOM ? <SSRowActions label={"More actions for " + m.name} items={[{ label:"Save permissions as a role", onClick:() => A.saveAsRole(m) }]} /> : null },
   ]);
   return (
     <React.Fragment>
@@ -214,12 +216,15 @@ function MVPRoles() {
   const A = React.useContext(MVPC);
   const { Button, IconButton, DropdownMenuItem, Table, Badge, AlertBanner } = SS_NS();
   const [sort, setSort] = React.useState(null);
-  const rows = ssSorted(A.roleRows, sort), rj = A.rjob;
+  const rows = ssSorted(A.roleRows, sort), rj = A.rjob, of = A.offer;
   const menuFor = A.screen === "3.2" || A.screen === "5.0" ? MVP_P1 : A.screen === "3.3" ? MVP_P2 : null;
   return (
     <React.Fragment>
       <SSEntityHeader title="Roles" onBack={() => A.goView("accounts")} actions={<Button variant="primary" onClick={() => A.startCreate()}>Create role</Button>} />
       {rj && <AlertBanner tone="info" title={"Updating " + rj.name + " for " + rj.n + " people"}>Some people keep the old version of the role until this finishes. You can leave this page.</AlertBanner>}
+      {/* Row 6: an inline banner the admin acts on; the drawer only opens from Review (nothing opens by itself, 9 Oct). */}
+      {of && !rj && <AlertBanner tone="info" data-mvp-offer="" action={<Button variant="secondary" size="sm" onClick={() => A.openOffer()}>{"Review " + of.ids.length + (of.ids.length === 1 ? " person" : " people")}</Button>} onDismiss={() => A.setOffer(null)}>
+        {of.ids.length + (of.kept ? " other" : "") + (of.ids.length === 1 ? " person has" : " people have") + " exactly these permissions. Give them " + of.role + "?"}</AlertBanner>}
       <MVPContent>
         <SSListPanel title={rows.length + " roles for social accounts in Somos"} link="Learn more about social account permissions">
           <div className="mvp-roles-table" style={{ width:"100%" }}><MVPStyle /><Table rows={rows} columns={[
@@ -227,7 +232,7 @@ function MVPRoles() {
             { key:"type", width:130, header:<MVPSort label="Type" k="type" sort={sort} setSort={setSort} /> },
             { key:"desc", width:456, header:<MVPSort label="Permissions" k="desc" sort={sort} setSort={setSort} />, render:(r) => <span style={{ display:"block", maxWidth:424, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{r.desc}</span> },
             { key:"count", width:150, header:<MVPSort label="Members" k="count" sort={sort} setSort={setSort} />, render:(r) => { const upd = rj && rj.name === r.name;
-              return <span className="mvp-nowrap" style={{ display:"inline-flex", alignItems:"center", gap:8 }}><span>{r.count} people</span>{upd && <Badge tone="neutral">Updating</Badge>}</span>; } },
+              return <span className="mvp-nowrap" style={{ display:"inline-flex", alignItems:"center", gap:8 }}><span>{r.count === 1 && !MVP_UT ? "1 person" : r.count + " people"}</span>{upd && <Badge tone="neutral">Updating</Badge>}</span>; } },
             { key:"actions", header:"Actions", align:"right", width:96, render:(r) => r.type === "Custom" && !(rj && rj.name === r.name) ? <BRPop align="right" width={200} initialOpen={r.name === menuFor} trigger={(open, toggle) => <IconButton icon="more_horiz" variant="secondary" size="sm" aria-label={"More actions for " + r.name} aria-expanded={open} onClick={toggle} />}>
               {(close) => <React.Fragment><DropdownMenuItem onClick={() => { close(); A.startEdit(r.name); }}>Edit</DropdownMenuItem>
                 {r.count > 0 ? <span className={"mvp-tip mvp-tip--top" + (A.screen === "3.2" ? " mvp-tip--on" : "")} style={{ display:"block" }}><SSNS_Tooltip label="You can delete it once no one has this role."><DropdownMenuItem disabled aria-disabled="true">Delete</DropdownMenuItem></SSNS_Tooltip></span>
@@ -258,7 +263,7 @@ function MVPPermForm({ list, perms, setPerms, name, setName, desc, setDesc, name
           {top}
           <div style={{ display:"flex", flexDirection:"column", gap:8 }}><h2 style={{ font:"600 18px/24px var(--bento-theme-font-families-primary)", color:"var(--bento-theme-color-text-base)", margin:0 }}>Set up the role</h2>{intro}</div>
           <div style={{ display:"flex", flexDirection:"column", gap:"var(--bento-space-02)", maxWidth:456 }}><span style={mvpStrong}>Role name</span>
-            <div className={name ? "mvp-clr mvp-clr--on" : "mvp-clr"} style={{ position:"relative" }}><Input value={name} placeholder="Role name" error={!!nameError} aria-invalid={!!nameError} aria-describedby={nameError ? "mvp-name-err" : undefined} onChange={(e) => setName(e.target.value)} />
+            <div className={name ? "mvp-clr mvp-clr--on" : "mvp-clr"} style={{ position:"relative" }}><Input id="mvp-role-name" value={name} placeholder="Role name" error={!!nameError} aria-invalid={!!nameError} aria-describedby={nameError ? "mvp-name-err" : undefined} onChange={(e) => setName(e.target.value)} />
               {name && clearBtn("Clear role name", () => setName(""), 4)}</div>
             {nameError && <Hint error id="mvp-name-err">{nameError}</Hint>}</div>
           <div style={{ display:"flex", flexDirection:"column", gap:"var(--bento-space-02)", maxWidth:456 }}>
@@ -276,28 +281,73 @@ function MVPPermForm({ list, perms, setPerms, name, setName, desc, setDesc, name
   );
 }
 
+// Row 6, second entry: search the members of this social account and pick one. People with custom permissions come first,
+// and with an empty search they're the only ones suggested.
+function MVPPersonPick() {
+  const A = React.useContext(MVPC), c = A.create;
+  const { SearchInput, DropdownMenu, DropdownMenuItem } = SS_NS();
+  const picked = c.person ? A.people.find((p) => p.id === c.person) : null;
+  const [q, setQ] = React.useState(picked ? picked.name : ""), [open, setOpen] = React.useState(A.screen === "6.1a");
+  const ref = React.useRef(null);
+  React.useEffect(() => { if (!open) return undefined; const off = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); }; const esc = (e) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("mousedown", off); document.addEventListener("keydown", esc); return () => { document.removeEventListener("mousedown", off); document.removeEventListener("keydown", esc); }; }, [open]);
+  const t = q.trim().toLowerCase(), isC = (p) => p.role === MVP_CUSTOM;
+  const hits = A.people.filter((p) => mvpCanChange(p) && (t ? p.name.toLowerCase().includes(t) || p.email.includes(t) : isC(p))).sort((a, b) => isC(b) - isC(a)).slice(0, 6);
+  const pick = (p) => { setQ(p.name); setOpen(false); A.pickPerson(p); };
+  return (
+    <span ref={ref} style={{ position:"relative", display:"block" }}>
+      <SearchInput placeholder="Search for a member" aria-label="Search for a member" value={q} onFocus={() => setOpen(true)} onChange={(e) => { setQ(e.target.value); setOpen(true); if (picked) A.pickPerson(null); }} onClear={() => { setQ(""); A.pickPerson(null); }} />
+      {open && (hits.length > 0 || t) && <DropdownMenu data-mvp-person-results="" style={{ position:"absolute", top:"calc(100% + 4px)", left:0, right:0, zIndex:50, maxHeight:352, overflowY:"auto" }}>
+        {hits.length ? hits.map((p) => <DropdownMenuItem key={p.id} selected={p.id === c.person} style={{ height:"auto", minHeight:56, paddingBlock:"var(--bento-space-02)" }} onClick={() => pick(p)}>
+          <span style={{ display:"flex", flexDirection:"column", gap:2, whiteSpace:"normal", width:"100%" }}><span style={{ display:"flex", justifyContent:"space-between", gap:8 }}><b>{p.name}</b><span style={mvpSub}>{p.role}</span></span><span style={mvpSub}>{p.email}</span></span></DropdownMenuItem>)
+          : <p style={{ ...mvpSub, padding:"12px 16px" }}>No members match “{q.trim()}”.</p>}
+      </DropdownMenu>}
+    </span>
+  );
+}
+
 function MVPCreate() {
   const A = React.useContext(MVPC), c = A.create;
-  const { Button, Hyperlink, Select, DropdownMenuItem, Alert } = SS_NS();
+  const { Button, Hyperlink, Select, DropdownMenuItem, DropdownMenuSeparator, Alert, Input } = SS_NS();
   const taken = A.nameTaken(c.name), base = c.from ? (A.rolePerms[c.from] || []) : null;
   const sameAsBase = !!base && base.length === c.perms.length && base.every((x) => c.perms.includes(x));
   const custom = A.roleRows.filter((r) => r.type === "Custom").map((r) => r.name);
   const ordered = custom.concat(A.roleRows.map((r) => r.name).filter((r) => !custom.includes(r)));
+  // Row 6, from a person: the same permissions check compares with roles only (their own role first, then the Start from order),
+  // never with the person's own set.
+  const src = c.person ? A.people.find((p) => p.id === c.person) : null, fromPerson = c.src === "person";
+  const match = base ? (sameAsBase ? c.from : null) : src ? [src.role].concat(ordered).find((r) => mvpSameSet(A.rolePerms[r], c.perms)) || null : null;
   const set = (patch) => A.setCreate({ ...c, ...patch });
+  const back = () => A.goView(c.back || "roles");
+  // Prefilled from a person (6.1, or a pick in 6.1a): the name is still empty, so it gets focus.
+  React.useEffect(() => { if (!c.person || A.isStatic) return; const el = document.getElementById("mvp-role-name"); if (el && !el.value) el.focus(); }, [c.person]);
+  const today = src && <span data-mvp-from-person="" style={mvpSub}>{"These are the permissions " + src.name + " has on " + A.acct.name + " today."}</span>;
+  const keepLine = "Copies their permissions. If you keep them as they are, " + (src ? src.name : "they") + " get" + (src ? "s" : "") + " this role.";
+  const col = { display:"flex", flexDirection:"column", gap:"var(--bento-space-02)", maxWidth:456 };
+  const startFrom = c.lock && src ? <div style={col}>
+      <span style={mvpStrong}>Start from</span><span style={mvpSub}>{keepLine}</span>
+      <Input readOnly aria-readonly="true" aria-label="Start from" data-mvp-start-from="" value={src.name + "’s custom permissions"} style={{ background:"var(--bento-component-input-fill-disabled)", cursor:"default" }} />
+      {today}</div>
+    : <div style={col}>
+      <span style={mvpStrong}>{fromPerson ? "Start from" : "Start from an existing role"}</span>
+      <span style={mvpSub}>{fromPerson ? keepLine : "Copies its permissions. The two roles stay separate."}</span>
+      <BRPop width={456} initialOpen={A.screen === "4.0"} trigger={(open, toggle) => <Select value={(fromPerson ? "A person’s current permissions" : c.from) || undefined} placeholder="Select a role" open={open} onClick={toggle} />}>
+        {(close) => <React.Fragment>{ordered.map((r) => <DropdownMenuItem key={r} selected={r === c.from} style={{ height:"auto", minHeight:56, paddingBlock:"var(--bento-space-02)" }} onClick={() => { close(); A.pickFrom(r); }}>
+          <span style={{ display:"flex", flexDirection:"column", gap:2, whiteSpace:"normal" }}><span style={{ display:"flex", justifyContent:"space-between" }}><b>{r}</b>{custom.includes(r) && <span style={mvpSub}>Custom</span>}</span><span style={mvpSub}>{A.roleDesc(r)}</span></span></DropdownMenuItem>)}
+          {/* Row 6, second entry. Test mode (?ut=1) keeps the menu as it was. */}
+          {!MVP_UT && <React.Fragment><DropdownMenuSeparator /><DropdownMenuItem selected={fromPerson} data-mvp-person-opt="" style={{ height:"auto", minHeight:56, paddingBlock:"var(--bento-space-02)" }} onClick={() => { close(); A.pickPerson(null); }}>
+            <span style={{ display:"flex", flexDirection:"column", gap:2, whiteSpace:"normal" }}><b>A person’s current permissions</b><span style={mvpSub}>{"Copies what someone can do on " + A.acct.name + " today"}</span></span></DropdownMenuItem></React.Fragment>}</React.Fragment>}</BRPop>
+      {fromPerson && <MVPPersonPick />}
+      {today}</div>;
   return (
     <React.Fragment>
-      <SSEntityHeader title="Create role" onBack={() => A.goView("roles")} />
-      <MVPPermForm list={MVP_PERMS.map((p) => p[0])} perms={c.perms} setPerms={(p) => set({ perms:p, same:false })} name={c.name} setName={(x) => set({ name:x })} desc={c.desc} setDesc={(d) => set({ desc:d })}
+      <SSEntityHeader title="Create role" onBack={back} />
+      <MVPPermForm list={MVP_PERMS.map((p) => p[0])} perms={c.perms} setPerms={(p) => set({ perms:p, same:false })} name={c.name} setName={(x) => set({ name:x, auto:false })} desc={c.desc} setDesc={(d) => set({ desc:d })}
         nameError={taken ? c.name.trim() + " already exists. Use a different name." : null}
-        top={c.same && <Alert tone="negative" title={"These permissions match " + c.from}>Change at least one permission, or use {c.from} instead.</Alert>}
-        intro={<p style={{ ...ssBody, marginTop:"var(--bento-space-02)" }}>Give it a name, pick a role to start from, and adjust the permissions. Everyone with this role gets the same set. <Hyperlink href="#" onClick={(x) => x.preventDefault()}>Learn more about custom social account permissions</Hyperlink></p>}
-        startFrom={<div style={{ display:"flex", flexDirection:"column", gap:"var(--bento-space-02)", maxWidth:456 }}>
-          <span style={mvpStrong}>Start from an existing role</span>
-          <span style={mvpSub}>Copies its permissions. The two roles stay separate.</span>
-          <BRPop width={456} initialOpen={A.screen === "4.0"} trigger={(open, toggle) => <Select value={c.from || undefined} placeholder="Select a role" open={open} onClick={toggle} />}>
-            {(close) => ordered.map((r) => <DropdownMenuItem key={r} selected={r === c.from} style={{ height:"auto", minHeight:56, paddingBlock:"var(--bento-space-02)" }} onClick={() => { close(); A.pickFrom(r); }}>
-              <span style={{ display:"flex", flexDirection:"column", gap:2, whiteSpace:"normal" }}><span style={{ display:"flex", justifyContent:"space-between" }}><b>{r}</b>{custom.includes(r) && <span style={mvpSub}>Custom</span>}</span><span style={mvpSub}>{A.roleDesc(r)}</span></span></DropdownMenuItem>)}</BRPop></div>} />
-      <BRFootBar dirty><Button variant="secondary" onClick={() => A.goView("roles")}>Cancel</Button><Button variant="primary" disabled={!c.name.trim() || taken} onClick={() => { if (sameAsBase) set({ same:true }); else A.saveCreate(); }}>Create role</Button></BRFootBar>
+        top={c.same && <Alert tone="negative" title={"These permissions match " + (c.sameAs || c.from)}>Change at least one permission, or use {c.sameAs || c.from} instead.</Alert>}
+        intro={<p style={{ ...ssBody, marginTop:"var(--bento-space-02)" }}>{c.lock ? "Give it a name and check the permissions." : "Give it a name, pick a role to start from, and adjust the permissions."} Everyone with this role gets the same set. <Hyperlink href="#" onClick={(x) => x.preventDefault()}>Learn more about custom social account permissions</Hyperlink></p>}
+        startFrom={startFrom} />
+      <BRFootBar dirty><Button variant="secondary" onClick={back}>Cancel</Button><Button variant="primary" disabled={!c.name.trim() || taken || (fromPerson && !c.person)} onClick={() => { if (match) set({ same:true, sameAs:match }); else A.saveCreate(); }}>Create role</Button></BRFootBar>
     </React.Fragment>
   );
 }
@@ -317,4 +367,4 @@ function MVPEdit() {
     </React.Fragment>
   );
 }
-Object.assign(window, { MVPSort, MVPContent, MVPToolbar, MVPSoftCheck, MVPC, MVPStyle, mvpSub, mvpStrong, useMVPInfinite, MVPFilterChip, MVPRoleCell, MVPMembers, MVPAccounts, MVPRoles, SSNS_Tooltip, MVPPermForm, MVPCreate, MVPEdit });
+Object.assign(window, { MVPSort, MVPContent, MVPToolbar, MVPSoftCheck, MVPC, MVPStyle, mvpSub, mvpStrong, useMVPInfinite, MVPFilterChip, MVPRoleCell, MVPMembers, MVPAccounts, MVPRoles, SSNS_Tooltip, MVPPermForm, MVPPersonPick, MVPCreate, MVPEdit });
