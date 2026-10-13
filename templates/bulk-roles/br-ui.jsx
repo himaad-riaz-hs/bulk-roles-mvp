@@ -41,7 +41,7 @@ function BRModal({ title, onClose, actions, children }) {
 function BRBulkBar({ label, children, onDismiss, mk }) {
   const { BulkActionBar } = SS_NS();
   return (
-    <div style={{ position:"sticky", bottom:24, height:0, display:"flex", justifyContent:"center", overflow:"visible", zIndex:20, pointerEvents:"none" }}>
+    <div className="br-bulkwrap" style={{ position:"sticky", bottom:24, height:0, display:"flex", justifyContent:"center", overflow:"visible", zIndex:20, pointerEvents:"none" }}>
       <div style={{ transform:"translateY(-100%)", pointerEvents:"auto", display:"flex", alignItems:"center" }}>
         <BulkActionBar label={label} actions={children} onDismiss={onDismiss} />{mk}
       </div>
@@ -52,7 +52,7 @@ const BRBarBtn = ({ children, onClick, strong }) => <button type="button" classN
 
 function BRFootBar({ dirty, children }) {
   const { Divider } = SS_NS();
-  return <div style={{ position:"sticky", bottom:0, marginTop:"auto", background:"var(--hs-surface)", zIndex:10 }}><Divider />
+  return <div className="br-footbar" style={{ position:"sticky", bottom:0, marginTop:"auto", background:"var(--hs-surface)", zIndex:10 }}><Divider />
     <div style={{ display:"flex", alignItems:"center", gap:"var(--bento-space-02)", padding:"8px 24px", minHeight:56 }}>
       <span style={{ ...brSub, font:"var(--hs-type-body-sm)" }}>{dirty ? "You have unsaved changes" : ""}</span><BRFoot>{children}</BRFoot></div></div>;
 }

@@ -17,7 +17,10 @@ const MVP_CSS = "[data-mvp-stage]{--bento-theme-color-icon-selected:var(--bento-
   + ".mvp-filter-opt{display:flex;align-items:center;gap:var(--bento-space-03);width:100%}.mvp-filter-opt>span:nth-child(2){flex:1;text-align:left}"
   // Row 6: "Give Inbox Lead to 23 members" needs two lines; the kit header is a fixed 56, so only this drawer's header grows.
   + "[data-mvp-stage] .hs-drawer:has([data-mvp-offer-list]) .hs-drawer-header{height:auto;min-height:56px;align-items:flex-start;padding-top:12px;padding-bottom:12px}";
-const MVPStyle = () => <style>{MVP_CSS}</style>;
+// Test mode only (13 Oct, session P4): Chrome's "sharing your screen" bar covered the bulk action bar at the bottom, and the
+// UserTesting task panel (bottom right) covered Create role and Save role. Lift the bar clear and put the footer buttons on the left.
+const MVP_UT_CSS = ".br-bulkwrap{bottom:140px !important}.br-footbar>div:last-child>span:last-child{margin-left:0 !important;order:-1}";
+const MVPStyle = () => <style>{MVP_CSS + (MVP_UT ? MVP_UT_CSS : "")}</style>;
 // Figma 10/8 sortable headers carry a caret (arrow_drop_down), not the kit's unfold_more.
 function MVPSort({ label, k, sort, setSort }) {
   const dir = sort && sort.k === k ? sort.dir : undefined;
