@@ -361,9 +361,9 @@ function MVPEdit() {
     <React.Fragment>
       <SSEntityHeader title="Edit role" onBack={() => A.goView("roles")} />
       <MVPPermForm list={MVP_EDIT_LIST} perms={e.perms} setPerms={(p) => A.setEdit({ ...e, perms:p })} name={e.name} setName={(x) => A.setEdit({ ...e, name:x })} desc={e.desc} setDesc={(d) => A.setEdit({ ...e, desc:d })}
-        nameError={taken ? e.name.trim() + " already exists. Use a different name." : null}
+        nameError={!e.name.trim() ? "Enter a role name." : taken ? e.name.trim() + " already exists. Use a different name." : null}
         intro={<p style={{ ...ssBody, marginTop:"var(--bento-space-02)" }}>Change the name or the permissions. Everyone with this role gets the update. <Hyperlink href="#" onClick={(x) => x.preventDefault()}>Learn more about custom social account permissions</Hyperlink></p>} />
-      <BRFootBar dirty={dirty}><Button variant="secondary" onClick={() => A.goView("roles")}>Cancel</Button><Button variant="primary" disabled={!dirty || taken} onClick={() => A.saveEdit()}>Save role</Button></BRFootBar>
+      <BRFootBar dirty={dirty}><Button variant="secondary" onClick={() => A.goView("roles")}>Cancel</Button><Button variant="primary" disabled={!dirty || taken || !e.name.trim()} onClick={() => A.saveEdit()}>Save role</Button></BRFootBar>
     </React.Fragment>
   );
 }
