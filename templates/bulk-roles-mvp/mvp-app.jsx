@@ -30,7 +30,7 @@ function MVPApp({ screen, isStatic }) {
   const timers = R.useRef([]), live = R.useRef({});
   live.current = { job, outcome, bulk, acct, people };
   const later = (fn, ms) => { if (isStatic) return; const t = setTimeout(fn, ms); timers.current.push(t); };
-  const toast = (msg) => { const id = Date.now() + Math.random(); setToasts((t) => t.concat({ id, msg })); if (!isStatic) setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 4000); };
+  const toast = (msg, undo) => { const id = Date.now() + Math.random(); setToasts((t) => (undo ? t.filter((x) => !x.undo) : t).concat({ id, msg, undo })); if (!isStatic) setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), undo ? 10000 : 4000); };
   // Some didn't update and the drawer is closed: a warning toast that stays until dismissed, with Show details (openResult).
   const dropFail = () => setToasts((t) => t.filter((x) => !x.warn));
   const toastFail = (role, total, n) => { const id = Date.now() + Math.random(); setToasts((t) => t.filter((x) => !x.warn).concat({ id, warn:{ title:n + " of " + total + " couldn’t be updated", body:"The other " + (total - n) + " now have " + role + "." } })); };
@@ -60,6 +60,17 @@ function MVPApp({ screen, isStatic }) {
     const d = {}; peopleNow(id).forEach((p) => { if (ids.includes(p.id) && p.role !== role) { d[p.role] = (d[p.role] || 0) - 1; d[role] = (d[role] || 0) + 1; } });
     setRoleRows((rs) => rs.map((r) => d[r.name] ? { ...r, count:Math.max(0, r.count + d[r.name]) } : r));
   };
+  // Round 2 (14 Oct, test mode): Undo on the bulk success toast puts back the role each person had before (design system, 12 Oct;
+  // round 1: P549 gave the wrong role to 48 people with no way back). It skips anyone changed again since.
+  const prevRoles = (id, ids, role) => { const m = {}; peopleNow(id).forEach((p) => { if (ids.includes(p.id) && p.role !== role) m[p.id] = p.role; }); return m; };
+  const undoBulk = (id, role, prev) => {
+    const back = peopleNow(id).filter((p) => prev[p.id] && p.role === role), by = {};
+    back.forEach((p) => { (by[prev[p.id]] = by[prev[p.id]] || []).push(p.id); });
+    Object.keys(by).forEach((r) => bumpCounts(id, by[r], r));
+    peopleFor(id, (ps) => ps.map((x) => prev[x.id] && x.role === role ? { ...x, role:prev[x.id] } : x));
+    toast("Undone. " + mvpMembers(back.length) + (back.length === 1 ? " has their previous role back" : " have their previous roles back"));
+  };
+  const undoToast = (msg, id, role, prev) => toast(msg, Object.keys(prev).length ? () => undoBulk(id, role, prev) : null);
   const switchAcct = (id) => {
     const L = live.current; if (id === L.acct) return;
     store.current[L.acct] = L.people; live.current = { ...L, acct:id }; setAcct(id); setPeople(store.current[id] || mvpPeople());
@@ -193,11 +204,12 @@ function MVPApp({ screen, isStatic }) {
       if (phase === "run") {
         const failed = j.willFail || [], b = live.current.bulk, inDrawer = !!(b && b.step === "applying");
         const upd = (ps) => ps.map((x) => j.ids.includes(x.id) && !failed.includes(x.id) ? { ...x, role:j.role } : x);
+        const prev = MVP_UT ? prevRoles(j.acct, j.ids.filter((x) => !failed.includes(x)), j.role) : null;
         if (MVP_UT) { bumpCounts(j.acct, j.ids.filter((x) => !failed.includes(x)), j.role); peopleFor(j.acct, upd); }
         else { setPeople(upd); if (j.bump) { const k = j.ids.filter((x) => !failed.includes(x)).length; setRoleRows((rs) => rs.map((r) => r.name === j.role ? { ...r, count:r.count + k } : r)); } }
         setSel([]);
         // Everyone updated: the toast (MVP 1.3), whether or not the drawer is still open.
-        if (!failed.length) { if (inDrawer) setBulk(null); toast(j.role + " applied to " + j.total + " members"); setJob(null); return; }
+        if (!failed.length) { if (inDrawer) setBulk(null); if (MVP_UT) undoToast(j.role + " applied to " + j.total + " members", j.acct, j.role, prev); else toast(j.role + " applied to " + j.total + " members"); setJob(null); return; }
         // Some failed, drawer still open: who failed, in the drawer (MVP 2.1). Drawer closed: the warning toast and the notification (MVP 2.0).
         if (inDrawer || j.legacy) { setJob({ ...j, done:j.total, phase:"result", failed }); setBulk({ step:"result", role:j.role }); mvpNotif(true); }
         else if (MVP_UT) {
@@ -209,8 +221,9 @@ function MVPApp({ screen, isStatic }) {
         else { setJob({ ...j, done:j.total, phase:"result", failed }); mvpNotif(true); toastFail(j.role, j.total, failed.length); }
       } else if (MVP_UT) {
         // Test mode: Try again works for everyone left.
+        const prev = prevRoles(j.acct, j.failed, j.role);
         bumpCounts(j.acct, j.failed, j.role); peopleFor(j.acct, (ps) => ps.map((x) => j.failed.includes(x.id) ? { ...x, role:j.role } : x));
-        if (live.current.bulk) setBulk(null); toast(j.role + " applied to " + mvpMembers(j.failed.length)); setJob(null); mvpNotif(false);
+        if (live.current.bulk) setBulk(null); undoToast(j.role + " applied to " + mvpMembers(j.failed.length), j.acct, j.role, prev); setJob(null); mvpNotif(false);
       } else {
         // Review mode: it fails again by design. Drawer open: the same list (MVP 2.3). Drawer closed: the warning toast again.
         const b = live.current.bulk;
@@ -308,7 +321,7 @@ function MVPApp({ screen, isStatic }) {
                 {orgModal && <div className="hs-overlay" style={{ zIndex:1050 }}><SSOrgModal kind={orgModal.kind} data={orgModal.data} ctx={orgCtx} close={() => setOrgModal(null)} /></div>}
                 {toasts.length > 0 && <div className="mvp-toasts" style={{ position:"absolute", top:view === "roles" && offer ? 160 : 108, right:40, zIndex:1100, display:"flex", flexDirection:"column", gap:8 }}>{toasts.map((t) => t.warn
                   ? <AlertToast key={t.id} tone="warning" title={t.warn.title} data-mvp-toast="warning" actions={<Button variant="ghost" size="sm" style={{ marginLeft:-12 }} onClick={openResult}>Show details</Button>} onDismiss={() => setToasts((x) => x.filter((y) => y.id !== t.id))}>{t.warn.body}</AlertToast>
-                  : <AlertToast key={t.id} tone="positive" onDismiss={() => setToasts((x) => x.filter((y) => y.id !== t.id))}>{t.msg}</AlertToast>)}</div>}
+                  : <AlertToast key={t.id} tone="positive" data-mvp-toast={t.undo ? "undo" : undefined} actions={t.undo ? <Button variant="ghost" size="sm" style={{ marginLeft:-12 }} onClick={() => { setToasts((x) => x.filter((y) => y.id !== t.id)); t.undo(); }}>Undo</Button> : undefined} onDismiss={() => setToasts((x) => x.filter((y) => y.id !== t.id))}>{t.msg}</AlertToast>)}</div>}
               </React.Fragment>
             ) : view === "tpl" ? <div style={{ position:"absolute", inset:0 }}><SuiteSettingsApp key={tplKey} /></div> : <div style={{ position:"absolute", inset:0, overflow:"auto" }}><MVPFlows startRow={startRow} openScreen={openScreen} /></div>}
           </div>

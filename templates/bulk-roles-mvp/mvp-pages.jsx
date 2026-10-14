@@ -134,6 +134,10 @@ function MVPMembers() {
   const canPick = rows.slice(0, count).filter(mvpCanChange).map((p) => p.id);
   const sel = A.sel, n = sel.length;
   const all = n > 0 && canPick.every((id) => sel.includes(id)), some = n > 0 && !all;
+  // Round 2 (14 Oct, test mode): once the header checkbox has every loaded row, the bar offers everyone who matches, loaded or not
+  // (the design system's "select all" bar). Round 1: only 1 of 7 changed all 498 knowingly; most stopped at the 48 loaded rows.
+  const allPick = MVP_UT ? rows.filter(mvpCanChange).map((p) => p.id) : canPick;
+  const offerAll = MVP_UT && all && allPick.length > n, everyone = MVP_UT && n > canPick.length && allPick.every((id) => sel.includes(id));
   const job = A.job, running = job && (job.phase === "run" || job.phase === "retry"), paused = A.paused;
   const tipOn = A.screen === "1.0a" ? "p3" : null;
   const tipPause = "Roles are updating. You can select members when it’s done.";
@@ -176,7 +180,8 @@ function MVPMembers() {
           </div>
         </SSListPanel>}
       </MVPContent>
-      {n > 0 && showChecks && tab === "members" && !paused && <BRBulkBar label={n + " selected"} onDismiss={() => A.setSel([])}>
+      {n > 0 && showChecks && tab === "members" && !paused && <BRBulkBar label={(everyone ? "All " : "") + n + " selected"} onDismiss={() => A.setSel([])}>
+        {offerAll && <button type="button" className="hs-btn hs-btn--ghost" data-mvp-select-all="" onClick={() => A.setSel(allPick)} style={{ color:"var(--bento-component-snackbar-text)", fontWeight:700, height:32, padding:"0 8px", textDecoration:"underline" }}>{"Select all " + allPick.length}</button>}
         <button type="button" className="hs-btn hs-btn--ghost" onClick={() => A.openBulk()} style={{ color:"var(--bento-component-snackbar-text)", fontWeight:700, height:32, padding:"0 8px", display:"inline-flex", alignItems:"center", gap:8 }}>
           <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize:20 }}>key</span>Apply role</button></BRBulkBar>}
     </React.Fragment>

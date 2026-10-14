@@ -43,7 +43,7 @@ function MVPBulkDrawer() {
     const rl = A.roleRows.map((r) => r.name).filter((r) => r.toLowerCase().includes(rq.trim().toLowerCase()));  // the live roles list (Figma 1.1: 6 roles)
     return (
       <BRDrawer title={title} onClose={() => A.setBulk(null)} footer={
-        <BRFoot><Button variant="secondary" onClick={() => A.setBulk(null)}>Cancel</Button><Button variant="primary" disabled={!items.length || !b.role} onClick={() => A.startApply(items)}>{"Apply to " + mvpMembers(items.length)}</Button></BRFoot>}>
+        <BRFoot><Button variant="secondary" onClick={() => A.setBulk(null)}>Cancel</Button><Button variant="primary" disabled={!items.length || !b.role} onClick={() => A.startApply(items)}>{(MVP_UT && b.role ? "Give " + b.role + " to " : "Apply to ") + mvpMembers(items.length)}</Button></BRFoot>}>
         <p style={{ ...mvpSub, color:"var(--bento-theme-color-text-base)" }}>Pick the role to apply to the {items.length} selected.</p>
         {/* MVP 1.1 (Figma 10/8): Manage roles sits at the top under the intro, far from Apply. */}
         <p data-mvp-manage-roles="" style={{ ...mvpSub, color:"var(--bento-theme-color-text-base)", marginBottom:16 }}>Don’t see the role you need? <Hyperlink href="#" onClick={(e) => { e.preventDefault(); A.manageRoles(); }}>Manage roles</Hyperlink></p>
@@ -97,7 +97,10 @@ function MVPBulkDrawer() {
     </BRDrawer>);
   const failedN = job.failed.length, ok = job.total - failedN;
   return (
-    <BRDrawer title={"Role for " + mvpMembers(job.total)} onClose={() => A.finish()} footer={<BRFoot><Button variant="secondary" onClick={() => A.retry()}>Try again for {failedN}</Button><Button variant="primary" onClick={() => A.finish()}>Done</Button></BRFoot>}>
+    <BRDrawer title={"Role for " + mvpMembers(job.total)} onClose={() => A.finish()} footer={<BRFoot>{MVP_UT
+      // Round 2 (14 Oct, test mode): Try again is the primary action. Round 1: "Try again for 2" sat next to Done and P549 fixed them by hand.
+      ? <React.Fragment><Button variant="secondary" onClick={() => A.finish()}>Done</Button><Button variant="primary" onClick={() => A.retry()}>Try again for {failedN}</Button></React.Fragment>
+      : <React.Fragment><Button variant="secondary" onClick={() => A.retry()}>Try again for {failedN}</Button><Button variant="primary" onClick={() => A.finish()}>Done</Button></React.Fragment>}</BRFoot>}>
       <Alert tone="warning" title={ok + " of " + job.total + " updated. " + failedN + (job.retries ? " still" : "") + " need a look."}>{job.retries ? "Tried again at 2:16 PM. The ones that worked stay applied." : "The ones that worked stay applied."}</Alert>
       <div style={{ height:8 }} />
       <MVPFailList ids={job.failed} people={A.people} />
