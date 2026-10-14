@@ -15,6 +15,7 @@ function MVPApp({ screen, isStatic }) {
   const [ready, setReady] = R.useState(!sid0);
   const [view, setView] = R.useState(MVP_UT ? "accounts" : "flows"), [row, setRow] = R.useState(null), [scr, setScr] = R.useState(null), [tplKey, setTplKey] = R.useState(0), [acctOpen, setAcctOpen] = R.useState(false);
   const [editSaved, setEditSaved] = R.useState({});
+  const [utFailed, setUtFailed] = R.useState(false);
   const [outcome, setOutcome] = R.useState("all"), [access, setAccess] = R.useState("full"), [notesOpen, setNotesOpen] = R.useState(false);
   const [people, setPeople] = R.useState(mvpPeople), [sel, setSel] = R.useState([]), [loaded, setLoaded] = R.useState(MVP_LOADED), [listKey, setListKey] = R.useState(0);
   const [search, setSearch0] = R.useState(""), [perms, setPerms0] = R.useState([]), [stat, setStat0] = R.useState([]);
@@ -155,7 +156,10 @@ function MVPApp({ screen, isStatic }) {
   // MVP 1.1 -> 1.2: Apply goes straight to In progress in the drawer, for everyone selected (no review step).
   const startApply = (items) => {
     const ids = items.map((p) => p.id);
-    const fails = MVP_UT ? acct === MVP_UT_FAIL_ACCT : outcome === "fail";
+    // Test mode (14 Oct, session P493): Hana Kim and Omar Said fail on the first apply that includes them only, so a fresh
+    // apply afterwards works the same as Try again instead of failing for good.
+    const fails = MVP_UT ? acct === MVP_UT_FAIL_ACCT && !utFailed : outcome === "fail";
+    if (MVP_UT && fails && MVP_FAIL.some((x) => ids.includes(x))) setUtFailed(true);
     dropFail();
     setJob({ role:bulk.role, total:ids.length, done:0, phase:"run", failed:[], retries:0, ids, order:mvpOrder(ids), willFail:fails ? MVP_FAIL.filter((x) => ids.includes(x)) : [], acct });
     setBulk({ step:"applying", role:bulk.role });
@@ -242,7 +246,7 @@ function MVPApp({ screen, isStatic }) {
     const src = c.person ? people.find((p) => p.id === c.person) : null, kept = !!src && src.role === MVP_CUSTOM && mvpSameSet(src.perms, c.perms);
     const rest = MVP_UT ? [] : people.filter((p) => p.role === MVP_CUSTOM && (!src || p.id !== src.id)), same = rest.filter((p) => mvpSameSet(p.perms, c.perms)).map((p) => p.id);
     const desc2 = src && !c.from ? mvpNearDesc(c.perms, rolePerms) : desc;
-    setRolePerms((m) => ({ ...m, [c.name]:c.perms })); setRoleRows((rs) => rs.concat({ id:c.name, name:c.name, type:"Custom", desc:desc2, count:kept ? 1 : 0 }));
+    setRolePerms((m) => ({ ...m, [c.name]:c.perms })); setRoleRows((rs) => rs.concat({ id:c.name, name:c.name, type:"Custom", desc:(c.desc || "").trim() || desc2, count:kept ? 1 : 0 }));
     if (kept) setPeople((ps) => ps.map((p) => p.id === src.id ? { ...p, role:c.name } : p));
     setOffer(same.length ? { role:c.name, ids:same, near:rest.filter((p) => mvpNearSet(p.perms, c.perms)).length, kept } : null);
     setView("roles"); scrollTop(); toast("New role “" + c.name + "” created");
