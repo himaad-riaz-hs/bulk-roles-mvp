@@ -14,6 +14,7 @@ function MVPApp({ screen, isStatic }) {
   const sid0 = screen || (isStatic || MVP_UT ? null : mvpHashScreen());
   const [ready, setReady] = R.useState(!sid0);
   const [view, setView] = R.useState(MVP_UT ? "accounts" : "flows"), [row, setRow] = R.useState(null), [scr, setScr] = R.useState(null), [tplKey, setTplKey] = R.useState(0), [acctOpen, setAcctOpen] = R.useState(false);
+  const [editSaved, setEditSaved] = R.useState({});
   const [outcome, setOutcome] = R.useState("all"), [access, setAccess] = R.useState("full"), [notesOpen, setNotesOpen] = R.useState(false);
   const [people, setPeople] = R.useState(mvpPeople), [sel, setSel] = R.useState([]), [loaded, setLoaded] = R.useState(MVP_LOADED), [listKey, setListKey] = R.useState(0);
   const [search, setSearch0] = R.useState(""), [perms, setPerms0] = R.useState([]), [stat, setStat0] = R.useState([]);
@@ -217,11 +218,12 @@ function MVPApp({ screen, isStatic }) {
   }, [phase, frozen]);
 
   const roleDesc = (r) => (roleRows.find((x) => x.name === r) || {}).desc || BR_DESC[r] || "";
-  const startEdit = (name) => { const d0 = (roleRows.find((r) => r.name === name) || {}).desc || ""; const on = name === P1 ? MVP_EDIT_SAVED : (rolePerms[name] || []).filter((x) => MVP_EDIT_LIST.includes(x)); setEdit({ name, origName:name, desc:d0, origDesc:d0, perms:on, orig:on }); setView("edit"); scrollTop(); };
+  // Reopening Edit shows what was last saved (14 Oct, session P230: Boost posts looked unticked again after saving).
+  const startEdit = (name) => { const d0 = (roleRows.find((r) => r.name === name) || {}).desc || ""; const on = editSaved[name] || (name === P1 ? MVP_EDIT_SAVED : (rolePerms[name] || []).filter((x) => MVP_EDIT_LIST.includes(x))); setEdit({ name, origName:name, desc:d0, origDesc:d0, perms:on, orig:on }); setView("edit"); scrollTop(); };
   const saveEdit = () => { const n = (roleRows.find((r) => r.name === edit.origName) || {}).count || 0; if (n > 0) setSaveModal(true); else confirmSave(); };
   const confirmSave = () => {
     const e = edit, n = (roleRows.find((r) => r.name === e.origName) || {}).count || 0;
-    setSaveModal(false); setRolePerms((m) => ({ ...m, [e.name]:e.perms })); setRoleRows((rs) => rs.map((r) => r.name === e.origName ? { ...r, name:e.name, id:e.name } : r));
+    setSaveModal(false); setRolePerms((m) => ({ ...m, [e.name]:e.perms })); setEditSaved((m) => ({ ...m, [e.name]:e.perms })); setRoleRows((rs) => rs.map((r) => r.name === e.origName ? { ...r, name:e.name, id:e.name } : r));
     setView("roles"); scrollTop();
     if (n > 0) { setRjob({ name:e.name, n }); later(() => { setRjob(null); toast(e.name + " updated for " + n + " people"); }, MVP_DUR); } else toast(e.name + " updated");
   };

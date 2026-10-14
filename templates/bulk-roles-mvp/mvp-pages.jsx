@@ -19,7 +19,9 @@ const MVP_CSS = "[data-mvp-stage]{--bento-theme-color-icon-selected:var(--bento-
   + "[data-mvp-stage] .hs-drawer:has([data-mvp-offer-list]) .hs-drawer-header{height:auto;min-height:56px;align-items:flex-start;padding-top:12px;padding-bottom:12px}";
 // Test mode only (13 Oct, session P4): Chrome's "sharing your screen" bar covered the bulk action bar at the bottom, and the
 // UserTesting task panel (bottom right) covered Create role and Save role. Lift the bar clear and put the footer buttons on the left.
-const MVP_UT_CSS = ".br-bulkwrap{bottom:140px !important}.br-footbar>div:last-child>span:last-child{margin-left:0 !important;order:-1}";
+// 14 Oct (session P332): on a Mac, Chrome's sharing bar sits bottom centre and covered the footer buttons too, so the footer keeps
+// 88px of space under its buttons in test mode.
+const MVP_UT_CSS = ".br-bulkwrap{bottom:140px !important}.br-footbar>div:last-child>span:last-child{margin-left:0 !important;order:-1}.br-footbar>div:last-child{padding-bottom:88px !important}";
 const MVPStyle = () => <style>{MVP_CSS + (MVP_UT ? MVP_UT_CSS : "")}</style>;
 // Figma 10/8 sortable headers carry a caret (arrow_drop_down), not the kit's unfold_more.
 function MVPSort({ label, k, sort, setSort }) {

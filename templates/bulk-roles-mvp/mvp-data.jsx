@@ -59,7 +59,9 @@ function mvpPerson(i, name, added, role) {
 let MVP_PEOPLE_CACHE = null;
 function mvpPeople() {
   if (MVP_PEOPLE_CACHE) return MVP_PEOPLE_CACHE.map((p) => ({ ...p }));
-  const out = MVP_NAMED.map(([n, d, r], i) => mvpPerson(i, n, d, r));
+  // Test mode (14 Oct, session P230): Hana Kim and Omar Said start as Limited, so changing "everyone you can" to Editor
+  // always includes them and T3's failure shows. Review mode keeps them as Editor, as in Figma.
+  const out = MVP_NAMED.map(([n, d, r], i) => mvpPerson(i, n, d, MVP_UT && (n === "Hana Kim" || n === "Omar Said") ? "Limited" : r));
   const pool = []; MVP_REST.forEach(([r, k]) => { for (let j = 0; j < k; j++) pool.push(r); });
   const mix = new Array(pool.length); pool.forEach((r, j) => { mix[(j * 7) % pool.length] = r; });
   const extra = ["Rafael Costa","Sara Lind","Tomas Berg","Uma Singh"];
