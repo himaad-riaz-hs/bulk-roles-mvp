@@ -1,5 +1,5 @@
-// Bulk roles MVP, flow board canvas. Lays the MVP out like the Figma "Full Flows" (Page 17, 1222:258275): the
-// header, the "In and out of the MVP" card (8 Oct lock session), then one row per flow with the row title, each screen's
+// Bulk roles MVP, flow board canvas. Lays the MVP out like the Figma "Bulk Roles MVP 10/9/26" (section 1390:77851): the
+// section header and legend, the "In and out of the MVP" card, the group headers, then one row per flow with the row title, each screen's
 // caption, the tile, its Dev note under it and the flow lines with their tap labels (solid red = main path, dashed grey =
 // a branch), and last the "Cut on 8 Oct (lock session)" row. Tiles are the live prototype (MVPScreen), captured one at a time in an
 // off-screen stage and frozen as markup, so they can't go stale. Click a tile to open the prototype at that screen.
@@ -28,10 +28,12 @@ const MVPSnap = React.memo(function MVPSnap({ html }) {
   return <div aria-hidden="true" ref={(el) => { if (el) el.setAttribute("inert", ""); }} style={{ position:"absolute", left:0, top:0, width:MVPB.VW, height:MVPB.VH, transform:"scale(" + (MVPB.TW / MVPB.VW) + ")", transformOrigin:"0 0", pointerEvents:"none" }} dangerouslySetInnerHTML={{ __html:html }}></div>;
 });
 
-// One note under a tile. Dev note = the Figma Dev note (grey card, grey chip). Proposal = warning, other = positive.
+// One note under a tile. Dev note and Proposal = the Figma Dev note component (grey card, grey chip with the label); Pinned
+// notes = the numbered list beside it in Figma (MVPPinned); a labelled "p" note (an open question) = warning, other = positive.
 function MVPBoardNote({ n }) {
-  const prop = n[0] === "p", label = n[2] || MVP_NOTE_LABEL[n[0]];
-  if (n[0] === "d") return <div data-mvp-note="d" style={{ padding:"16px 18px", borderRadius:8, background:"var(--bento-theme-color-bg-surface-recessed)", display:"flex", flexDirection:"column", alignItems:"flex-start", gap:10 }}>
+  const prop = n[0] === "p" && !!n[2], label = n[2] || MVP_NOTE_LABEL[n[0]];
+  if (n[0] === "n") return <MVPPinned n={n} big />;
+  if (n[0] === "d" || n[0] === "p") return <div data-mvp-note="d" style={{ padding:"16px 18px", borderRadius:8, background:"var(--bento-theme-color-bg-surface-recessed)", display:"flex", flexDirection:"column", alignItems:"flex-start", gap:10 }}>
     <span style={{ font:"600 14px/20px var(--bento-theme-font-families-primary)", color:"var(--bento-theme-color-text-base)", background:"var(--bento-theme-color-bg-surface-intense)", borderRadius:4, padding:"2px 8px" }}>{label}</span>
     <span style={{ font:"400 16px/24px var(--bento-theme-font-families-primary)", color:"var(--bento-theme-color-text-base)" }}>{n[1]}</span></div>;
   return <div data-mvp-note={n[0]} style={{ padding:"12px 14px", borderRadius:8, border:"1px solid " + (prop ? "var(--bento-theme-color-border-warning)" : "var(--bento-theme-color-border-positive)"), background:prop ? "var(--bento-theme-color-bg-warning)" : "var(--bento-theme-color-bg-positive)", display:"flex", flexDirection:"column", gap:4 }}>
@@ -140,29 +142,36 @@ function MVPBoard() {
         <path d={"M" + sx + " " + B.CAP + " V" + ry + " H" + dx + " V" + ty + " H" + tx} fill="none" stroke={GREY} strokeWidth="2" strokeDasharray="8 6" strokeLinejoin="round" />
         <path d={"M" + (tx - 12) + " " + (ty - 6) + " L" + tx + " " + ty + " L" + (tx - 12) + " " + (ty + 6)} fill="none" stroke={GREY} strokeWidth="2" strokeLinejoin="round" /></svg>
       <span style={{ position:"absolute", left:(sx + dx) / 2 - 200, width:400, top:ry - 26, textAlign:"center", font:"600 14px/18px var(--bento-theme-font-families-primary)", color:GREY, pointerEvents:"none" }}>{label}</span></div>; };
-  const nMvp = MVP_ROWS.filter((r) => !r.cut && !(r.status || []).includes("Exploration")).reduce((k, r) => k + r.screens.length, 0), nCut = ids.length - nMvp;
+  const mvpRows = MVP_ROWS.filter((r) => !r.cut && !r.explore), nRows = mvpRows.length, nMvp = mvpRows.reduce((k, r) => k + r.screens.length, 0);
+  const nExp = MVP_ROWS.filter((r) => r.explore).reduce((k, r) => k + r.screens.length, 0), nCut = ids.length - nMvp - nExp;
 
   return (
     <div ref={cont} data-flow-board="" data-bento-not-product="" onPointerDown={down} style={{ position:"absolute", inset:0, overflow:"hidden", cursor:grab ? "grabbing" : "grab", touchAction:"none", userSelect:"none", background:"var(--bento-theme-color-bg-app)", backgroundImage:"radial-gradient(var(--bento-theme-color-border-subtle, #EBEBEB) 1px, transparent 1px)", backgroundSize:(24 * view.z) + "px " + (24 * view.z) + "px", backgroundPosition:view.x + "px " + view.y + "px", fontFamily:"var(--bento-theme-font-families-primary)" }}>
       <div ref={world} data-flow-world="" style={{ position:"absolute", left:0, top:0, width:"max-content", padding:B.PAD, boxSizing:"border-box", transform:"translate(" + view.x + "px," + view.y + "px) scale(" + view.z + ")", transformOrigin:"0 0", display:"flex", flexDirection:"column", gap:B.ROWGAP }}>
         <div data-mvp-board-head="" style={{ display:"flex", flexDirection:"column", gap:40 }}>
           <div style={{ display:"flex", alignItems:"center", gap:24, padding:"28px 40px", borderRadius:8, background:"var(--hs-surface)", border:"1px solid " + edge, borderLeft:"8px solid var(--bento-theme-color-bg-primary)", color:ink }}>
-            <span style={{ font:"700 40px/48px var(--bento-theme-font-families-primary)" }}>Bulk roles MVP, locked 8 Oct</span>
-            <span style={{ marginLeft:"auto", display:"flex", flexDirection:"column", alignItems:"flex-end", gap:8, font:"400 20px/28px var(--bento-theme-font-families-primary)", color:sub }}>
-              <span>{MVP_ROWS.filter((r) => !r.cut && !(r.status || []).includes("Exploration")).length} rows and {nMvp} screens, from the Figma “Bulk Roles MVP 10/8”, locked on 8 Oct, plus {nCut} screens cut that day. Click any screen to open it in the prototype.</span>
+            <span style={{ font:"700 40px/48px var(--bento-theme-font-families-primary)" }}>Bulk roles MVP, locked 8 Oct, updated 13 Oct</span>
+            <span style={{ marginLeft:56, display:"flex", flexDirection:"column", alignItems:"flex-start", gap:8, font:"400 20px/28px var(--bento-theme-font-families-primary)", color:sub }}>
+              <span>{nRows} rows and {nMvp} screens from the Figma page “Bulk Roles MVP 10/9/26”, plus {nExp} exploration screens and {nCut} cut on 8 Oct. Click any screen to open it in the prototype.</span>
+              {/* Figma's legend ("How to read the flows"), the items the board draws: main path, branch and pinned notes. */}
               <span data-flow-legend="" style={{ display:"flex", alignItems:"center", gap:24, font:"600 16px/20px var(--bento-theme-font-families-primary)" }}>
-                <span style={{ display:"inline-flex", alignItems:"center", gap:8, color:ink }}><svg width="48" height="6" aria-hidden="true"><line x1="0" y1="3" x2="48" y2="3" stroke={RED} strokeWidth="3" /></svg>Main path</span>
-                <span style={{ display:"inline-flex", alignItems:"center", gap:8, color:ink }}><svg width="48" height="6" aria-hidden="true"><line x1="0" y1="3" x2="48" y2="3" stroke={GREY} strokeWidth="2" strokeDasharray="8 6" /></svg>Branch</span></span></span></div>
+                <span style={{ color:ink, fontWeight:700 }}>How to read the flows</span>
+                <span style={{ display:"inline-flex", alignItems:"center", gap:8, color:ink }}><svg width="48" height="6" aria-hidden="true"><line x1="0" y1="3" x2="48" y2="3" stroke={RED} strokeWidth="3" /></svg>Main path: what happens next, labelled with the action</span>
+                <span style={{ display:"inline-flex", alignItems:"center", gap:8, color:ink }}><svg width="48" height="6" aria-hidden="true"><line x1="0" y1="3" x2="48" y2="3" stroke={GREY} strokeWidth="2" strokeDasharray="8 6" /></svg>Branch: another outcome, like some members not updating</span>
+                <span style={{ display:"inline-flex", alignItems:"center", gap:8, color:ink }}><span aria-hidden="true" style={{ width:22, height:22, borderRadius:999, background:"var(--bento-theme-color-icon-negative)", color:"var(--bento-theme-color-text-inverse)", font:"700 12px/22px var(--bento-theme-font-families-primary)", textAlign:"center" }}>1</span>Pinned note: same number in the list next to the Dev note, and in Dev Mode as an annotation</span></span></span></div>
           <div data-mvp-board-card="" style={{ width:2400, padding:32, borderRadius:8, background:"var(--hs-surface)", border:"1px solid " + edge, boxShadow:"var(--bento-theme-elevation-shadow-dialog)", display:"flex", flexDirection:"column", gap:24, cursor:"default" }}>
-            <span style={{ display:"flex", alignItems:"baseline", gap:16 }}><span style={{ font:"700 32px/40px var(--bento-theme-font-families-primary)", color:ink }}>{MVP_CARD.title}</span><span style={{ font:"400 20px/28px var(--bento-theme-font-families-primary)", color:sub }}>{MVP_CARD.subtitle}</span></span>
+            <span style={{ display:"flex", alignItems:"baseline", gap:16 }}><span style={{ font:"700 32px/40px var(--bento-theme-font-families-primary)", color:ink }}>{MVP_CARD.title}</span>{MVP_CARD.subtitle && <span style={{ font:"400 20px/28px var(--bento-theme-font-families-primary)", color:sub }}>{MVP_CARD.subtitle}</span>}</span>
             <MVPCardView wide /></div>
         </div>
         {MVP_ROWS.map((r) => (
-          <div key={r.id} data-flow-row={r.id} style={{ display:"flex", alignItems:"flex-start" }}>
+          <React.Fragment key={r.id}>
+          {/* Figma "Group header, ..." bands: the rows under each one, as on the page. */}
+          {r.group && <div data-flow-group="" style={{ display:"flex", alignItems:"center", gap:20, padding:"28px 40px", borderRadius:8, background:"var(--hs-surface)", border:"1px solid " + edge, borderLeft:"8px solid var(--bento-theme-color-bg-primary)", color:ink, font:"700 36px/44px var(--bento-theme-font-families-primary)" }}>{r.group}</div>}
+          <div data-flow-row={r.id} style={{ display:"flex", alignItems:"flex-start" }}>
             <div style={{ width:B.LABEL - 40, marginRight:40, marginTop:B.CAP, minHeight:B.TH, flex:"none", boxSizing:"border-box", padding:24, borderRadius:8, background:"var(--hs-surface)", border:"1px solid " + edge, borderTop:"6px solid " + (r.cut ? "var(--bento-theme-color-border-base)" : "var(--bento-theme-color-bg-primary)"), color:ink, display:"flex", flexDirection:"column", gap:12 }}>
-              <span style={{ font:"600 16px/20px var(--bento-theme-font-families-primary)", color:sub }}>{r.cut ? r.label : "MVP " + r.id}</span>
+              <span style={{ font:"600 16px/20px var(--bento-theme-font-families-primary)", color:sub }}>{r.label || "MVP " + r.id}</span>
               <span style={{ font:"700 26px/32px var(--bento-theme-font-families-primary)" }}>{r.title}</span>
-              <span style={{ font:"400 15px/21px var(--bento-theme-font-families-primary)", color:sub }}>{r.summary}</span>
+              {r.summary && <span style={{ font:"400 15px/21px var(--bento-theme-font-families-primary)", color:sub }}>{r.summary}</span>}
               <span style={{ display:"flex", flexWrap:"wrap", gap:8 }}>{r.status.map((s) => Badge ? <Badge key={s} tone={MVPB_TONE[s] || "neutral"}>{s}</Badge> : <span key={s}>{s}</span>)}</span></div>
             {r.screens.map((s, i) => (
               <React.Fragment key={s.id}>
@@ -178,7 +187,7 @@ function MVPBoard() {
                 {i < r.screens.length - 1 && (r.screens[i + 1].branchIn ? <SkipLine label={r.screens[i + 1].branchIn.label} skip={i - r.screens.findIndex((x) => x.id === r.screens[i + 1].branchIn.from)} />
                   : r.states || !s.tap ? <Gap /> : <Arrow tap={s.tap} kind={r.cut ? "branch" : s.edge} fork={s.fork} />)}
               </React.Fragment>))}
-          </div>))}
+          </div></React.Fragment>))}
       </div>
       <div ref={stage} aria-hidden="true" style={{ position:"fixed", left:-30000, top:0, width:B.VW, height:B.VH, overflow:"hidden", pointerEvents:"none" }}>{cur && <MVPTileGuard key={gk} id={cur}><MVPScreen id={cur} /></MVPTileGuard>}</div>
       <div onPointerDown={(e) => e.stopPropagation()} style={{ position:"absolute", left:16, bottom:16, display:"flex", alignItems:"center", gap:8, padding:8, borderRadius:8, background:"var(--hs-surface)", border:"1px solid " + edge, boxShadow:"var(--bento-theme-elevation-shadow-dialog)", zIndex:5 }}>
